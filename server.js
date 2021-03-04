@@ -10,6 +10,7 @@ const superagent = require('superagent');
 const pg = require('pg');
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
+app.get('/map', laodMapPage);
 
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
@@ -17,8 +18,11 @@ const port = process.env.PORT || 3000;
 
 function handelError(res, error) {
     res.render('pages/error', { error: error });
-}
+};
 
+function laodMapPage(req,res){
+    res.render('pages/map');
+};
 
 client.connect().then(() => {
     app.listen(port, () => {
