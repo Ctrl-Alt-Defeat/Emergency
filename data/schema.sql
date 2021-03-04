@@ -22,6 +22,7 @@ CREATE TABLE users (
   );
 
 
+
   CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
     day VARCHAR(255),
@@ -78,7 +79,6 @@ CREATE TABLE users (
     CONSTRAINT fk_ans_id FOREIGN KEY (ans_id) REFERENCES answer (id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
-
 
 
 
