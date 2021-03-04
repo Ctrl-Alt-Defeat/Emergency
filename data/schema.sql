@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS schedule;
+DROP TABLE IF EXISTS feedback;
+DROP TABLE IF EXISTS contact;
+DROP TABLE IF EXISTS reply;
+DROP TABLE IF EXISTS answer;
+DROP TABLE IF EXISTS ask;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -7,15 +13,14 @@ CREATE TABLE users (
     location VARCHAR(255),
     img VARCHAR(255),
     type_of_work VARCHAR(255),
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
-    phone_num VARCHAR(255),
+    phone_num VARCHAR(255) UNIQUE,
     status VARCHAR(255),
     exp VARCHAR(255),
-    userame VARCHAR(255)
+    username VARCHAR(255) UNIQUE
   );
 
-DROP TABLE IF EXISTS schedule;
 
   CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
@@ -25,29 +30,25 @@ DROP TABLE IF EXISTS schedule;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS feedback;
 
     CREATE TABLE feedback (
     id SERIAL PRIMARY KEY,
     day VARCHAR(255),
     user_id int,
-    text numeric,
+    text VARCHAR(255),
     hours_avl VARCHAR(255),
     owner_id  int,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS contact;
 
     CREATE TABLE contact (
     id SERIAL PRIMARY KEY,
     user_id int,
-    text numeric,
     mess VARCHAR(500),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS ask;
 
     CREATE TABLE ask (
     id SERIAL PRIMARY KEY,
@@ -57,7 +58,6 @@ DROP TABLE IF EXISTS ask;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
   
-  DROP TABLE IF EXISTS answer;
 
     CREATE TABLE answer (
     id SERIAL PRIMARY KEY,
@@ -69,7 +69,6 @@ DROP TABLE IF EXISTS ask;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-  DROP TABLE IF EXISTS reply;
 
     CREATE TABLE reply (
     id SERIAL PRIMARY KEY,

@@ -31,15 +31,18 @@ function handleAcconutPage(req, res) {
     console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
   });
 
+
 }
 // function handelError(res, error) {
 //   res.render('pages/error', { error: error });
 // }
+
 
 client.connect().then(() => {
   app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`);
   });
 }).catch(e => {
-  console.log(e, 'errrrrroooooorrrr');
+
+    console.log(e, 'errrrrroooooorrrr');
 });
