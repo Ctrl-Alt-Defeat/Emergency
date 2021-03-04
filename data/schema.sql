@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS schedule;
+DROP TABLE IF EXISTS feedback;
+DROP TABLE IF EXISTS contact;
+DROP TABLE IF EXISTS reply;
+DROP TABLE IF EXISTS answer;
+DROP TABLE IF EXISTS ask;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -15,7 +21,6 @@ CREATE TABLE users (
     username VARCHAR(255) UNIQUE
   );
 
-DROP TABLE IF EXISTS schedule;
 
   CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
@@ -25,7 +30,6 @@ DROP TABLE IF EXISTS schedule;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS feedback;
 
     CREATE TABLE feedback (
     id SERIAL PRIMARY KEY,
@@ -37,7 +41,6 @@ DROP TABLE IF EXISTS feedback;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS contact;
 
     CREATE TABLE contact (
     id SERIAL PRIMARY KEY,
@@ -46,7 +49,6 @@ DROP TABLE IF EXISTS contact;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS ask;
 
     CREATE TABLE ask (
     id SERIAL PRIMARY KEY,
@@ -56,7 +58,6 @@ DROP TABLE IF EXISTS ask;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
   
-  DROP TABLE IF EXISTS answer;
 
     CREATE TABLE answer (
     id SERIAL PRIMARY KEY,
@@ -68,7 +69,6 @@ DROP TABLE IF EXISTS ask;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-  DROP TABLE IF EXISTS reply;
 
     CREATE TABLE reply (
     id SERIAL PRIMARY KEY,
