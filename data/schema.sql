@@ -7,12 +7,12 @@ CREATE TABLE users (
     location VARCHAR(255),
     img VARCHAR(255),
     type_of_work VARCHAR(255),
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
-    phone_num VARCHAR(255),
+    phone_num VARCHAR(255) UNIQUE,
     status VARCHAR(255),
     exp VARCHAR(255),
-    userame VARCHAR(255)
+    username VARCHAR(255) UNIQUE
   );
 
 DROP TABLE IF EXISTS schedule;
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS feedback;
     id SERIAL PRIMARY KEY,
     day VARCHAR(255),
     user_id int,
-    text numeric,
+    text VARCHAR(255),
     hours_avl VARCHAR(255),
     owner_id  int,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
@@ -42,7 +42,6 @@ DROP TABLE IF EXISTS contact;
     CREATE TABLE contact (
     id SERIAL PRIMARY KEY,
     user_id int,
-    text numeric,
     mess VARCHAR(500),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
