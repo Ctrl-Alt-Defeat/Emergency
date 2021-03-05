@@ -22,7 +22,6 @@ CREATE TABLE users (
   );
 
 
-
   CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
     day VARCHAR(255),
@@ -37,7 +36,6 @@ CREATE TABLE users (
     day VARCHAR(255),
     user_id int,
     text VARCHAR(255),
-    hours_avl VARCHAR(255),
     owner_id  int,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
