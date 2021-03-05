@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #fff9b0;
+  background-color: #fff600;
   /* background-image: url("img/yellow-wall.jpg");
   background-size: cover; */
 }
@@ -19,12 +19,12 @@
 .contact .content h2 {
   font-size: 36px;
   font-weight: 500;
-  color: #ffab73;
+  color: #26001b;
 }
 
 .contact .content p {
   font-weight: 300;
-  color: #ffab73;
+  color: #26001b;
 }
 
 .container {
@@ -62,14 +62,14 @@
   display: flex;
   margin-left: 20px;
   font-size: 16px;
-  color: #ffab73;
+  color: #810034;
   flex-direction: column;
   font-weight: 300;
 }
 
 .container .contactInfo .box .text h3 {
   font-weight: 500;
-  color: #ffaec0;
+  color: #26001b;
 }
 
 .contactForm {
@@ -111,5 +111,5 @@
     pointer-events: none;
     transition: 0.5s;
     color: #666;
-    
+
 }
