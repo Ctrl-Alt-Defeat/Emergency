@@ -11,16 +11,15 @@ CREATE TABLE users (
     full_name VARCHAR(255),
     role numeric,
     location VARCHAR(255),
-    img VARCHAR(255),
+    img NVARCHAR(max),
     type_of_work VARCHAR(255),
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     phone_num VARCHAR(255) UNIQUE,
-    status VARCHAR(255),
-    exp VARCHAR(255),
+    status numeric,
+    exp numeric,
     username VARCHAR(255) UNIQUE
   );
-
 
 
   CREATE TABLE schedule (
@@ -37,7 +36,6 @@ CREATE TABLE users (
     day VARCHAR(255),
     user_id int,
     text VARCHAR(255),
-    hours_avl VARCHAR(255),
     owner_id  int,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
@@ -80,6 +78,8 @@ CREATE TABLE users (
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
+INSERT INTO  users(full_name,role,location,img,type_of_work,email,password,phone_num,status,exp,username) VALUES
+ ('full_name','1','qweqqe','https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80','Carpenter','areej.obaid@yahoo.com','23242rerwe','07966666666','Not working',2,'userame');
 
 
 -- INSERT INTO  ###(title,,description) VALUES ('1','2');
