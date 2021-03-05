@@ -63,7 +63,12 @@ app.get("/contact",handleContactPage);
 function handleContactPage(req,res) {
   res.render("pages/contact")
 }
-
+app.post("/contact",handleContactUsForm);
+function handleContactUsForm(req,res) {
+  console.log(req.body.userName);
+  console.log(req.body.email);
+  console.log(req.body.text);
+}
 
 // {{{{{}}}}}____________________________
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL, });
