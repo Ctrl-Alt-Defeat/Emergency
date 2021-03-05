@@ -27,6 +27,11 @@
         </label>
         <div id="map" style="height: 500px;width: 600px;"></div>       
     </form>
-    <script src="/js/map.js"></script>
+    <script>
+       var data = '<%=data %>'
+        console.log(JSON.parse(data));
+    </script>
+    <script src="/js/map.js">
+    </script>
 </body>
 </html>

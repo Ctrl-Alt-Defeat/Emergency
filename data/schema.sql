@@ -17,7 +17,7 @@ CREATE TABLE users (
     password VARCHAR(255),
     phone_num VARCHAR(255) UNIQUE,
     status VARCHAR(255),
-    exp VARCHAR(255),
+    exp numeric,
     username VARCHAR(255) UNIQUE
   );
 
