@@ -58,7 +58,11 @@ app.post('/loginn',(req,res)=>{
 
 })
 
-
+// ======================= Contact Us Page =====================
+app.get("/contact",handleContactPage);
+function handleContactPage(req,res) {
+  res.render("pages/contact")
+}
 
 
 // {{{{{}}}}}____________________________
