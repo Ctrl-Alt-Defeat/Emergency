@@ -16,8 +16,7 @@ app.use(methodOverride('_method'));
 const port = process.env.PORT || 3000;
 
 // ======================= Acconut page geting from database=====================
-app.get('/login/acconut', handleAcconutPage);
-
+app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id;
   console.log(id);
@@ -25,7 +24,7 @@ function handleAcconutPage(req, res) {
 //   console.log('DB',selectFromDB);
   let safeValue = [id];
   client.query(selectFromDB, safeValue).then(data => {
-    res.render('/public/acconut', { data: data.rows[0] });
+    res.render('pages/acconut', { data: data.rows[0] });
     console.log(data.rows[0]);
   }).catch(error =>{
     console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
