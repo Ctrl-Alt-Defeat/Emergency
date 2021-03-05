@@ -81,7 +81,7 @@ navigator.geolocation.watchPosition(data => {
     });
 });
 
-document.getElementById('searchForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    console.log(e.taget.work);
+document.getElementById('searchForm').addEventListener('submit', function(evt){
+    evt.preventDefault();
+    console.log(evt.target);
 })
