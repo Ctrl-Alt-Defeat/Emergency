@@ -4,7 +4,6 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/light-v10',
     zoom: 16
 });
-console.log(data,'dataaaaaaaaaa');
 navigator.geolocation.getCurrentPosition(data => {
     let coordinates = [];
     coordinates.push(data.coords.longitude, data.coords.latitude);
@@ -81,3 +80,8 @@ navigator.geolocation.watchPosition(data => {
         );
     });
 });
+
+document.getElementById('searchForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    console.log(e.taget.work);
+})
