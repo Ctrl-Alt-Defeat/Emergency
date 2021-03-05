@@ -60,7 +60,8 @@ app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id;
   console.log(id);
-  let selectFromDB = 'SELECT * FROM users WHERE id=$1;';
+  let selectFromDB = 'SELECT * FROM user WHERE id=$1;';
+
   //   console.log('DB',selectFromDB);
   let safeValue = [id];
   client.query(selectFromDB, safeValue).then(data => {
@@ -72,6 +73,7 @@ function handleAcconutPage(req, res) {
 }
 
 // {{{{{login}}}}}________________________
+
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
   status  = 'Ok';
@@ -95,11 +97,46 @@ app.post('/login', (req, res) => {
 })
 
 
+    res.render('pages/error', { data: data.rows[0] });
+
+  }).catch(error => {
+    console.log('you have error' + error)
+  })
 
 
 
+})
 
+// ======================= Contact Us Page =====================
+app.get("/contact", handleContactPage);
+function handleContactPage(req, res) {
+  res.render("pages/contact")
+}
+app.post("/contact", handleContactUsForm);
+function handleContactUsForm(req, res) {
+  let userName = req.body.userName;
+  let email = req.body.email;
+  // let text = req.body.text;
+  let selectSql = "SELECT username, email FROM users;";
+  client.query(selectSql).then(table => {
+    table.rows.forEach(oneUser => {
+      if (oneUser.username === userName && oneUser.email === email) {
 
+        let SQL = `INSERT INTO contact (mess) VALUES ($1);`
+        let safeValue = [req.body.text];
+        client.query(SQL, safeValue)
+          .then(() => {
+            res.render("index")
+          }).catch(error => {
+            res.render("pages/error", { error: error });
+          })
+      }
+    });
+
+  }).catch(error => {
+    res.render("pages/error", { error: error });
+  })
+}
 
 // {{{{{}}}}}____________________________
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL, });
