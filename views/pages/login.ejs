@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/login/style.css" />
+    <title>Login</title>
+
+</head>
+<body>
+    <div class="container">
+        <form class="signUp" action="/signUp" method="POST">
+            <h3>Create Your Account</h3>
+
+            <input type="text"  name="full_name" placeholder="Enter your full name" required>
+            <br>
+            <select name="role" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="1">Business owner</option>
+                <option value="2">Worker</option>
+            </select>
+
+            <input type="hidden"  name="location" >
+
+            <select name="type_of_work" id="">
+                <option value="" disabled selected>type of work</option>
+                <option value="Smith">Smith</option>
+                <option value="Carpenter">Carpenter</option>
+                <option value="Plumber">Plumber</option>
+                <option value="Builder">Builder</option>
+                <option value="Paint">Painter</option>
+                <option value="other">-other-</option>
+            </select>
+            <input class="w100" type="email"  name="email" placeholder="Insert eMail" reqired autocomplete='off' />
+
+            <input type="text"  name="user_name" placeholder="user name" required>
+
+            <input type="password"  name="password" placeholder="Insert Password" required/>
+
+            <input type="password" placeholder="Verify Password" required/>
+
+            <input type="text"  name="phone_num" placeholder="07 9999 9999" required>
+
+
+
+            <button class="form-btn sx log-in" type="button">Log In</button>
+            <button class="form-btn dx" type="submit">Sign Up</button>
+        </form>
+
+
+        <form class="signIn" action="/login" method="post">
+        
+            <h3>Welcome</br>Back !</h3>
+            <button class="fb" type="button">Log In With Facebook</button>
+            <p>- or -</p>
+            <input type="email" placeholder="Insert eMail" name="email" autocomplete='off' reqired />
+            <input type="password" placeholder="Insert Password" name="password" reqired />
+            <button class="form-btn sx back" type="button">Back</button>
+            <button class="form-btn dx" type="submit">Log In</button>
+        </form>
+    </div>  
+    
+</body>
+<script>
+    let status = '<%= status%>';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script src="/js/log.js"></script>
+</html>
