@@ -5,7 +5,7 @@
 }
 
 body {
-	background: #ffc185;
+	background:#e7ac7434;
 }
 
 .container{
@@ -20,8 +20,8 @@ form {
 	position: absolute;
 	text-align: center;
 	background: #fff;
-	width: 310px;
-	height: 470px;
+	width: 400px;
+    height: 600px;
 	border-radius: 5px;
 	padding: 30px 20px 0 20px;
 	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
@@ -118,7 +118,7 @@ button.form-btn.dx {
 	color: #fff;
 }
 
-input {
+input, select {
 	border: none;
 	border-bottom: 1px solid #ffc185;
 	width: 85%;
@@ -163,6 +163,10 @@ input {
 		z-index: 1;
 		transform: perspective(100px) translate3d(100px, 0px, -30px);
 		opacity: 0.5;
+		width: 400px;
+		height: 450px;
+
+
 }
 
 .signUp {
@@ -255,4 +259,12 @@ input {
 		transform: perspective(100px) translate3d(0px, 0px, 0px);
 		opacity: 1;
 	}
+}
+
+
+select{
+	text-align-last: center;
+  	text-align: center;
+  	-ms-text-align-last: center;
+  	-moz-text-align-last: center;
 }
