@@ -67,7 +67,6 @@ app.post("/contact", handleContactUsForm);
 function handleContactUsForm(req, res) {
   let userName = req.body.userName;
   let email = req.body.email;
-  // let text = req.body.text;
   let selectSql = "SELECT username, email FROM users;";
   client.query(selectSql).then(table => {
     table.rows.forEach(oneUser => {
@@ -75,12 +74,11 @@ function handleContactUsForm(req, res) {
 
         let SQL = `INSERT INTO contact (mess) VALUES ($1);`
         let safeValue = [req.body.text];
-        client.query(SQL, safeValue)
-          .then(() => {
-            res.render("index")
-          }).catch(error => {
-            res.render("pages/error", { error: error });
-          })
+        client.query(SQL, safeValue).then(() => {
+          res.render("index")
+        }).catch(error => {
+          res.render("pages/error", { error: error });
+        })
       }
     });
 
