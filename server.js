@@ -1,8 +1,10 @@
 'use strict';
 const express = require('express');
 const app = express();
-var cors = require('cors');
-require('dotenv').config();
+
+var cors = require('cors')
+require("dotenv").config();
+
 app.use(cors());
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -47,7 +49,28 @@ function getAllLocationsFromDB(work, experience) {
 }
 // ===================================================================================================================
 
+app.post('/map', getUsersLocations);
 
+function getUsersLocations(req, res) {
+  return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
+    locData = data;
+    res.redirect('/map');
+  }).catch(error => {
+    console.log(error);
+  })
+};
+function getAllLocationsFromDB(work, experience) {
+  // let day = new Date().getDay();
+  // let today = new Date();
+  experience = experience || 0;
+  console.log(work, 'work')
+  return client.query('SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE type_of_work = $1 and exp >= $2', [work, experience]).then(data => {
+    return data.rows
+  }).catch(error => {
+    console.log(error)
+  });
+}
+// ===================================================================================================================
 
 function handelError(res, error) {
   res.render('pages/error', { error: error });
@@ -74,7 +97,6 @@ function handleAcconutPage(req, res) {
 }
 
 // {{{{{login}}}}}________________________
-
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
   status  = 'Ok';
@@ -96,6 +118,35 @@ app.post('/login', (req, res) => {
     }
   })
 })
+
+
+//===========================Sign up==================================
+
+app.post('/signUp',(req,res)=>{
+  let body=req.body;
+  let full_name= body.full_name;
+  let role=body.role;
+  let location=body.location;
+  let typeOfwork= body.type_of_work;
+  let email =body.email;
+  let userName=body.user_name;
+  let password=body.password;
+  let phoneNum= body.phone_num;
+
+  let insertQuery= 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;'
+
+  let safeValue= [full_name,role,location,typeOfwork,email,password,phoneNum,userName];
+
+
+  client.query(insertQuery,safeValue).then(data =>{
+    console.log(data.rows[0]);
+    res.redirect(`/login/acconut/${data.rows[0].id}`);
+  }).catch(error=>{
+    res.status(500).send(`Sorry an error has accord while loading the page  ${error} `);
+  });
+});
+
+//====================================================================================
 
 // ======================= Contact Us Page =====================
 app.get("/contact", handleContactPage);

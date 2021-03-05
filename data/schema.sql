@@ -78,8 +78,11 @@ CREATE TABLE users (
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
+<<<<<<< HEAD
 -- INSERT INTO  users(full_name,role,location,img,type_of_work,email,password,phone_num,status,exp,username) VALUES
 --  ('full_name','1','qweqqe','https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80','Carpenter','areej.obaid@yahoo.com','23242rerwe','07966666666','Not working',2,'userame');
 
+=======
+>>>>>>> fb6c2e06232b45ea16385cd87d6008ea87774f28
 
 -- INSERT INTO  ###(title,,description) VALUES ('1','2');
