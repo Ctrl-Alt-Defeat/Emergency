@@ -54,16 +54,15 @@ function laodMapPage(req,res){
     res.render('pages/map',{data:locData});
 };
 // ======================= Acconut page geting from database=====================
-app.get('/login/acconut', handleAcconutPage);
-
+app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id;
   console.log(id);
-  let selectFromDB = 'SELECT * FROM user WHERE id=$1;';
+  let selectFromDB = 'SELECT * FROM users WHERE id=$1;';
 //   console.log('DB',selectFromDB);
   let safeValue = [id];
   client.query(selectFromDB, safeValue).then(data => {
-    res.render('/public/acconut', { data: data.rows[0] });
+    res.render('pages/accountNew', { data: data.rows[0] });
     console.log(data.rows[0]);
   }).catch(error =>{
     console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);

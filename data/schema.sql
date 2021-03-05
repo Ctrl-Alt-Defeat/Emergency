@@ -11,12 +11,12 @@ CREATE TABLE users (
     full_name VARCHAR(255),
     role numeric,
     location VARCHAR(255),
-    img VARCHAR(255),
+    img NVARCHAR(max),
     type_of_work VARCHAR(255),
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     phone_num VARCHAR(255) UNIQUE,
-    status VARCHAR(255),
+    status numeric,
     exp numeric,
     username VARCHAR(255) UNIQUE
   );
