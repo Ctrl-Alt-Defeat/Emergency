@@ -4,15 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/style/login/style.css" />
+    <title>Login</title>
+
 </head>
 <body>
-    <form action="/loginn" method="post">
-        <input type="email" id="username" name="username"  required>
-        <input type="text" id="password" name="password"  required>
-    <button type="submit">Login</button>
-
-    </form>
+    <div class="container">
+        <form class="signUp">
+            <h3>Create Your Account</h3>
+            <p>Just enter your email address</br>
+    and your password for join.
+            </p>
+            <input class="w100" type="email" placeholder="Insert eMail" reqired autocomplete='off' />
+            <input type="password" placeholder="Insert Password" reqired />
+            <input type="password" placeholder="Verify Password" reqired />
+            <button class="form-btn sx log-in" type="button">Log In</button>
+            <button class="form-btn dx" type="submit">Sign Up</button>
+        </form>
+        <form class="signIn" action="/login" method="post">
+        
+            <h3>Welcome</br>Back !</h3>
+            <button class="fb" type="button">Log In With Facebook</button>
+            <p>- or -</p>
+            <input type="email" placeholder="Insert eMail" name="email" autocomplete='off' reqired />
+            <input type="password" placeholder="Insert Password" name="password" reqired />
+            <button class="form-btn sx back" type="button">Back</button>
+            <button class="form-btn dx" type="submit">Log In</button>
+        </form>
+    </div>  
     
 </body>
+<script>
+    let status = '<%= status%>';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+<script src="/js/log.js"></script>
 </html>
