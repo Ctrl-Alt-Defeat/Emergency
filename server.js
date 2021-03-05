@@ -7,6 +7,7 @@ app.use(cors());
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
+// app.use(express.static(path.join(__dirname, 'public')));
 const superagent = require('superagent');
 const pg = require('pg');
 
@@ -41,22 +42,30 @@ app.get('/',(req,res)=>{
     res.render('pages/login')
 })
 
-app.post('/loginn',(req,res)=>{
-    let quer=req.body ;
-    let SQL = 'SELECT * FROM users WHERE email = $1 and password = $2 ;' ;
-    let safevalue =[quer.username,quer.password];
-   
-    client.query(SQL,safevalue).then(data=>{
-        
-        res.render('pages/error',{data:data.rows[0]});
+        app.post('/loginn',(req,res)=>{
+          let quer=req.body;
+          var name=quer.username;
+          var pass=quer.password;
+          let sql = `SELECT * FROM users  ;`;
+          client.query(sql,function (err,result) {
+           
+            for (let index = 0; index < result.rows.length; index++) {
+              let user=result.rows[index].email
+              let code=result.rows[index].password
+              if (user == name && code == pass ) {
+                res.render('pages/error',{result:result.rows[0]});
+              } else {
+                console.log('nope')
+                
+              }
+            }
 
-    }).catch(error=>{
-        console.log('you have error'+error)
-    })
+          })
+        })
+
+    
 
 
-
-})
 
 
 
