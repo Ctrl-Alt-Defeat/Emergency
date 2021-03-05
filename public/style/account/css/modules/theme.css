@@ -1,0 +1,12 @@
+mark {
+	background-color: transparent;
+	color: inherit;
+}
+
+h2.alt {
+    color: #888;
+}
+
+h2.alt strong {
+    color: #666;
+}
