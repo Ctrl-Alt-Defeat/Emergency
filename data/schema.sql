@@ -1,3 +1,9 @@
+DROP TABLE IF EXISTS schedule;
+DROP TABLE IF EXISTS feedback;
+DROP TABLE IF EXISTS contact;
+DROP TABLE IF EXISTS reply;
+DROP TABLE IF EXISTS answer;
+DROP TABLE IF EXISTS ask;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -5,17 +11,16 @@ CREATE TABLE users (
     full_name VARCHAR(255),
     role numeric,
     location VARCHAR(255),
-    img VARCHAR(255),
+    img NVARCHAR(max),
     type_of_work VARCHAR(255),
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
-    phone_num VARCHAR(255),
-    status VARCHAR(255),
-    exp VARCHAR(255),
-    userame VARCHAR(255)
+    phone_num VARCHAR(255) UNIQUE,
+    status numeric,
+    exp numeric,
+    username VARCHAR(255) UNIQUE
   );
 
-DROP TABLE IF EXISTS schedule;
 
   CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
@@ -25,29 +30,24 @@ DROP TABLE IF EXISTS schedule;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS feedback;
 
     CREATE TABLE feedback (
     id SERIAL PRIMARY KEY,
     day VARCHAR(255),
     user_id int,
-    text numeric,
-    hours_avl VARCHAR(255),
+    text VARCHAR(255),
     owner_id  int,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS contact;
 
     CREATE TABLE contact (
     id SERIAL PRIMARY KEY,
     user_id int,
-    text numeric,
     mess VARCHAR(500),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-DROP TABLE IF EXISTS ask;
 
     CREATE TABLE ask (
     id SERIAL PRIMARY KEY,
@@ -57,7 +57,6 @@ DROP TABLE IF EXISTS ask;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
   
-  DROP TABLE IF EXISTS answer;
 
     CREATE TABLE answer (
     id SERIAL PRIMARY KEY,
@@ -69,7 +68,6 @@ DROP TABLE IF EXISTS ask;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-  DROP TABLE IF EXISTS reply;
 
     CREATE TABLE reply (
     id SERIAL PRIMARY KEY,
@@ -80,7 +78,8 @@ DROP TABLE IF EXISTS ask;
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-
+INSERT INTO  users(full_name,role,location,img,type_of_work,email,password,phone_num,status,exp,username) VALUES
+ ('full_name','1','qweqqe','https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80','Carpenter','areej.obaid@yahoo.com','23242rerwe','07966666666','Not working',2,'userame');
 
 
 -- INSERT INTO  ###(title,,description) VALUES ('1','2');
