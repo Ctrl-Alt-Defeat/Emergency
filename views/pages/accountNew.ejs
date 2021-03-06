@@ -18,28 +18,34 @@
 	<div id="header">
 
 		<div class="top">
+			<% let visible=is_not_enable ?'none': 'block' %>
+			<% let visibleCont = is_not_enable ? 'block':'none'%>
 
-			<!-- Logo -->
-			<div id="logo">
-				<span class="image avatar48"><img src="<%= data.img %>" alt="" /></span>
-				<h1 id="title">
-					<%= data.username %>
-				</h1>
-				<p>
-					<%= data.type_of_work%>
-				</p>
-			</div>
+					<!-- Logo -->
+					<div id="logo">
+						<span class="image avatar48"><img src="<%= data.img %>" alt="" /></span>
+						<h1 id="title">
+							<%= data.username %>
+						</h1>
+						<p>
+							<%= data.type_of_work%>
+						</p>
+					</div>
 
-			<!-- Nav -->
-			<nav id="nav">
-				<ul>
-					<li><a href="#top" id="top-link"><span class="far fa-address-card">About me</span></a></li>
-					<li><a href="#portfolio" id="portfolio-link"><span class="far fa-comment">Feedbacks</span></a></li>
-					<li><a href="#Edit" id="portfolio-link"><span class="far fa-edit">Edit Profile</span></a></li>
-					<li><a href="#about" id="about-link"><span class="far fa-calendar-alt">Schedule</span></a></li>
-					<li><a href="#contact" id="contact-link"><span class="icon fa-envelope">Contact</span></a></li>
-				</ul>
-			</nav>
+					<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="#top" id="top-link"><span class="far fa-address-card">About me</span></a></li>
+							<li><a href="#portfolio" id="portfolio-link"><span
+										class="far fa-comment">Feedbacks</span></a></li>
+							<li><a href="#Edit" style="display: <%= visible%>;" id="portfolio-link"><span
+										class="far fa-edit">Edit Profile</span></a></li>
+							<li><a href="#about" id="about-link"><span class="far fa-calendar-alt">Schedule</span></a>
+							</li>
+							<li><a href="#contact" id="contact-link"><span class="icon fa-envelope">Contact</span></a>
+							</li>
+						</ul>
+					</nav>
 
 		</div>
 
@@ -62,19 +68,63 @@
 	<div id="main">
 
 		<!-- Intro -->
-		<section id="top" class="one dark cover">
+		<section id="top" class="one dark cover" style="padding: 2em 0;">
 			<div class="container">
 
 				<header>
 					<h2 class="alt">Hello <strong>
 							<%= data.full_name%>
-						</strong>, welcome in <a href="">Emergency </a>-App.<br />
+						</strong>, welcome in <a href="/">Emergency </a>-App.<br />
 
 				</header>
+			</div>
+		</section>
 
+		<!-- About Me -->
+		<section id="about" class="three">
+			<div class="container">
+
+				<header style="margin: 0 0 1em 0;">
+					<h2>About <%= data.username %>
+					</h2>
+				</header>
+
+<<<<<<< HEAD
 				<footer>
 					<!-- <a href="#portfolio" class="button scrolly">Portfolio</a> -->
 				</footer>
+=======
+				<a href="#" id="funnyimg" class="image featured"><img src="images/funny3.gif" alt="" /></a>
+				<div class="div1">
+					<div class="div2">
+						<div class="border">
+							Your name : <%= data.full_name%>
+						</div>
+						<div class="border">
+							Major : <%= data.type_of_work%>
+						</div>
+						<div class="border">
+							experiance : <%= data.exp%>
+						</div>
+
+					</div>
+					<div class="div3">
+
+						<div class="border">
+							location : <%= data.location%>
+						</div>
+						<div class="border">
+							Role : <%= data.role%>
+						</div>
+						<div class="border">
+							status : <%= data.status%>
+						</div>
+
+
+
+					</div>
+				</div>
+>>>>>>> bce8baa154f2c3ce8177d3fe4bcba7aef0c17fbb
 
 			</div>
 		</section>
@@ -140,7 +190,7 @@
 			</div>
 		</section>
 		<!-- Portfolio -->
-		<section id="Edit" class="two">
+		<section id="Edit" class="two" style="display: <%= visible%>;">
 			<div class="container">
 
 				<header>
@@ -202,48 +252,6 @@
 			</div>
 		</section>
 
-		<!-- About Me -->
-		<section id="about" class="three">
-			<div class="container">
-
-				<header>
-					<h2>About Me</h2>
-				</header>
-
-				<a href="#" id="funnyimg" class="image featured"><img src="images/funny3.gif" alt="" /></a>
-				<div class="div1">
-					<div class="div2">
-						<div class="border">
-							Your name : <%= data.full_name%>
-						</div>
-						<div class="border">
-							Major : <%= data.type_of_work%>
-						</div>
-						<div class="border"> 
-							experiance : <%= data.exp%>
-						</div>
-
-					</div>
-					<div class="div3">
-
-						<div class="border">
-							location : <%= data.location%>
-						</div>
-						<div class="border">
-							Role : <%= data.role%>
-						</div>
-						<div class="border">
-							status : <%= data.status%>
-						</div>
-
-
-
-					</div>
-				</div>
-
-			</div>
-		</section>
-
 		<!-- Contact -->
 		<section id="contact" class="four">
 			<div class="container">
@@ -252,8 +260,9 @@
 					<h2>Contact</h2>
 				</header>
 
-				<p>Sent me an email now and let me save your life !!</p>
+				<p>Sent me an email now or call me and let me save your life !!</p>
 
+<<<<<<< HEAD
 				<form method="post" action="areejobaid94@gmail.com" enctype="text/plain">
 					<div class="row">
 						<div class="col-6 col-12-mobile"><input type="text" name="<name>" placeholder="Phone number : <%= data.phone_num%>" /></div>
@@ -262,10 +271,24 @@
 						<div class="col-12">
 							<input type="submit" value="Update" onclick="myFunction()" />
 						</div>
+=======
+				<div class="row">
+					<div class="col-6 col-12-mobile">Phone Num: <%= data.phone_num%>
 					</div>
-				</form>
+					<br>
+					<div class="col-6 col-12-mobile">Email: <%= data.email%>"</div> 
+					<div class="col-12" style="display: <%= visibleCont%>">
+						<p>Or You Can Send To Me Adirect Email</p>
+						<form method="post" action ='/message/<%= data.id %>'>
+							<input name = 'message' type="text" placeholder="Write You Message" style="margin-bottom: 20px;">
+							<input name = 'email'   type="text" value='<%= data.email%>' style="display: none;">
+							<input type="submit" value="Send Message" onclick="myFunction()" />
+						</form>
+>>>>>>> bce8baa154f2c3ce8177d3fe4bcba7aef0c17fbb
+					</div>
 
-			</div>
+
+				</div>
 		</section>
 
 	</div>
@@ -290,6 +313,10 @@
 	<script src="/js/jsAccount/breakpoints.min.js"></script>
 	<script src="/js/jsAccount/util.js"></script>
 	<script src="/js/jsAccount/main.js"></script>
+	<script src="/js/jsAccount/jquery.min.js"></script>
+	<script src="/js/jsAccount/jquery.scrollex.min.js"></script>
+	<script src="/js/jsAccount/jquery.scrolly.min.js"></script>
+	<script src="/js/jsAccount/browser.min.js"></script>
 	<script src="https://kit.fontawesome.com/63131ae64f.js" crossorigin="anonymous"></script>
 
 </body>

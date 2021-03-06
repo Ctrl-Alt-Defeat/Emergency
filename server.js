@@ -16,59 +16,38 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 const port = process.env.PORT || 3000;
 const superagent = require('superagent');
-let locData = [];
-let status ='Ok';
+let status = 'Ok';
 const pg = require('pg');
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
-
 // ===================================================== Map ========================================================
 app.get('/map', laodMapPage);
-
 app.post('/map', getUsersLocations);
+app.post('/message/:id', sendMessage);
 
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
-    locData = data;
-    res.redirect('/map');
+    console.log(data, 'data');
+    res.send(data);
   }).catch(error => {
     console.log(error);
   })
 };
 function getAllLocationsFromDB(work, experience) {
-  // let day = new Date().getDay();
-  // let today = new Date();
+  let selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE type_of_work = $2 and exp >= $1 and role = 1';
   experience = experience || 0;
-  console.log(work, 'work')
-  return client.query('SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE type_of_work = $1 and exp >= $2', [work, experience]).then(data => {
+  let safeArr = [experience, work]
+  if (work == 'All') {
+    selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE exp >= $1 and role = 1'
+    safeArr = [experience]
+  };
+  return client.query(selectQuery, safeArr).then(data => {
     return data.rows
   }).catch(error => {
     console.log(error)
   });
 }
-// ===================================================================================================================
 
-app.post('/map', getUsersLocations);
-
-function getUsersLocations(req, res) {
-  return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
-    locData = data;
-    res.redirect('/map');
-  }).catch(error => {
-    console.log(error);
-  })
-};
-function getAllLocationsFromDB(work, experience) {
-  // let day = new Date().getDay();
-  // let today = new Date();
-  experience = experience || 0;
-  console.log(work, 'work')
-  return client.query('SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE type_of_work = $1 and exp >= $2', [work, experience]).then(data => {
-    return data.rows
-  }).catch(error => {
-    console.log(error)
-  });
-}
 // ===================================================================================================================
 
 function handelError(res, error) {
@@ -76,20 +55,17 @@ function handelError(res, error) {
 };
 
 function laodMapPage(req, res) {
-  res.render('pages/map', { data: locData });
+  res.render('pages/map');
 };
 // ======================= Acconut page geting from database=====================
 app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id;
-  console.log(id);
-  let selectFromDB = 'SELECT * FROM users WHERE id=$1;';
-
-  //   console.log('DB',selectFromDB);
+  let selectFromDB = 'SELECT * FROM users WHERE id = $1;';
   let safeValue = [id];
-  client.query(selectFromDB, safeValue).then(data => {
-    res.render('pages/accountNew', { data: data.rows[0] });
+  return client.query(selectFromDB, safeValue).then(data => {
     console.log(data.rows[0]);
+    res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable });
   }).catch(error => {
     console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
   });
@@ -98,8 +74,8 @@ function handleAcconutPage(req, res) {
 // {{{{{login}}}}}________________________
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
-  status  = 'Ok';
-  res.render('pages/login',{status:oldStatus});
+  status = 'Ok';
+  res.render('pages/login', { status: oldStatus });
 })
 
 app.post('/login', (req, res) => {
@@ -107,11 +83,11 @@ app.post('/login', (req, res) => {
   var email = quer.email;
   var pass = quer.password;
   let sql = `SELECT * FROM users WHERE email = $1 and password = $2;`;
-  client.query(sql,[email,pass]).then((result) => {
-    if(result.rowCount){
+  client.query(sql, [email, pass]).then((result) => {
+    if (result.rowCount) {
       status = 'Ok'
-      res.redirect(`/login/acconut/${result.rows[0].id}`)
-    }else{
+      res.redirect(`/login/acconut/${result.rows[0].id}?is_not_enable=${false}`)
+    } else {
       status = 'Wrong Email Or Password'
       res.redirect('/log_Page');
     }
@@ -121,26 +97,26 @@ app.post('/login', (req, res) => {
 
 //===========================Sign up==================================
 
-app.post('/signUp',(req,res)=>{
-  let body=req.body;
-  let full_name= body.full_name;
-  let role=body.role;
-  let location=body.location;
-  let typeOfwork= body.type_of_work;
-  let email =body.email;
-  let userName=body.user_name;
-  let password=body.password;
-  let phoneNum= body.phone_num;
+app.post('/signUp', (req, res) => {
+  let body = req.body;
+  let full_name = body.full_name;
+  let role = body.role;
+  let location = body.location;
+  let typeOfwork = body.type_of_work;
+  let email = body.email;
+  let userName = body.user_name;
+  let password = body.password;
+  let phoneNum = body.phone_num;
 
-  let insertQuery= 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;'
+  let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;'
 
-  let safeValue= [full_name,role,location,typeOfwork,email,password,phoneNum,userName];
+  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName];
 
 
-  client.query(insertQuery,safeValue).then(data =>{
+  client.query(insertQuery, safeValue).then(data => {
     console.log(data.rows[0]);
-    res.redirect(`/login/acconut/${data.rows[0].id}`);
-  }).catch(error=>{
+    res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
+  }).catch(error => {
     res.status(500).send(`Sorry an error has accord while loading the page  ${error} `);
   });
 });
@@ -176,23 +152,6 @@ function handleContactUsForm(req, res) {
   })
 }
 
-// {{{{{}}}}}____________________________
-// const client = new pg.Client({ connectionString: process.env.DATABASE_URL, });
-// const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
-// const methodOverride = require('method-override');
-// app.use(methodOverride('_method'));
-// const port = process.env.PORT || 3000;
-
-
-// function handelError(res, error) {
-//   res.render('pages/error', { error: error });
-// }
-
-//     }).catch(error=>{
-//         console.log('you have error'+error)
-//     })
-// })
-
 client.connect().then(() => {
   app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`);
@@ -201,3 +160,33 @@ client.connect().then(() => {
 
   console.log(e, 'errrrrroooooorrrr');
 });
+
+
+var nodemailer = require('nodemailer');
+
+function sendMessage(req, res) {
+  console.log(req.body);
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'emergency.app987@gmail.com',
+      pass: 'qwe asd zxc 123'
+    }
+  });
+  var mailOptions = {
+    from: 'emergency.app987@gmail.com',
+    to: req.body.email,
+    subject: 'Do You Want To work With Me',
+    text: req.body.message,
+  };
+
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${true}#contact`)
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
