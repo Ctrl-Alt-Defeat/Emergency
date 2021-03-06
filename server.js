@@ -83,7 +83,7 @@ app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id;
   console.log(id);
-  let selectFromDB = 'SELECT * FROM user WHERE id=$1;';
+  let selectFromDB = 'SELECT * FROM users WHERE id=$1;';
 
   //   console.log('DB',selectFromDB);
   let safeValue = [id];
