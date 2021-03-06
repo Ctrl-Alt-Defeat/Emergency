@@ -16,18 +16,18 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 const port = process.env.PORT || 3000;
 const superagent = require('superagent');
-let status ='Ok';
+let status = 'Ok';
 const pg = require('pg');
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
 // ===================================================== Map ========================================================
 app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
-app.post('/message/:id',sendMessage);
+app.post('/message/:id', sendMessage);
 
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
-    console.log(data,'data');
+    console.log(data, 'data');
     res.send(data);
   }).catch(error => {
     console.log(error);
@@ -36,12 +36,12 @@ function getUsersLocations(req, res) {
 function getAllLocationsFromDB(work, experience) {
   let selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE type_of_work = $2 and exp >= $1 and role = 1';
   experience = experience || 0;
-  let safeArr = [experience,work]
-  if(work == 'All'){
+  let safeArr = [experience, work]
+  if (work == 'All') {
     selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE exp >= $1 and role = 1'
     safeArr = [experience]
   };
-  return client.query(selectQuery , safeArr).then(data => {
+  return client.query(selectQuery, safeArr).then(data => {
     return data.rows
   }).catch(error => {
     console.log(error)
@@ -60,7 +60,7 @@ function laodMapPage(req, res) {
 // ======================= Acconut page geting from database=====================
 app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
-  let id = req.params.id; 
+  let id = req.params.id;
   let selectFromDB = 'SELECT * FROM users WHERE id = $1;';
   let safeValue = [id];
   return client.query(selectFromDB, safeValue).then(data => {
@@ -78,8 +78,8 @@ function handleAcconutPage(req, res) {
 // {{{{{login}}}}}________________________
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
-  status  = 'Ok';
-  res.render('pages/login',{status:oldStatus});
+  status = 'Ok';
+  res.render('pages/login', { status: oldStatus });
 })
 
 app.post('/login', (req, res) => {
@@ -87,11 +87,11 @@ app.post('/login', (req, res) => {
   var email = quer.email;
   var pass = quer.password;
   let sql = `SELECT * FROM users WHERE email = $1 and password = $2;`;
-  client.query(sql,[email,pass]).then((result) => {
-    if(result.rowCount){
+  client.query(sql, [email, pass]).then((result) => {
+    if (result.rowCount) {
       status = 'Ok'
       res.redirect(`/login/acconut/${result.rows[0].id}?is_not_enable=${false}`)
-    }else{
+    } else {
       status = 'Wrong Email Or Password'
       res.redirect('/log_Page');
     }
@@ -101,26 +101,26 @@ app.post('/login', (req, res) => {
 
 //===========================Sign up==================================
 
-app.post('/signUp',(req,res)=>{
-  let body=req.body;
-  let full_name= body.full_name;
-  let role=body.role;
-  let location=body.location;
-  let typeOfwork= body.type_of_work;
-  let email =body.email;
-  let userName=body.user_name;
-  let password=body.password;
-  let phoneNum= body.phone_num;
+app.post('/signUp', (req, res) => {
+  let body = req.body;
+  let full_name = body.full_name;
+  let role = body.role;
+  let location = body.location;
+  let typeOfwork = body.type_of_work;
+  let email = body.email;
+  let userName = body.user_name;
+  let password = body.password;
+  let phoneNum = body.phone_num;
 
-  let insertQuery= 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;'
+  let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;'
 
-  let safeValue= [full_name,role,location,typeOfwork,email,password,phoneNum,userName];
+  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName];
 
 
-  client.query(insertQuery,safeValue).then(data =>{
+  client.query(insertQuery, safeValue).then(data => {
     console.log(data.rows[0]);
     res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
-  }).catch(error=>{
+  }).catch(error => {
     res.status(500).send(`Sorry an error has accord while loading the page  ${error} `);
   });
 });
@@ -156,7 +156,7 @@ client.connect().then(() => {
 
 var nodemailer = require('nodemailer');
 
-function sendMessage(req,res){
+function sendMessage(req, res) {
   console.log(req.body);
   var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -164,7 +164,7 @@ function sendMessage(req,res){
       user: 'emergency.app987@gmail.com',
       pass: 'qwe asd zxc 123'
     }
-  });  
+  });
   var mailOptions = {
     from: 'emergency.app987@gmail.com',
     to: req.body.email,
@@ -172,8 +172,8 @@ function sendMessage(req,res){
     text: req.body.message,
   };
 
-  
-  transporter.sendMail(mailOptions, function(error, info){
+
+  transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
     } else {
