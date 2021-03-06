@@ -5,11 +5,14 @@
 	<title>Prologue by HTML5 UP</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/style/account/css/base.css" />
-	<link rel="stylesheet" href="/style/account/css/layout.css" />
-	<link rel="stylesheet" href="/style/account/css/modules.css" />
-	<link rel="stylesheet" href="/style/account/css/row.css" />
-	<link rel="stylesheet" href="/style/account/css/form.css" />
+	<link rel="stylesheet" href="/styles/account/css/base.css" />
+	<link rel="stylesheet" href="/styles/account/css/layout.css" />
+	<link rel="stylesheet" href="/styles/account/css/modules.css" />
+	<link rel="stylesheet" href="/styles/account/css/row.css" />
+	<link rel="stylesheet" href="/styles/account/css/form.css" />
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body class="is-preload">
@@ -18,8 +21,8 @@
 	<div id="header">
 
 		<div class="top">
-			<% let visible=is_not_enable ?'none': 'block' %>
-			<% let visibleCont = is_not_enable ? 'block':'none'%>
+			<% let visible= is_not_enable == true ?'none': 'block' %>
+			<% let visibleCont = is_not_enable == true ? 'block':'none'%>
 
 					<!-- Logo -->
 					<div id="logo">
@@ -106,7 +109,7 @@
 					<div class="div3">
 
 						<div class="border">
-							location : <%= data.location%>
+							email : <%= data.email%>
 						</div>
 						<div class="border">
 							Role : <%= data.role%>
@@ -121,6 +124,7 @@
 				</div>
 
 			</div>
+			<div id="map" style="height: 550px;width: 600px;"></div>       
 		</section>
 		<section id="portfolio" class="two">
 			<div class="container">
@@ -289,11 +293,15 @@
 	</div>
 
 	<!-- Scripts -->
+	<script>
+		let cordenation =  '<%= data.location%>'
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery.scrolly@0.0.1/jquery.scrolly.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollex/0.2.1/jquery.scrollex.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
 	<script src="/js/jsAccount/breakpoints.min.js"></script>
+	<script src="/js/jsAccount/app.js"></script>
 	<script src="/js/jsAccount/util.js"></script>
 	<script src="/js/jsAccount/main.js"></script>
 	<script src="/js/jsAccount/jquery.min.js"></script>
