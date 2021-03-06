@@ -24,6 +24,12 @@ const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
 app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
 app.post('/message/:id', sendMessage);
+app.get('/', home);
+
+function home(req,res){
+  res.render('index');
+
+};
 
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
@@ -81,7 +87,7 @@ function handleAcconutPage(req, res) {
   });
 }
 
-function AccountDB( full_name,role,location,img,type_of_work,email,phone_num,status,exp,username) {
+function AccountDB(full_name, role, location, img, type_of_work, email, phone_num, status, exp, username) {
   this.name = full_name;
   this.role = role;
   this.location = location;
@@ -93,7 +99,7 @@ function AccountDB( full_name,role,location,img,type_of_work,email,phone_num,sta
   this.exp = exp;
   this.username = username;
 }
- 
+
 // {{{{{login}}}}}________________________
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
@@ -166,25 +172,25 @@ function handleContactUsForm(req, res) {
 
 // _______________________________________________________________________Edit profile 
 
-app.put('/update/:id', (req,res)=>{
+app.put('/update/:id', (req, res) => {
 
   let edit = req.body;
-    let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
-    let safeValues = [
-        edit.full_name,
-        edit.status,
-        edit.type_of_work,
-        edit.email,
-        edit.user_name,
-        edit.password,
-        edit.phone_num,
-        edit.exp,
-        req.params.id
-    ]
-    console.log(SQL,safeValues)
-    client.query(SQL, safeValues)
+  let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
+  let safeValues = [
+    edit.full_name,
+    edit.status,
+    edit.type_of_work,
+    edit.email,
+    edit.user_name,
+    edit.password,
+    edit.phone_num,
+    edit.exp,
+    req.params.id
+  ]
+  console.log(SQL, safeValues)
+  client.query(SQL, safeValues)
     .then(res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`))
-    
+
 });
 
 
@@ -218,6 +224,9 @@ function sendMessage(req, res) {
     text: req.body.message,
   };
 
+
+
+  // ==============================home page =============================
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
