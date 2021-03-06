@@ -5,11 +5,14 @@
 	<title>Prologue by HTML5 UP</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/style/account/css/base.css" />
-	<link rel="stylesheet" href="/style/account/css/layout.css" />
-	<link rel="stylesheet" href="/style/account/css/modules.css" />
-	<link rel="stylesheet" href="/style/account/css/row.css" />
-	<link rel="stylesheet" href="/style/account/css/form.css" />
+	<link rel="stylesheet" href="/styles/account/css/base.css" />
+	<link rel="stylesheet" href="/styles/account/css/layout.css" />
+	<link rel="stylesheet" href="/styles/account/css/modules.css" />
+	<link rel="stylesheet" href="/styles/account/css/row.css" />
+	<link rel="stylesheet" href="/styles/account/css/form.css" />
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body class="is-preload">
@@ -18,8 +21,10 @@
 	<div id="header">
 
 		<div class="top">
-			<% let visible=is_not_enable ?'none': 'block' %>
-			<% let visibleCont = is_not_enable ? 'block':'none'%>
+			<% let visible= is_not_enable == true ?'none': 'block' %>
+			<% let visibleCont = is_not_enable == true ? 'block':'none'%>
+			<% let workerStutas = data.status == 0? 'Not Available' : 'Available'%>
+			<% let workerRole = data.role == 1? 'Worker' : 'Business Owner'%>
 
 					<!-- Logo -->
 					<div id="logo">
@@ -85,15 +90,10 @@
 			<div class="container">
 
 				<header style="margin: 0 0 1em 0;">
-					<h2>About <%= data.username %>
+					<h2>About <%= data.full_name%>
 					</h2>
 				</header>
 
-<<<<<<< HEAD
-				<footer>
-					<!-- <a href="#portfolio" class="button scrolly">Portfolio</a> -->
-				</footer>
-=======
 				<a href="#" id="funnyimg" class="image featured"><img src="images/funny3.gif" alt="" /></a>
 				<div class="div1">
 					<div class="div2">
@@ -111,22 +111,20 @@
 					<div class="div3">
 
 						<div class="border">
-							location : <%= data.location%>
+							email : <%= data.email%>
 						</div>
 						<div class="border">
-							Role : <%= data.role%>
+							Role : <%= workerRole%>
 						</div>
 						<div class="border">
-							status : <%= data.status%>
+							status : <%= workerStutas%>
 						</div>
-
-
 
 					</div>
 				</div>
->>>>>>> bce8baa154f2c3ce8177d3fe4bcba7aef0c17fbb
 
 			</div>
+			<div id="map" style="height: 550px;width: 600px;"></div>       
 		</section>
 		<section id="portfolio" class="two">
 			<div class="container">
@@ -262,16 +260,6 @@
 
 				<p>Sent me an email now or call me and let me save your life !!</p>
 
-<<<<<<< HEAD
-				<form method="post" action="areejobaid94@gmail.com" enctype="text/plain">
-					<div class="row">
-						<div class="col-6 col-12-mobile"><input type="text" name="<name>" placeholder="Phone number : <%= data.phone_num%>" /></div>
-						<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email :<%= data.email%>" /></div>
-						
-						<div class="col-12">
-							<input type="submit" value="Update" onclick="myFunction()" />
-						</div>
-=======
 				<div class="row">
 					<div class="col-6 col-12-mobile">Phone Num: <%= data.phone_num%>
 					</div>
@@ -284,7 +272,6 @@
 							<input name = 'email'   type="text" value='<%= data.email%>' style="display: none;">
 							<input type="submit" value="Send Message" onclick="myFunction()" />
 						</form>
->>>>>>> bce8baa154f2c3ce8177d3fe4bcba7aef0c17fbb
 					</div>
 
 
@@ -306,11 +293,15 @@
 	</div>
 
 	<!-- Scripts -->
+	<script >
+		let cordenation =  '<%= data.location%>'
+	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery.scrolly@0.0.1/jquery.scrolly.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollex/0.2.1/jquery.scrollex.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
 	<script src="/js/jsAccount/breakpoints.min.js"></script>
+	<script src="/js/jsAccount/app.js"></script>
 	<script src="/js/jsAccount/util.js"></script>
 	<script src="/js/jsAccount/main.js"></script>
 	<script src="/js/jsAccount/jquery.min.js"></script>

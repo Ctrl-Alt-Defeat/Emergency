@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/login/style.css" />
+    <link rel="stylesheet" href="/styles/login/style.css" />
     <title>Login</title>
 
 </head>
@@ -21,7 +21,7 @@
                 <option value="2">Worker</option>
             </select>
 
-            <input type="hidden"  name="location" >
+            <input type="hidden"  name="location" id = 'location'>
 
             <select name="type_of_work" id="">
                 <option value="" disabled selected>type of work</option>
@@ -42,6 +42,7 @@
 
             <input type="text"  name="phone_num" placeholder="07 9999 9999" required>
 
+            <input type="text"  name="status" type="hidden" value="0">
 
 
             <button class="form-btn sx log-in" type="button">Log In</button>
