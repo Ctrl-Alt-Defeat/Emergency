@@ -71,8 +71,6 @@ function handleAcconutPage(req, res) {
     let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows });
-      return allData;
-
     }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
     })
@@ -147,12 +145,12 @@ app.post('/signUp', (req, res) => {
 
 //====================================================================================
 
-// ======================= Contact Us Page =====================
+// ==============[SALAH] Contact Us Page And Getting All Messages to another page =====================
 app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
   res.render("pages/contact");
 }
-app.post("/contact/:id", handleContactUsForm);
+app.post("/contact", handleContactUsForm);
 function handleContactUsForm(req, res) {
   console.log(req.params.id)
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
@@ -164,27 +162,29 @@ function handleContactUsForm(req, res) {
   })
 }
 
+
+
 // _______________________________________________________________________Edit profile 
 
-app.put('/update/:id', (req,res)=>{
+app.put('/update/:id', (req, res) => {
 
   let edit = req.body;
-    let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
-    let safeValues = [
-        edit.full_name,
-        edit.status,
-        edit.type_of_work,
-        edit.email,
-        edit.user_name,
-        edit.password,
-        edit.phone_num,
-        edit.exp,
-        req.params.id
-    ]
-    console.log(SQL,safeValues)
-    client.query(SQL, safeValues)
+  let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
+  let safeValues = [
+    edit.full_name,
+    edit.status,
+    edit.type_of_work,
+    edit.email,
+    edit.user_name,
+    edit.password,
+    edit.phone_num,
+    edit.exp,
+    req.params.id
+  ]
+  console.log(SQL, safeValues)
+  client.query(SQL, safeValues)
     .then(res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`))
-    
+
 });
 
 
