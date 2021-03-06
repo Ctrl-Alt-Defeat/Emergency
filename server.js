@@ -62,12 +62,18 @@ app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id;
   let selectFromDB = 'SELECT * FROM users WHERE id = $1;';
+  // console.log(req);
   let safeValue = [id];
   return client.query(selectFromDB, safeValue).then(data => {
+    let accountDB = data.rows[0];
+    let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username);
+
     let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
-      res.render('pages/accountNew', { data: data.rows[0],is_not_enable: req.query.is_not_enable,dataFeedbacks:dataFeedbacks.rows});
-    }).catch(error=>{
+      res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows });
+      return allData;
+
+    }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
     })
   }).catch(error => {
@@ -75,6 +81,19 @@ function handleAcconutPage(req, res) {
   });
 }
 
+function AccountDB( full_name,role,location,img,type_of_work,email,phone_num,status,exp,username) {
+  this.name = full_name;
+  this.role = role;
+  this.location = location;
+  this.image = img;
+  this.work = type_of_work;
+  this.email = email;
+  this.phone = phone_num;
+  this.status = status;
+  this.exp = exp;
+  this.username = username;
+}
+ 
 // {{{{{login}}}}}________________________
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
@@ -115,7 +134,7 @@ app.post('/signUp', (req, res) => {
 
   let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;'
 
-  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName,status];
+  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status];
 
 
   client.query(insertQuery, safeValue).then(data => {
@@ -135,14 +154,14 @@ function handleContactPage(req, res) {
 }
 app.post("/contact/:id", handleContactUsForm);
 function handleContactUsForm(req, res) {
-      console.log(req.params.id)
-        let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
-        let safeValue = [req.body.text, req.params.id];
-        client.query(SQL, safeValue).then(() => {
-          res.render("/contact")
-        }).catch(error => {
-          res.render("pages/error", { error: error });
-        })
+  console.log(req.params.id)
+  let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
+  let safeValue = [req.body.text, req.params.id];
+  client.query(SQL, safeValue).then(() => {
+    res.render("/contact")
+  }).catch(error => {
+    res.render("pages/error", { error: error });
+  })
 }
 
 // _______________________________________________________________________Edit profile 
