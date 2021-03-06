@@ -20,14 +20,14 @@ let status ='Ok';
 const pg = require('pg');
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
-
 // ===================================================== Map ========================================================
 app.get('/map', laodMapPage);
-
 app.post('/map', getUsersLocations);
+app.post('/message/:id',sendMessage);
 
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
+    console.log(data,'data');
     res.send(data);
   }).catch(error => {
     console.log(error);
@@ -47,29 +47,7 @@ function getAllLocationsFromDB(work, experience) {
     console.log(error)
   });
 }
-// ===================================================================================================================
 
-app.post('/map', getUsersLocations);
-
-function getUsersLocations(req, res) {
-  return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
-    locData = data;
-    res.redirect('/map');
-  }).catch(error => {
-    console.log(error);
-  })
-};
-function getAllLocationsFromDB(work, experience) {
-  // let day = new Date().getDay();
-  // let today = new Date();
-  experience = experience || 0;
-  console.log(work, 'work')
-  return client.query('SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE type_of_work = $1 and exp >= $2', [work, experience]).then(data => {
-    return data.rows
-  }).catch(error => {
-    console.log(error)
-  });
-}
 // ===================================================================================================================
 
 function handelError(res, error) {
@@ -83,14 +61,11 @@ function laodMapPage(req, res) {
 app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id; 
-  console.log(id);
-  let selectFromDB = 'SELECT * FROM user WHERE id=$1;';
-
-  //   console.log('DB',selectFromDB);
+  let selectFromDB = 'SELECT * FROM users WHERE id = $1;';
   let safeValue = [id];
-  client.query(selectFromDB, safeValue).then(data => {
-    res.render('pages/accountNew', { data: data.rows[0],is_enable: req.query.is_not_enable});
+  return client.query(selectFromDB, safeValue).then(data => {
     console.log(data.rows[0]);
+    res.render('pages/accountNew', { data: data.rows[0],is_not_enable: req.query.is_not_enable});
   }).catch(error => {
     console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
   });
@@ -140,7 +115,7 @@ app.post('/signUp',(req,res)=>{
 
   client.query(insertQuery,safeValue).then(data =>{
     console.log(data.rows[0]);
-    res.redirect(`/login/acconut/${data.rows[0].id}`);
+    res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
   }).catch(error=>{
     res.status(500).send(`Sorry an error has accord while loading the page  ${error} `);
   });
@@ -177,23 +152,6 @@ function handleContactUsForm(req, res) {
   })
 }
 
-// {{{{{}}}}}____________________________
-// const client = new pg.Client({ connectionString: process.env.DATABASE_URL, });
-// const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
-// const methodOverride = require('method-override');
-// app.use(methodOverride('_method'));
-// const port = process.env.PORT || 3000;
-
-
-// function handelError(res, error) {
-//   res.render('pages/error', { error: error });
-// }
-
-//     }).catch(error=>{
-//         console.log('you have error'+error)
-//     })
-// })
-
 client.connect().then(() => {
   app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`);
@@ -202,3 +160,33 @@ client.connect().then(() => {
 
   console.log(e, 'errrrrroooooorrrr');
 });
+
+
+var nodemailer = require('nodemailer');
+
+function sendMessage(req,res){
+  console.log(req.body);
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'emergency.app987@gmail.com',
+      pass: 'qwe asd zxc 123'
+    }
+  });  
+  var mailOptions = {
+    from: 'emergency.app987@gmail.com',
+    to: req.body.email,
+    subject: 'Do You Want To work With Me',
+    text: req.body.message,
+  };
+
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${true}#contact`)
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}

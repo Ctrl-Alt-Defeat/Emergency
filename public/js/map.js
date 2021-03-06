@@ -49,7 +49,7 @@ function getDataFromDB() {
         url: '/map',
         data: { work: document.getElementById('work').value, experience: document.getElementById('experience').value },
         success: (result) => {
-            console.log(result);
+            console.log(result,'result');
             otherLocations = result;
             map = new mapboxgl.Map({
                 container: 'map',
@@ -72,7 +72,7 @@ function drowLocation() {
             'type': 'Feature',
             'properties': {
                 'description':
-                    `<p><h1>This is ${ele.username}<h1/><h5>He is ${workStatus} Now</h5><h4>Years Of Experience: ${ele.exp}</h4><h4>Type Of Work: ${ele.type_of_work}</h4><h4>Contact And Read Or Add Feedback: <a href="/login/acconut/${ele.id}?is_not_enable=${true}">${ele.full_name}</a>.<h4/></p>`,
+                    `<p><h1>This is ${ele.username}<h1/><h5>He is ${workStatus} Now</h5><h4>Years Of Experience: ${ele.exp}</h4><h4>Type Of Work: ${ele.type_of_work}</h4><h4>Account And Feedback: <a href="/login/acconut/${ele.id}?is_not_enable=${true}">${ele.full_name}</a></h4><h4>Contact:<a href="/login/acconut/${ele.id}?is_not_enable=${true}">${ele.full_name}</a></h4><h4>Contact:<a href="/login/acconut/${ele.id}?is_not_enable=${true}#contact">Here</a></h4></p>`,
                 'icon': 'embassy'
             },
             'geometry': {
