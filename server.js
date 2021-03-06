@@ -24,6 +24,12 @@ const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
 app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
 app.post('/message/:id', sendMessage);
+app.get('/', home);
+
+function home(req,res){
+  res.render('index');
+
+};
 
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
@@ -223,6 +229,9 @@ function sendMessage(req, res) {
     text: req.body.message,
   };
 
+
+
+  // ==============================home page =============================
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
