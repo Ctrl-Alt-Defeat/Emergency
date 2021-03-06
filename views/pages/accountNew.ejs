@@ -23,6 +23,8 @@
 		<div class="top">
 			<% let visible= is_not_enable == true ?'none': 'block' %>
 			<% let visibleCont = is_not_enable == true ? 'block':'none'%>
+			<% let workerStutas = data.status == 0? 'Not Available' : 'Available'%>
+			<% let workerRole = data.role == 1? 'Worker' : 'Business Owner'%>
 
 					<!-- Logo -->
 					<div id="logo">
@@ -115,13 +117,11 @@
 							email : <%= data.email%>
 						</div>
 						<div class="border">
-							Role : <%= data.role%>
+							Role : <%= workerRole%>
 						</div>
 						<div class="border">
-							status : <%= data.status%>
+							status : <%= workerStutas%>
 						</div>
-
-
 
 					</div>
 				</div>
