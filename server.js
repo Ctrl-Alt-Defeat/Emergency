@@ -64,8 +64,12 @@ function handleAcconutPage(req, res) {
   let selectFromDB = 'SELECT * FROM users WHERE id = $1;';
   let safeValue = [id];
   return client.query(selectFromDB, safeValue).then(data => {
-    console.log(data.rows[0]);
-    res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable });
+    let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
+    return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
+      res.render('pages/accountNew', { data: data.rows[0],is_not_enable: req.query.is_not_enable,dataFeedbacks:dataFeedbacks.rows});
+    }).catch(error=>{
+      console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
+    })
   }).catch(error => {
     console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
   });
@@ -128,28 +132,16 @@ app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
   res.render("pages/contact")
 }
-app.post("/contact", handleContactUsForm);
+app.post("/contact/:id", handleContactUsForm);
 function handleContactUsForm(req, res) {
-  let userName = req.body.userName;
-  let email = req.body.email;
-  let selectSql = "SELECT username, email FROM users;";
-  client.query(selectSql).then(table => {
-    table.rows.forEach(oneUser => {
-      if (oneUser.username === userName && oneUser.email === email) {
-
-        let SQL = `INSERT INTO contact (mess) VALUES ($1);`
-        let safeValue = [req.body.text];
+      console.log(req.params.id)
+        let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
+        let safeValue = [req.body.text, req.params.id];
         client.query(SQL, safeValue).then(() => {
-          res.render("index")
+          res.render("/contact")
         }).catch(error => {
           res.render("pages/error", { error: error });
         })
-      }
-    });
-
-  }).catch(error => {
-    res.render("pages/error", { error: error });
-  })
 }
 
 client.connect().then(() => {
@@ -176,7 +168,7 @@ function sendMessage(req, res) {
   var mailOptions = {
     from: 'emergency.app987@gmail.com',
     to: req.body.email,
-    subject: 'Do You Want To work With Me',
+    subject: 'Do You Want To Work With Me',
     text: req.body.message,
   };
 
