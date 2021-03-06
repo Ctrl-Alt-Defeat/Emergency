@@ -53,7 +53,8 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     user_id int,
     que VARCHAR(1000),
-    subject VARCHAR(250)
+    subject VARCHAR(250),
+    type_of_work VARCHAR(250),
     is_answered numeric,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );

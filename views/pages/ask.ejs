@@ -9,7 +9,7 @@
 <body>
     <header></header>
     <main>
-        <form action="POST" action="/searchForQues" >
+        <form method="POST" action="/ask" >
             <label for="Work_type">
                 Type Of Work
                 <select name="type_of_work" id="">
@@ -22,19 +22,27 @@
                     <option value="other">-other-</option>
                 </select>
             </label>
-            <label for="que">
-                Question
-                <input type="text" nave = 'que'>
-            </label>
             <label for="subject">
                 Subject
                 <input type="text" name="subject">
             </label>
-            <label for="isAnswered">
-                <input type="radio" value ="1" name = 'isAnswered'>
-                <input type="radio" value = '0' name = 'isAnswered'>
-            </label>
+            <input type="submit" value="Search">
         </form>
+        <a href="/addQuestion"><button >AddNewQuestion</button></a> 
+        <section>
+            <% data.forEach (ele => { %>
+                <div class = 'card'>
+                    <h3><%= ele.username %></h3>
+                    <img src="<%= ele.img %>" alt="">
+                    <label for="isAns">
+                        Is Answered: <input type="radio" <%= ele.is_answered == 1 ? "checked" : '' %> >
+                    </label>
+                    <h4><%= ele.subject %></h4>
+                    <p><%= ele.que %></p>
+
+                </div>
+            <% }) %>
+        </section>
         <script src="/js/ask.js"></script>   
     </main>
     <footer></footer> 
