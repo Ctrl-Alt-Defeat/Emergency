@@ -156,11 +156,15 @@ function handleContactUsForm(req, res) {
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
   let safeValue = [req.body.text, req.params.id];
   client.query(SQL, safeValue).then(() => {
+<<<<<<< HEAD
     client.query("SELECT * FROM contact;").then(contactTable => {
       res.render("pages/cotactUsMessages", { object: contactTable.rows })
     }).catch(error => {
       res.render("pages/error", { error: error });
     })
+=======
+    res.render("/contact")
+>>>>>>> 7c5031be734773f155ca1416c72c12f955af8759
   }).catch(error => {
     res.render("pages/error", { error: error });
   })
