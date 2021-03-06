@@ -66,8 +66,8 @@ function handleAcconutPage(req, res) {
   return client.query(selectFromDB, safeValue).then(data => {
     let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
-      res.render('pages/accountNew', { data: data.rows[0],is_not_enable: req.query.is_not_enable,dataFeedbacks:dataFeedbacks.rows});
-    }).catch(error=>{
+      res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows });
+    }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
     })
   }).catch(error => {
@@ -115,7 +115,7 @@ app.post('/signUp', (req, res) => {
 
   let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;'
 
-  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName,status];
+  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status];
 
 
   client.query(insertQuery, safeValue).then(data => {
@@ -128,44 +128,50 @@ app.post('/signUp', (req, res) => {
 
 //====================================================================================
 
-// ======================= Contact Us Page =====================
+// ==============[SALAH] Contact Us Page And Getting All Messages to another page =====================
 app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
   res.render("pages/contact");
 }
-app.post("/contact/:id", handleContactUsForm);
+app.post("/contact", handleContactUsForm);
 function handleContactUsForm(req, res) {
-      console.log(req.params.id)
-        let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
-        let safeValue = [req.body.text, req.params.id];
-        client.query(SQL, safeValue).then(() => {
-          res.render("/contact")
-        }).catch(error => {
-          res.render("pages/error", { error: error });
-        })
+  console.log(req.params.id)
+  let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
+  let safeValue = [req.body.text, req.params.id];
+  client.query(SQL, safeValue).then(() => {
+    client.query("SELECT * FROM contact;").then(contactTable => {
+      res.render("pages/cotactUsMessages", { object: contactTable.rows })
+    }).catch(error => {
+      res.render("pages/error", { error: error });
+    })
+  }).catch(error => {
+    res.render("pages/error", { error: error });
+  })
 }
+
+
 
 // _______________________________________________________________________Edit profile 
 
-app.put('/update/:id', (req,res)=>{
+app.put('/update/:id', (req, res) => {
 
   let edit = req.body;
-    let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
-    let safeValues = [
-        edit.full_name,
-        edit.status,
-        edit.type_of_work,
-        edit.email,
-        edit.user_name,
-        edit.password,
-        edit.phone_num,
-        edit.exp,
-        req.params.id
-    ]
-    console.log(SQL,safeValues)
-    client.query(SQL, safeValues)
+  let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
+  let safeValues = [
+    edit.full_name,
+    edit.status,
+    edit.type_of_work,
+    edit.email,
+    edit.user_name,
+    edit.password,
+    edit.phone_num,
+    edit.exp,
+    req.params.id
+  ]
+  console.log(SQL, safeValues)
+  client.query(SQL, safeValues)
     .then(res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`))
-    
+
 });
 
 
