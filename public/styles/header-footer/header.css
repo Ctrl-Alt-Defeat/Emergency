@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:300,600");
 
 :root {
-  --background: #ff005c;
+  --background: #ff7d00;
 }
 
 *,
@@ -19,7 +19,6 @@ header {
   z-index: 999;
   width: 100%;
 }
-
 
 .nav-toggle {
   position: absolute !important;
@@ -90,7 +89,7 @@ nav li {
 }
 
 nav a {
-  color: #26001b;
+  color: #fff;
   text-decoration: none;
   font-size: 1.2rem;
   text-transform: uppercase;
@@ -99,7 +98,7 @@ nav a {
 }
 
 nav a:hover {
-  color: white;
+  color: #87613d;
 }
 
 .nav-toggle:checked ~ nav {
@@ -111,7 +110,12 @@ nav a:hover {
   transition: opacity 250ms ease-in-out 250ms;
 }
 
-@media screen and (min-width: 800px) {
+.logo {
+  height: 10rem;
+  margin-left: 4rem;
+}
+
+@media screen and (min-width: 1028px) {
   .nav-toggle-label {
     display: none;
   }
@@ -122,7 +126,8 @@ nav a:hover {
   }
 
   .logo {
-    grid-column: 2 / 3;
+    grid-column: 1 / 3;
+    height: 9rem;
   }
 
   nav {
@@ -133,7 +138,6 @@ nav a:hover {
     background: none;
     top: initial;
     left: initial;
-    
 
     grid-column: 3 / 4;
     display: flex;
