@@ -173,7 +173,6 @@ function sendMessage(req, res) {
     text: req.body.message,
   };
 
-
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
@@ -183,3 +182,9 @@ function sendMessage(req, res) {
     }
   });
 }
+
+app.get('ask', renderAskPage);
+
+function renderAskPage(req,res){
+  res.render('pages/ask');
+};

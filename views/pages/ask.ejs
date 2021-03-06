@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask</title>
+</head>
+<body>
+    <header></header>
+    <main>
+        <form action="POST" action="/searchForQues" >
+            <label for="Work_type">
+                Type Of Work
+                <select name="type_of_work" id="">
+                    <option value="" disabled selected>type of work</option>
+                    <option value="Smith">Smith</option>
+                    <option value="Carpenter">Carpenter</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Builder">Builder</option>
+                    <option value="Paint">Painter</option>
+                    <option value="other">-other-</option>
+                </select>
+            </label>
+            <label for="que">
+                Question
+                <input type="text" nave = 'que'>
+            </label>
+            <label for="subject">
+                Subject
+                <input type="text" name="subject">
+            </label>
+            <label for="isAnswered">
+                <input type="radio" value ="1" name = 'isAnswered'>
+                <input type="radio" value = '0' name = 'isAnswered'>
+            </label>
+        </form>
+        <script src="/js/ask.js"></script>   
+    </main>
+    <footer></footer> 
+</body>
+</html>

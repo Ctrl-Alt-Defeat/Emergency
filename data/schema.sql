@@ -52,8 +52,9 @@ CREATE TABLE users (
     CREATE TABLE ask (
     id SERIAL PRIMARY KEY,
     user_id int,
-    que numeric,
-    is_answered VARCHAR(250),
+    que VARCHAR(1000),
+    subject VARCHAR(250)
+    is_answered numeric,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
   
