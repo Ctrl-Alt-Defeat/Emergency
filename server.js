@@ -122,7 +122,7 @@ app.post('/login', (req, res) => {
 
 app.post('/signUp', (req, res) => {
   let body = req.body;
-  let full_name = body.full_name;
+  var full_name = body.full_name;
   let role = body.role;
   let location = body.location;
   let typeOfwork = body.type_of_work;
@@ -150,7 +150,7 @@ app.post('/signUp', (req, res) => {
 // ======================= Contact Us Page =====================
 app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
-  res.render("pages/contact")
+  res.render("pages/contact");
 }
 app.post("/contact/:id", handleContactUsForm);
 function handleContactUsForm(req, res) {
@@ -163,6 +163,32 @@ function handleContactUsForm(req, res) {
     res.render("pages/error", { error: error });
   })
 }
+
+// _______________________________________________________________________Edit profile 
+
+app.put('/update/:id', (req,res)=>{
+
+  let edit = req.body;
+    let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
+    let safeValues = [
+        edit.full_name,
+        edit.status,
+        edit.type_of_work,
+        edit.email,
+        edit.user_name,
+        edit.password,
+        edit.phone_num,
+        edit.exp,
+        req.params.id
+    ]
+    console.log(SQL,safeValues)
+    client.query(SQL, safeValues)
+    .then(res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`))
+    
+});
+
+
+// ______________________________________________________________________//
 
 client.connect().then(() => {
   app.listen(port, () => {

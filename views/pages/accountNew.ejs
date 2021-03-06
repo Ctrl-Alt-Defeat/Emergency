@@ -191,65 +191,55 @@
 		<section id="Edit" class="two" style="display: <%= visible%>;">
 			<div class="container">
 
-				<header>
-					<h2>Edit Profile</h2>
-				</header>
 
-				<p>This is some of my latest project:-</p>
+<!-- ________________________________________________________________________________________________________ -->
 
-				<div class="row">
-					<div class="col-4 col-12-mobile">
-						<article class="item">
-							<a href="https://www.youtube.com/watch?v=heD52BxCjn4&feature=youtu.be"
-								class="image fit"><img src="images/phoenix.png" alt="" /></a>
-							<header>
-								<h3>PHOENIX</h3>
-							</header>
-						</article>
-						<article class="item">
-							<a href="https://github.com/areejobaid94/Construction-Workers-Hub" class="image fit"><img
-									src="images/pic03.jpg" alt="" /></a>
-							<header>
-								<h3>CONSTRUCTION WORKER </h3>
-							</header>
-						</article>
-					</div>
-					<div class="col-4 col-12-mobile">
-						<article class="item">
-							<a href="https://www.youtube.com/watch?v=FNhja-zZhBE&feature=youtu.be"
-								class="image fit"><img src="images/tafran.png" alt="" /></a>
-							<header>
-								<h3>TAFRAN</h3>
-							</header>
-						</article>
-						<article class="item">
-							<a href="https://areejobaid94.github.io/lab-03/" class="image fit"><img src="images/lab.png"
-									alt="" /></a>
-							<header>
-								<h3>Lab 05</h3>
-							</header>
-						</article>
-					</div>
-					<div class="col-4 col-12-mobile">
-						<article class="item">
-							<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-							<header>
-								<h3>diet-guide-website</h3>
-							</header>
-						</article>
-						<article class="item">
-							<a href="https://areejobaid94.github.io/bus-mall/" class="image fit"><img
-									src="images/bus.png" alt="" /></a>
-							<header>
-								<h3>bus-mall</h3>
-							</header>
-						</article>
-					</div>
-				</div>
 
-			</div>
-		</section>
+<div class="container">
+	<form action="/update/<%=data.id%>?_method=put" method="POST">
+		<h3>Edit your profile</h3>
 
+		<input type="text"  name="full_name" value=<%= data.full_name%> placeholder="abd" required>
+
+		<select name="status" required>
+			<option value="" disabled selected>Select your status</option>
+			<option value="1">Available</option>
+			<option value="2">not Available</option>
+		</select>
+
+		<input type="hidden"  name="location" id = 'location'>
+
+		<select name="type_of_work" id="">
+			<option value="" disabled selected>type of work    </option>
+			<option value="Smith">Smith</option>
+			<option value="Carpenter">Carpenter</option>
+			<option value="Plumber">Plumber</option>
+			<option value="Builder">Builder</option>
+			<option value="Paint">Painter</option>
+			<option value="other">-other-</option>
+		</select>
+		
+
+		<input class="w100" type="email"  name="email" value=<%= data.email %> reqired autocomplete='off' />
+
+		<input type="text"  name="user_name" value=<%= data.username %> required>
+		<input type="text"  name="exp" value=<%= data.exp%> required/>
+
+
+		<input type="password"  name="password" placeholder="Insert Password" required/>
+
+		<input type="password" placeholder="Verify Password" required/>
+
+		<input type="text"  name="phone_num" value=<%= data.phone_num %> required>
+
+
+
+		<button class="form-btn sx log-in" type="submit">  Confirme Edit</button>
+		<button class="form-btn dx" type="button">Change location</button>
+	</form>
+	<br>
+
+<!-- _____________________________________________________________________________________________ -->
 		<!-- Contact -->
 		<section id="contact" class="four">
 			<div class="container">
