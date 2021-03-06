@@ -31,6 +31,7 @@ function home(req,res){
 
 };
 
+
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
     console.log(data, 'data');
@@ -200,6 +201,13 @@ app.put('/update/:id', (req, res) => {
 
 
 // ______________________________________________________________________//
+app.get('/aboutus',(req,res)=>{
+  res.render('pages/aboutus');
+
+
+})
+
+// ____________________________________________________________________________
 
 client.connect().then(() => {
   app.listen(port, () => {
