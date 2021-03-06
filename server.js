@@ -25,6 +25,7 @@ app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
 app.post('/message/:id', sendMessage);
 
+
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
     console.log(data, 'data');
@@ -194,6 +195,13 @@ app.put('/update/:id', (req, res) => {
 
 
 // ______________________________________________________________________//
+app.get('/aboutus',(req,res)=>{
+  res.render('pages/aboutus');
+
+
+})
+
+// ____________________________________________________________________________
 
 client.connect().then(() => {
   app.listen(port, () => {
