@@ -19,7 +19,7 @@
 
 		<div class="top">
 			<% let visible=is_not_enable ?'none': 'block' %>
-				<% let visibleCont=is_not_enable ? 'block' :'none'%>
+			<% let visibleCont = is_not_enable ? 'block':'none'%>
 
 					<!-- Logo -->
 					<div id="logo">
@@ -89,9 +89,11 @@
 					</h2>
 				</header>
 
+<<<<<<< HEAD
 				<footer>
 					<!-- <a href="#portfolio" class="button scrolly">Portfolio</a> -->
 				</footer>
+=======
 				<a href="#" id="funnyimg" class="image featured"><img src="images/funny3.gif" alt="" /></a>
 				<div class="div1">
 					<div class="div2">
@@ -122,6 +124,7 @@
 
 					</div>
 				</div>
+>>>>>>> bce8baa154f2c3ce8177d3fe4bcba7aef0c17fbb
 
 			</div>
 		</section>
@@ -259,19 +262,29 @@
 
 				<p>Sent me an email now or call me and let me save your life !!</p>
 
+<<<<<<< HEAD
+				<form method="post" action="areejobaid94@gmail.com" enctype="text/plain">
+					<div class="row">
+						<div class="col-6 col-12-mobile"><input type="text" name="<name>" placeholder="Phone number : <%= data.phone_num%>" /></div>
+						<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email :<%= data.email%>" /></div>
+						
+						<div class="col-12">
+							<input type="submit" value="Update" onclick="myFunction()" />
+						</div>
+=======
 				<div class="row">
 					<div class="col-6 col-12-mobile">Phone Num: <%= data.phone_num%>
 					</div>
 					<br>
-					<div class="col-6 col-12-mobile">Email: <%= data.email%>"</div>
+					<div class="col-6 col-12-mobile">Email: <%= data.email%>"</div> 
 					<div class="col-12" style="display: <%= visibleCont%>">
 						<p>Or You Can Send To Me Adirect Email</p>
-						<form method="post" action='/message/<%= data.id %>'>
-							<input name='message' type="text" placeholder="Write You Message"
-								style="margin-bottom: 20px;">
-							<input name='email' type="text" value='<%= data.email%>' style="display: none;">
+						<form method="post" action ='/message/<%= data.id %>'>
+							<input name = 'message' type="text" placeholder="Write You Message" style="margin-bottom: 20px;">
+							<input name = 'email'   type="text" value='<%= data.email%>' style="display: none;">
 							<input type="submit" value="Send Message" onclick="myFunction()" />
 						</form>
+>>>>>>> bce8baa154f2c3ce8177d3fe4bcba7aef0c17fbb
 					</div>
 
 
