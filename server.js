@@ -111,10 +111,11 @@ app.post('/signUp', (req, res) => {
   let userName = body.user_name;
   let password = body.password;
   let phoneNum = body.phone_num;
+  let status = body.status;
 
-  let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;'
+  let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;'
 
-  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName];
+  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName,status];
 
 
   client.query(insertQuery, safeValue).then(data => {
