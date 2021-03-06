@@ -7,7 +7,7 @@
   align-items: center;
   flex-direction: column;
   background-color: #fff600;
-  top: 7rem;
+  padding-top: 11rem;
 }
 
 .contact .content {
@@ -112,10 +112,8 @@
   color: #666;
 }
 
-@media   (max-width: 1028px) {
+@media (max-width: 1028px) {
   .contact {
-    
-    top: 10rem;
+    padding-top: 20rem;
   }
-  
 }

@@ -20,7 +20,7 @@
 @media (max-width: 991px)
 {
     .contact {
-        padding: 50px;
+        padding-top: 13rem;
     }
     .container {
         flex-direction: column;

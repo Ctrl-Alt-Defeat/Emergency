@@ -77,8 +77,6 @@ function handleAcconutPage(req, res) {
     let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows });
-      return allData;
-
     }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
     })
@@ -153,22 +151,29 @@ app.post('/signUp', (req, res) => {
 
 //====================================================================================
 
-// ======================= Contact Us Page =====================
+// ==============[SALAH] Contact Us Page And Getting All Messages to another page =====================
 app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
   res.render("pages/contact");
 }
-app.post("/contact/:id", handleContactUsForm);
+app.post("/contact", handleContactUsForm);
 function handleContactUsForm(req, res) {
   console.log(req.params.id)
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
   let safeValue = [req.body.text, req.params.id];
   client.query(SQL, safeValue).then(() => {
-    res.render("/contact")
+
+    client.query("SELECT * FROM contact;").then(contactTable => {
+      res.render("pages/cotactUsMessages", { object: contactTable.rows })
+    }).catch(error => {
+      res.render("pages/error", { error: error });
+    })
   }).catch(error => {
     res.render("pages/error", { error: error });
   })
 }
+
+
 
 // _______________________________________________________________________Edit profile 
 
@@ -237,3 +242,4 @@ function sendMessage(req, res) {
     }
   });
 }
+
