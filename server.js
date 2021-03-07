@@ -26,7 +26,7 @@ app.post('/map', getUsersLocations);
 app.post('/message/:id', sendMessage);
 app.get('/', home);
 
-function home(req,res){
+function home(req, res) {
   res.render('index');
 
 };
@@ -153,6 +153,7 @@ app.post('/signUp', (req, res) => {
 //====================================================================================
 
 // ==============[SALAH] Contact Us Page And Getting All Messages to another page =====================
+let arrayOfImages = ["https://images.generated.photos/ERWujtGdPrsx5TqtmelYDCs05-YcdEG6yYS08QsRUsw/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMjMwNDYuanBn.jpg", "https://images.generated.photos/IF0Qumz-zv_fj3_hV2pBNxiJox6lGX8IALzPxyXZVX8/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzNDY2MjcuanBn.jpg", "https://images.generated.photos/5E9zLcP6CYOVmBeBVUTMct13o6nUQwMcvKEX3c599jc/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0MTAyMjIuanBn.jpg", "https://images.generated.photos/oTW6oNJjkB-EzPaL_rjYDJcW7-VIJZFJJBF_nltC7gw/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3ODE4NTQuanBn.jpg", "https://images.generated.photos/aPCmpRaC6WP6FbspiNg3wbb5oxSmMt1AdPpjPIWgbcs/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5MDc2NDYuanBn.jpg", "https://images.generated.photos/ZQbIEOo9TXCPc0E4z9TxfHkTF764mSzVzlcxf1dUkEE/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyMzkwNDUuanBn.jpg", "https://images.generated.photos/e0waIObdOx1KD0bggTDlLalQyabvL1RmGcbPFxovBvw/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA1MjM3MjguanBn.jpg", "https://images.generated.photos/dLLq4A9O4EA9KgcK65BpCOtoNGlxCfXn0ILrVmvnFlA/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0MjIyMTQuanBn.jpg", "https://images.generated.photos/BKcd199EoM37jCZMIb18mWZEhxe1l7s-uykmwaljI5A/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA1NDQ0MzAuanBn.jpg", "https://images.generated.photos/1k3lzxgEtWeS2mefKNXprUfn-kPpzyz3QJ0xuizOQrE/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NzkzMDkuanBn.jpg", "https://generated.photos/face/joyfull-white-young-adult-female-with-long-brown-hair-and-blue-eyes--5e6845346d3b380006e2c17f", "https://generated.photos/face/joyfull-white-young-adult-female-with-long-brown-hair-and-green-eyes--5e68640f6d3b380006e9b6d1"];
 app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
   res.render("pages/contact");
@@ -165,7 +166,7 @@ function handleContactUsForm(req, res) {
   client.query(SQL, safeValue).then(() => {
 
     client.query("SELECT * FROM contact;").then(contactTable => {
-      res.render("pages/cotactUsMessages", { object: contactTable.rows })
+      res.render("pages/cotactUsMessages", { object: contactTable.rows, faceImages: arrayOfImages })
     }).catch(error => {
       res.render("pages/error", { error: error });
     })
@@ -201,7 +202,7 @@ app.put('/update/:id', (req, res) => {
 
 
 // ______________________________________________________________________//
-app.get('/aboutus',(req,res)=>{
+app.get('/aboutus', (req, res) => {
   res.render('pages/aboutus');
 
 
