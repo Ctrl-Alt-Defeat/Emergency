@@ -34,3 +34,15 @@ navigator.geolocation.getCurrentPosition(data => {
     document.getElementById('location').value = coordinates;
 }, error, options);
 
+function changeColor(){
+    console.log(document.getElementById('admin').style.display);
+    if(document.getElementById('admin').style.display == 'block'){
+        document.getElementById('admin').style.display = 'none';
+        document.getElementById('signIn').action = "/login"
+
+    }else{
+        document.getElementById('admin').style.display = 'block';
+        document.getElementById('signIn').action = "/login?role=3"
+
+    }
+}
