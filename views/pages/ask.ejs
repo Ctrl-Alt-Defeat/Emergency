@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ask</title>
 </head>
+
 <body>
     <header></header>
     <main>
-        <form method="POST" action="/ask" >
+        <form method="POST" action="/ask">
             <label for="Work_type">
                 Type Of Work
                 <select name="type_of_work" id="">
@@ -28,23 +30,34 @@
             </label>
             <input type="submit" value="Search">
         </form>
-        <a href="/addQuestion"><button >AddNewQuestion</button></a> 
+        <a href="/addQuestion"><button>AddNewQuestion</button></a>
         <section>
-            <% data.forEach (ele => { %>
-                <div class = 'card'>
-                    <h3><%= ele.username %></h3>
+            <% data.forEach (ele=> { %>
+                <div class='card'>
+                    <h3>
+                        <%= ele.username %>
+                    </h3>
                     <img src="<%= ele.img %>" alt="">
                     <label for="isAns">
-                        Is Answered: <input type="radio" <%= ele.is_answered == 1 ? "checked" : '' %> >
+                        Is Answered: <input type="radio" <%=ele.is_answered==1 ? "checked" : '' %> >
                     </label>
-                    <h4><%= ele.subject %></h4>
-                    <p><%= ele.que %></p>
-                    <a href="/question/<%= ele.id %>"></a>
+                    <h4>
+                        <%= ele.subject %>
+                    </h4>
+                    <p>
+                        <%= ele.que %>
+                    </p>
+                    <a href="/question/<%= ele.id %>">
+                        <button>
+                            Show Question
+                        </button>
+                    </a>
                 </div>
-            <% }) %>
+                <% }) %>
         </section>
-        <script src="/js/ask.js"></script>   
+        <script src="/js/ask.js"></script>
     </main>
-    <footer></footer> 
+    <footer></footer>
 </body>
+
 </html>
