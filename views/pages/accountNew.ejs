@@ -199,43 +199,71 @@
 				<!-- ________________________________________________________________________________________________________ -->
 
 
-				<div class="container">
-					<form action="/update/<%=data.id%>?_method=put" method="POST">
-						<h3>Edit your profile</h3>
+<div class="ss" >
+	<form  action="/update/<%=data.id%>?_method=put" method="POST">
+		<h3>Edit your profile</h3>
 
-						<input type="text" name="full_name" value=<%=data.full_name%> placeholder="abd" required>
+		<div class="near">
+			<span> Full Name :</span>
+			<input id="editform" type="text"  name="full_name" value=<%= data.full_name%>  required>
+		
+			</div>
+			<div class="near">
+				<span> Status :</span>
+				<select id="editform" name="status" required value =  '<%= data.status%>'>
+					<option value="" disabled selected>Select your status</option>
+					<% if( data.status == '0' ){ %>
+						<option value="1" selected>not Available</option>
+						<option value="0">Available</option>
+					<%}else{%>
+						<option value="0"selected>Available</option>
+						<option value="1" >not Available</option>
+					<%}%>
+				</select>
+				</div>
+				<div class="near">
+					<span> Type Of Work :</span>
+					<select name="type_of_work" id="editform" value ='<%= data.type_of_work%>'>
+						<option value="" disabled selected>type of work    </option>
+						<option value="Smith">Smith</option>
+						<option value="Carpenter">Carpenter</option>
+						<option value="Plumber">Plumber</option>
+						<option value="Builder">Builder</option>
+						<option value="Paint">Painter</option>
+						<option value="other">-other-</option>
+					</select>
+					</div>
 
-						<select name="status" required value='<%= data.status%>'>
-							<option value="" disabled selected>Select your status</option>
-							<% if( data.status=='0' ){ %>
-								<option value="1" selected>not Available</option>
-								<option value="0">Available</option>
-								<%}else{%>
-									<option value="0" selected>Available</option>
-									<option value="1">not Available</option>
-									<%}%>
-						</select>
+						<input type="hidden" name="location" id='location'>	
+		
+	<div class="near">
+	<span> Email :</span>	<input id="editform"  class="w100" type="email"  name="email" value=<%= data.email %> reqired autocomplete='off' />
+</div>
 
-						<input type="hidden" name="location" id='location'>
+<div class="near">
+	<span> user Name :</span>
+		<input id="editform" type="text"  name="user_name" value=<%= data.username %> required>
+</div>
 
-						<select name="type_of_work" id="" value='<%= data.type_of_work%>'>
-							<option value="" disabled selected>type of work </option>
-							<option value="Smith">Smith</option>
-							<option value="Carpenter">Carpenter</option>
-							<option value="Plumber">Plumber</option>
-							<option value="Builder">Builder</option>
-							<option value="Paint">Painter</option>
-							<option value="other">-other-</option>
-						</select>
+<div class="near">
+	<span> Experiance :</span>
+	<input id="editform" type="text"  name="exp" value=<%= data.exp%> required>
 
+	</div>
+	<div class="near">
+		<span> Password :</span>
+		<input id="editform" type="password" value="<%= data.password%>"  name="password" placeholder="Insert Password" required/>
+	
+		</div>
+		<div class="near">
+			<span> Phone Number :</span>
+			<input id="editform" type="text"  name="phone_num" value=<%= data.phone_num %> required>
+		
+			</div>
 
-						<input class="w100" type="email" name="email" value=<%=data.email %> reqired autocomplete='off'
-						/>
 
 						<input type="text" name="user_name" value=<%=data.username %> required>
 						<input type="text" name="exp" value=<%=data.exp%> required>
-
-
 						<input type="password" value="<%= data.password%>" name="password" placeholder="Insert Password"
 							required />
 
