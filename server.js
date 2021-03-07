@@ -25,6 +25,7 @@ app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
 app.post('/message/:id', sendMessage);
 app.get('/', home);
+app.post('/schedule/:id',saveSchedule);
 
 function home(req, res) {
   res.render('index');
@@ -69,7 +70,6 @@ app.get('/login/acconut/:id', handleAcconutPage);
 function handleAcconutPage(req, res) {
   let id = req.params.id;
   let selectFromDB = 'SELECT * FROM users WHERE id = $1;';
-  // console.log(req);
   let safeValue = [id];
   return client.query(selectFromDB, safeValue).then(data => {
     let accountDB = data.rows[0];
@@ -80,6 +80,7 @@ function handleAcconutPage(req, res) {
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
         res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
+      
     }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
     })
@@ -156,14 +157,12 @@ app.post('/signUp', (req, res) => {
   let password = body.password;
   let phoneNum = body.phone_num;
   let status = body.status;
-  console.log(location, 'location');
   let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;'
 
   let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status];
 
 
   client.query(insertQuery, safeValue).then(data => {
-    console.log(data.rows[0]);
     res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
   }).catch(error => {
     res.status(500).send(`Sorry an error has accord while loading the page  ${error} `);
@@ -180,7 +179,6 @@ function handleContactPage(req, res) {
 }
 app.post("/contact", handleContactUsForm);
 function handleContactUsForm(req, res) {
-  console.log(req.params.id)
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
   let safeValue = [req.body.text, req.params.id];
   client.query(SQL, safeValue).then(() => {
@@ -222,7 +220,6 @@ app.put('/update/:id', (req, res) => {
     edit.exp,
     req.params.id
   ]
-  console.log(SQL, safeValues)
   client.query(SQL, safeValues)
     .then(res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`))
 
@@ -236,6 +233,19 @@ app.get('/aboutus', (req, res) => {
 
 })
 
+
+
+
+function saveSchedule(req,res){
+  let input = req.body;
+  let id = req.params.id;
+  let insartQuery = 'INSERT INTO schedule (hours_avl_from,hours_avl_to,day,user_id) VALUES ($1,$2,$3,$4) RETURNING *;';
+  let safeValue = [input.from,input.until,input.date, id];
+  client.query(insartQuery,safeValue).then(dataSchedule =>{
+    res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
+  })
+
+}
 // ____________________________________________________________________________
 
 client.connect().then(() => {
@@ -253,7 +263,6 @@ const { search } = require('superagent');
 const { query } = require('express');
 
 function sendMessage(req, res) {
-  console.log(req.body);
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -332,28 +341,27 @@ function addQueToDB(work, subject, que, id) {
 
 function renderQue(req, res) {
   return getfromQueDB(req.params.id).then(data => {
-    console.log(data)
     res.render('pages/quePage.ejs', data);
   })
 }
-function getfromQueDB(id) {
-  return client.query(`SELECT * FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData => {
-    return client.query('SELECT * FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;', [id]).then(ansdata => {
-      return client.query('SELECT * FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData => {
-        return { queData: queData.rows[0], ansdata: ansdata.rows, repData: repData.rows }
-      })
-
+function getfromQueDB(id){
+  return client.query(`SELECT ask.id as id, ASK.que as que, Ask.user_id as user_id, Ask.is_answered as is_answered, Ask.subject as subject,Ask.type_of_work as type_of_work,USERS.username as username, USERS.img as img FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData=>{
+    return client.query('SELECT answer.id as id,answer.que_id as que_id, answer.answer as answer,answer.answer is_true,answer.user_id as user_id, USERS.username as username, USERS.img as img  FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;',[id]).then(ansdata=>{
+      return client.query('SELECT reply.id as id ,reply.ans_id as ans_id, reply.mess as mess,reply.user_id as user_id,USERS.username as username, USERS.img as img  FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData=>{
+        return{queData:queData.rows[0],ansdata:ansdata.rows,repData:repData.rows}
+      });
     });
-  })
-}
-function renderAddQuePage(req, res) {
+  });
+};
+
+function renderAddQuePage(req,res){
+
   res.render('pages/addNewQuestion')
 };
 
 app.post('/addAns/:id', addAnswer);
 
 function addAnswer(req, res) {
-  console.log(req.params.id, req.body.answer, req.body.user_id);
   return saveAnsInDB(req.params.id, req.body.answer, req.body.user_id).then(id => {
     res.redirect(`/question/${id}`)
   }).catch(error => {
@@ -369,16 +377,17 @@ function saveAnsInDB(que_id, answer, user_id) {
   });;
 };
 app.post('/addReply/:id', addReply)
-function addReply(req, res) {
-  return saveRepInDB(req.params.id, req.body.mess, req.body.user_id).then(id => {
+function addReply(req,res){
+  return saveRepInDB(req.params.id,req.body.mess,req.body.user_id,req.body.que_id).then(id=>{
     res.redirect(`/question/${id}`)
   }).catch(error => {
     console.log(error);
   });
 };
-function saveRepInDB(ans_id, mess, user_id) {
-  console.log(ans_id, mess, user_id, 'que_id');
-  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)', [user_id, ans_id, mess]).then(data => {
+
+function saveRepInDB(ans_id, mess,user_id,que_id){
+  console.log(ans_id,mess,user_id,'que_id');
+  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)',[user_id,ans_id,mess]).then(data =>{
     return que_id;
   }).catch(error => {
     console.log(error);

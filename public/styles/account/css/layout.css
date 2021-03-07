@@ -253,7 +253,7 @@ ul.icons {
 
         #nav ul li a {
             display: block;
-            padding: 3.5em 1.5em 0.5em 1.5em;
+            padding: 3em 1.5em 0.5em 1.5em;
             color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
             outline: 0;
@@ -399,7 +399,7 @@ ul.icons {
     /* Header */
 
         #header {
-            width: 300px;
+            width: 325px;
         }
 
     /* Footer */
@@ -715,4 +715,9 @@ ul.icons {
 }
 #map{
     margin: auto;
+}
+
+.time{
+    text-align: center;
+
 }
