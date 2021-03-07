@@ -78,7 +78,6 @@ function handleAcconutPage(req, res) {
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
-        console.log(dataSchedule.rows[0]);
         res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
       
@@ -114,16 +113,34 @@ app.post('/login', (req, res) => {
   let quer = req.body;
   var email = quer.email;
   var pass = quer.password;
-  let sql = `SELECT * FROM users WHERE email = $1 and password = $2;`;
-  client.query(sql, [email, pass]).then((result) => {
-    if (result.rowCount) {
-      status = 'Ok'
-      res.redirect(`/login/acconut/${result.rows[0].id}?is_not_enable=${false}`)
-    } else {
-      status = 'Wrong Email Or Password'
-      res.redirect('/log_Page');
-    }
-  })
+
+  if (req.query.role) {
+    let sqlForSelectAdmin = 'SELECT * FROM users WHERE role = 3;'
+    client.query(sqlForSelectAdmin).then(admins => {
+      if (checkIfTheAdminInDataBase(admins, email, pass)) {
+        client.query("SELECT * FROM contact;").then(contactTable => {
+          res.render("pages/cotactUsMessages", { object: contactTable.rows, faceImages: arrayOfImages })
+        }).catch(error => {
+          res.render("pages/error", { error: error });
+        })
+      } else {
+        // give alert that "you are not admin"
+      }
+    }).catch(error => {
+      res.render("pages/error", { error: error });
+    })
+  } else {
+    let sql = `SELECT * FROM users WHERE email = $1 and password = $2;`;
+    client.query(sql, [email, pass]).then((result) => {
+      if (result.rowCount) {
+        status = 'Ok'
+        res.redirect(`/login/acconut/${result.rows[0].id}?is_not_enable=${false}`)
+      } else {
+        status = 'Wrong Email Or Password'
+        res.redirect('/log_Page');
+      }
+    })
+  }
 })
 
 
@@ -165,15 +182,23 @@ function handleContactUsForm(req, res) {
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
   let safeValue = [req.body.text, req.params.id];
   client.query(SQL, safeValue).then(() => {
-
-    client.query("SELECT * FROM contact;").then(contactTable => {
-      res.render("pages/cotactUsMessages", { object: contactTable.rows, faceImages: arrayOfImages })
-    }).catch(error => {
-      res.render("pages/error", { error: error });
-    })
+    res.render('index');
   }).catch(error => {
     res.render("pages/error", { error: error });
   })
+}
+
+// ==============[SALAH] login =====================
+
+function checkIfTheAdminInDataBase(admins, email, pass) {
+  let checker = false;
+  let ourAdmins = admins.rows;
+  ourAdmins.forEach(oneAdmen => {
+    if (email === oneAdmen.email && pass === oneAdmen.password) {
+      checker = true;
+    }
+  });
+  return checker;
 }
 
 
@@ -235,6 +260,7 @@ client.connect().then(() => {
 
 var nodemailer = require('nodemailer');
 const { search } = require('superagent');
+const { query } = require('express');
 
 function sendMessage(req, res) {
   var transporter = nodemailer.createTransport({
@@ -337,7 +363,6 @@ app.post('/addAns/:id', addAnswer);
 
 function addAnswer(req, res) {
   return saveAnsInDB(req.params.id, req.body.answer, req.body.user_id).then(id => {
-
     res.redirect(`/question/${id}`)
   }).catch(error => {
     console.log(error);
@@ -354,7 +379,6 @@ function saveAnsInDB(que_id, answer, user_id) {
 app.post('/addReply/:id', addReply)
 function addReply(req,res){
   return saveRepInDB(req.params.id,req.body.mess,req.body.user_id,req.body.que_id).then(id=>{
-
     res.redirect(`/question/${id}`)
   }).catch(error => {
     console.log(error);
