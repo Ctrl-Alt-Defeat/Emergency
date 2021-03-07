@@ -256,19 +256,16 @@ app.put('/update/:id', (req, res) => {
 // ______________________________________________________________________//
 app.get('/aboutus', (req, res) => {
   res.render('pages/aboutus');
-
-
 })
-
-
-
 
 function saveSchedule(req,res){
   let input = req.body;
   let id = req.params.id;
+  console.log(input,id);
   let insartQuery = 'INSERT INTO schedule (hours_avl_from,hours_avl_to,day,user_id) VALUES ($1,$2,$3,$4) RETURNING *;';
   let safeValue = [input.from,input.until,input.date, id];
   client.query(insartQuery,safeValue).then(dataSchedule =>{
+    console.log(dataSchedule.rows)
     res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
   })
 
