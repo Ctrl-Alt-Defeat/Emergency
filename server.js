@@ -402,7 +402,7 @@ app.post('/login', (req, res) => {
           res.render("pages/error", { error: error });
         })
       } else {
-        // give alert that "you are not admin"
+        res.render("pages/handleTheLier")
       }
     }).catch(error => {
       res.render("pages/error", { error: error });
