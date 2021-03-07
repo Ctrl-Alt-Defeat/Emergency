@@ -2,7 +2,7 @@
     background-color: #FBEEE2;
     padding-top: 11rem;
     display: grid;
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:1fr 1fr 1fr 1fr;
     column-gap:2rem;
     
 }
@@ -10,7 +10,7 @@
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 70%;
+    width: 50%;
     border-radius: 5px;
     margin: auto auto;
     margin-bottom: 2rem;
@@ -27,4 +27,22 @@
   
   .container3 {
     padding: 2px 16px;
+  }
+
+  @media (max-width: 1028px) {
+    .main-contactUsMessages { 
+      grid-template-columns:1fr 1fr 1fr; 
+  }
+  }
+
+  @media (max-width: 800px) {
+    .main-contactUsMessages { 
+      grid-template-columns:1fr 1fr; 
+  }
+  }
+
+  @media (max-width: 550px) {
+    .main-contactUsMessages { 
+      grid-template-columns:1fr; 
+  }
   }
