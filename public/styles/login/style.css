@@ -67,7 +67,7 @@ button.fb {
 	color: #fff;
 	text-transform: uppercase;
 	border-radius: 4px;
-	border: 1px solid #29487d;
+	border: 1px solid white;
 	cursor: pointer;
 	margin-bottom: 20px;
 	transition:all 0.3s linear;
@@ -75,6 +75,7 @@ button.fb {
 button.fb:hover {
 	background: #fff;
 	color: #ff7d00;
+	border: 1px solid #ff7d00;
 }
 
 button.form-btn {

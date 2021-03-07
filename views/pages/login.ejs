@@ -49,11 +49,11 @@
         </form>
 
 
-        <form class="signIn" action="/login" method="post">
+        <form class="signIn" action="/login" method="post" id = 'signIn'>
         
             <h3>Welcome</br>Back !</h3>
-            <button class="fb" type="button" onclick="changeColor()" id = 'admin' >Log In As Admin</button>
-            <p>- or -</p>
+            <button class="fb" type="button" onclick="changeColor()" >Log In As Admin</button>
+            <p id = 'admin' style="display: none">- Start As Admin -</p>
             <input type="email" placeholder="Insert eMail" name="email" autocomplete='off' reqired />
             <input type="password" placeholder="Insert Password" name="password" reqired />
             <button class="form-btn sx back" type="button">Back</button>
