@@ -6,9 +6,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #fff600;
-  /* background-image: url("img/yellow-wall.jpg");
-  background-size: cover; */
+  background-color: #FBEEE2;
+  padding-top: 11rem;
 }
 
 .contact .content {
@@ -19,12 +18,12 @@
 .contact .content h2 {
   font-size: 36px;
   font-weight: 500;
-  color: #26001b;
+  color: #87613d;
 }
 
 .contact .content p {
   font-weight: 300;
-  color: #26001b;
+  color: #ff7d00;
 }
 
 .container {
@@ -62,14 +61,14 @@
   display: flex;
   margin-left: 20px;
   font-size: 16px;
-  color: #810034;
+  color: #ff7d00;
   flex-direction: column;
   font-weight: 300;
 }
 
 .container .contactInfo .box .text h3 {
   font-weight: 500;
-  color: #26001b;
+  color: #87613d;
 }
 
 .contactForm {
@@ -80,7 +79,7 @@
 
 .contactForm h2 {
   font-size: 30px;
-  color: #333;
+  color: #87613d;
   font-weight: 500;
 }
 
@@ -97,19 +96,28 @@
   font-size: 16px;
   margin: 10px 0;
   border: none;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid #ffd150;
   outline: none;
   resize: none;
 }
 
 .contactForm .inputBox span {
-    position: absolute;
-    left: 0;
-    padding: 5px 0;
-    font-size: 16px;
-    margin: 10px 0;
-    pointer-events: none;
-    transition: 0.5s;
-    color: #666;
+  position: absolute;
+  left: 0;
+  padding: 5px 0;
+  font-size: 16px;
+  margin: 10px 0;
+  pointer-events: none;
+  transition: 0.5s;
+  color: #ffd150;
+}
 
+@media (max-width: 1028px) {
+  .contact {
+    padding-top: 20rem;
+  }
+}
+
+.icon-color{
+color: #ffd150;
 }
