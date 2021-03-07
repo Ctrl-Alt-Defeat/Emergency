@@ -127,66 +127,30 @@
 			</div>
 			<div id="map" style="height: 550px;width: 600px;"></div>       
 		</section>
+
 		<section id="portfolio" class="two">
-			<div class="container">
+			<h3>Feedbacks</h3>
 
-				<header>
-					<h2>Feedbacks</h2>
-				</header>
+			<form class="feedback" action="/feedback/<%= data.id%>" method="POST" >
+				<input type="hidden" name="ownerid"value = '1'>
+				<input type="text" name="feedback" placeholder="Do you have any feedback?" style="width: 50%; margin: auto;" required>
+				<button type="submit">submit</button>
+			</form>
 
-				<p>This is some of my latest project:-</p>
-
-				<div class="row">
-					<div class="col-4 col-12-mobile">
-						<article class="item">
-							<a href="https://www.youtube.com/watch?v=heD52BxCjn4&feature=youtu.be"
-								class="image fit"><img src="images/phoenix.png" alt="" /></a>
-							<header>
-								<h3>PHOENIX</h3>
-							</header>
-						</article>
-						<article class="item">
-							<a href="https://github.com/areejobaid94/Construction-Workers-Hub" class="image fit"><img
-									src="images/pic03.jpg" alt="" /></a>
-							<header>
-								<h3>CONSTRUCTION WORKER </h3>
-							</header>
-						</article>
+			
+			<% dataFeedbacks.forEach(ele=>{%>
+				<form action="/deleteFeedback/<%= ele.id%>?_method=DELETE" method="POST">
+					<div class="container">
+						<a class="card1" >
+						<img src='' height='60px' width='60px'>
+						<h3><%= ele.username %></h3>
+						<p class="small"><%= ele.text %></p>	
+						<button id='deletebtn' type="submit" class="delete"> delete </button>
+						</a>
 					</div>
-					<div class="col-4 col-12-mobile">
-						<article class="item">
-							<a href="https://www.youtube.com/watch?v=FNhja-zZhBE&feature=youtu.be"
-								class="image fit"><img src="images/tafran.png" alt="" /></a>
-							<header>
-								<h3>TAFRAN</h3>
-							</header>
-						</article>
-						<article class="item">
-							<a href="https://areejobaid94.github.io/lab-03/" class="image fit"><img src="images/lab.png"
-									alt="" /></a>
-							<header>
-								<h3>Lab 05</h3>
-							</header>
-						</article>
-					</div>
-					<div class="col-4 col-12-mobile">
-						<article class="item">
-							<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-							<header>
-								<h3>diet-guide-website</h3>
-							</header>
-						</article>
-						<article class="item">
-							<a href="https://areejobaid94.github.io/bus-mall/" class="image fit"><img
-									src="images/bus.png" alt="" /></a>
-							<header>
-								<h3>bus-mall</h3>
-							</header>
-						</article>
-					</div>
-				</div>
+				</form>	
+			<%}) %>
 
-			</div>
 		</section>
 		<!-- Portfolio -->
 		<section id="Edit" class="two" style="display: <%= visible%>;">
