@@ -9,7 +9,7 @@
 
 .contactForm .inputBox input[type="submit"] {
   width: 100px;
-  background: #ff005c;
+  background: #ff7d00;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -20,7 +20,7 @@
 @media (max-width: 991px)
 {
     .contact {
-        padding: 50px;
+        padding-top: 13rem;
     }
     .container {
         flex-direction: column;
