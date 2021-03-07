@@ -74,7 +74,7 @@ function handleAcconutPage(req, res) {
   return client.query(selectFromDB, safeValue).then(data => {
     let accountDB = data.rows[0];
     let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username);
-    let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
+    let selectFromFeedbacksDB = 'SELECT users.img as img, users.username as username, users.id as user_id, feedback.id as id, feedback.text as text FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
@@ -326,6 +326,7 @@ function renderAddQuePage(req,res){
 app.post('/addAns/:id',addAnswer);
 
 function addAnswer(req,res){
+  console.log(req.params.id,req.body.answer,req.body.user_id);
   return saveAnsInDB(req.params.id,req.body.answer,req.body.user_id).then(id=>{
     res.redirect(`/question/${id}`)
   }).catch(error=>{
