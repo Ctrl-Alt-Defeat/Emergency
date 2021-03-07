@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <section>
+            <div class='card'>
+                <h3>
+                    <%= queData.username %>
+                </h3>
+                <img src="<%= queData.img %>" alt="">
+                <label for="isAns">
+                    Is Answered: <input type="radio" <%=queData.is_answered==1 ? "checked" : '' %> >
+                </label>
+                <h4>
+                    <%= queData.subject %>
+                </h4>
+                <p>
+                    <%= queData.que %>
+                </p>
+                <button onclick="showAddAnswer()">Add Answer</button>
+                <form action="/addAns/<%= queData.id %>" method="POST" style="display: none;" id = 'ansForm'>
+                    <label for="answer">
+                        Your Answer:
+                        <input type="text" name="answer">
+                    </label>
+                    <input type="hidden" name="user_id" id = 'user_id'>
+                    <input type="submit" value="Add Answer">
+                </form>
+            </div>
+                <% ansdata.forEach(ele=>{ %>
+                    <h3>
+                        <%= ele.username %>
+                    </h3>
+                    <img src="<%= ele.img %>" alt="">
+                    <label for="isAns">
+                        Is Answered: <input type="radio" <%=ele.is_true==1 ? "checked" : '' %> >
+                    </label>
+                    <p>
+                        <%= ele.answer %>
+                    </p>
+                    <button onclick="showAddReply('<%= ele.id %>')">Add Reply</button>
+                    <form action="/addReply/<%= ele.id %>" method="POST" style="display: none;" id = 'repForm<%=ele.id%>'>
+                        <label for="mess">
+                            Your message:
+                            <input type="text" name="mess">
+                        </label>
+                        <input type="hidden" name="user_id" id = 'user_id'>
+                        <input type="submit" value="Add Reply">
+                    </form> 
+                    <% repData.forEach (repEle=> {%>
+                        <% if (repEle.ans_id == ele.id){%>
+                        <h3>
+                            <%= repEle.username %>
+                        </h3>
+                        <img src="<%= repEle.img %>" alt="">
+                        <p>
+                            <%= repEle.mess %>
+                        </p>
+                        <%}%>
+                    <%})%>
+                    <%})%>
+        </section>
+    </main>
+    <script src="/js/quePage.js"></script>
+    <footer></footer>
+</body>
+
+</html>

@@ -4,9 +4,10 @@ DROP TABLE IF EXISTS contact;
 DROP TABLE IF EXISTS reply;
 DROP TABLE IF EXISTS answer;
 DROP TABLE IF EXISTS ask;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY NOT NULL,
     full_name VARCHAR(255),
     role numeric,
     location VARCHAR(255),

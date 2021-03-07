@@ -1,0 +1,1 @@
+document.getElementById('addQue').action = `addQue/${localStorage.getItem('id')}`;

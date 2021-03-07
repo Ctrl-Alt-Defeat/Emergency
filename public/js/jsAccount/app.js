@@ -69,3 +69,6 @@ map.on('load', function () {
         map.getCanvas().style.cursor = '';
     });
 });
+
+
+isUserAccount == "false" ? window.localStorage.setItem('id' ,id ):console.log('no')
