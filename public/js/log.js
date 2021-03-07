@@ -19,18 +19,18 @@ if (status != 'Ok') {
     $(".signUp").removeClass("active-sx");
     $(".signIn").removeClass("inactive-dx");
 }
-
-function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
 var options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0
 };
 
+function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
 navigator.geolocation.getCurrentPosition(data => {
     let coordinates = `${data.coords.longitude},${data.coords.latitude}`;
     document.getElementById('location').value = coordinates;
 }, error, options);
+

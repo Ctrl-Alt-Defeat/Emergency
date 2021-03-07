@@ -34,11 +34,11 @@ function getUsersLocations(req, res) {
   })
 };
 function getAllLocationsFromDB(work, experience) {
-  let selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE ask.type_of_work = $2 and exp >= $1 and role = 1';
+  let selectQuery = 'SELECT * FROM USERS WHERE type_of_work = $2 and exp >= $1 and role = 1';
   experience = experience || 0;
   let safeArr = [experience, work]
   if (work == 'All') {
-    selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE exp >= $1 and role = 1'
+    selectQuery = 'SELECT * FROM USERS WHERE exp >= $1 and role = 1'
     safeArr = [experience]
   };
   return client.query(selectQuery, safeArr).then(data => {
@@ -112,7 +112,7 @@ app.post('/signUp', (req, res) => {
   let password = body.password;
   let phoneNum = body.phone_num;
   let status = body.status;
-
+  console.log(location,'location');
   let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;'
 
   let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName,status];
@@ -210,3 +210,77 @@ function searchForQue(work,subject){
   })
 };
 
+app.get('/addQuestion',renderAddQuePage);
+app.get('/question/:id',renderQue)
+
+app.post('/addQue/:id',addQue);
+
+function addQue(req,res){
+  return addQueToDB(req.body["type_of_work"],req.body.subject,req.body.que, req.params.id).then(data=>{
+    res.redirect(`/question/${data.id}`)
+  }).catch(error=>{
+    console.log(error);
+  });
+}
+
+function addQueToDB(work,subject,que,id){
+  return client.query('INSERT INTO Ask (type_of_work,subject,que,user_id,is_answered) values ($1,$2,$3,$4,$5) RETURNING *',[work,subject,que,id,0]).then(data=>{
+    return data.rows[0];
+  }).catch(error=>{
+    console.log(error);
+  });
+}
+
+function renderQue (req, res){
+  return getfromQueDB(req.params.id).then(data=>{
+    console.log(data)
+    res.render('pages/quePage.ejs',data);
+  })
+}
+function getfromQueDB(id){
+  return client.query(`SELECT * FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData=>{
+    return client.query('SELECT * FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;',[id]).then(ansdata=>{
+      return client.query('SELECT * FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData=>{
+        return{queData:queData.rows[0],ansdata:ansdata.rows,repData:repData.rows}
+      })
+
+    });
+  })
+}
+function renderAddQuePage(req,res){
+  res.render('pages/addNewQuestion')
+};
+
+app.post('/addAns/:id',addAnswer);
+
+function addAnswer(req,res){
+  return saveAnsInDB(req.params.id,req.body.answer,req.body.user_id).then(id=>{
+    res.redirect(`/question/${id}`)
+  }).catch(error=>{
+    console.log(error);
+  });
+};
+function saveAnsInDB(que_id, answer,user_id){
+  console.log(que_id,'que_id');
+  return client.query('INSERT INTO answer (user_id,que_id,answer,is_true) VALUES ($1,$2,$3,$4)',[user_id,que_id,answer,0]).then(data =>{
+    return que_id;
+  }).catch(error=>{
+    console.log(error);
+  });;
+};
+app.post('/addReply/:id', addReply)
+function addReply(req,res){
+  return saveRepInDB(req.params.id,req.body.mess,req.body.user_id).then(id=>{
+    res.redirect(`/question/${id}`)
+  }).catch(error=>{
+    console.log(error);
+  });
+};
+function saveRepInDB(ans_id, mess,user_id){
+  console.log(ans_id,mess,user_id,'que_id');
+  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)',[user_id,ans_id,mess]).then(data =>{
+    return que_id;
+  }).catch(error=>{
+    console.log(error);
+  });;
+};

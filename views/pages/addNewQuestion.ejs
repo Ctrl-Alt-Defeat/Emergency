@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method='POST' id = 'addQue'>
+        <label for="Work_type">
+            Type Of Work
+            <select name="type_of_work" id="">
+                <option value="" disabled selected>type of work</option>
+                <option value="Smith">Smith</option>
+                <option value="Carpenter">Carpenter</option>
+                <option value="Plumber">Plumber</option>
+                <option value="Builder">Builder</option>
+                <option value="Paint">Painter</option>
+                <option value="other">-other-</option>
+            </select>
+        </label>
+        <label for="subject">
+            Subject
+            <input type="text" name="subject">
+        </label>
+        <label for="que"> 
+            question
+            <input type="text" name = 'que'>
+        </label>
+        <input type="submit" value="Add">
+    </form>
+    <script src="/js/addque.js"></script>
+</body>
+</html>
