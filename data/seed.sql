@@ -1,4 +1,1 @@
-UPDATE users
-SET status = 1, role = 1
-WHERE   id=1;
-
+INSERT INTO schedule (day,hours_avl_from,hours_avl_to) VALUES ('1','1','1'); 
