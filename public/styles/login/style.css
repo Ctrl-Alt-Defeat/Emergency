@@ -59,7 +59,7 @@ button{
 
 button.fb {
 	border: none;
-	background: #3b5998;
+	background: #ff7d00;
 	width: 160px;
 	height: 25px;
 	font-family: 'Roboto', sans-serif;
@@ -74,7 +74,7 @@ button.fb {
 }
 button.fb:hover {
 	background: #fff;
-	color: #3b5998;
+	color: #ff7d00;
 }
 
 button.form-btn {

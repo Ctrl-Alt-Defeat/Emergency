@@ -34,3 +34,6 @@ navigator.geolocation.getCurrentPosition(data => {
     document.getElementById('location').value = coordinates;
 }, error, options);
 
+function changeColor(){
+    
+}
