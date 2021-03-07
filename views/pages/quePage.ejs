@@ -53,7 +53,8 @@
                             Your message:
                             <input type="text" name="mess">
                         </label>
-                        <input type="hidden" name="user_id" id = 'user_id'>
+                        <input type="hidden" name="user_id" id = 'user_id_replay'>
+                        <input type="hidden" name="que_id" value="<%= queData.id  %>">
                         <input type="submit" value="Add Reply">
                     </form> 
                     <% repData.forEach (repEle=> {%>

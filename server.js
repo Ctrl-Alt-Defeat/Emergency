@@ -310,15 +310,15 @@ function renderQue (req, res){
   })
 }
 function getfromQueDB(id){
-  return client.query(`SELECT * FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData=>{
-    return client.query('SELECT * FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;',[id]).then(ansdata=>{
-      return client.query('SELECT * FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData=>{
+  return client.query(`SELECT ask.id as id, ASK.que as que, Ask.user_id as user_id, Ask.is_answered as is_answered, Ask.subject as subject,Ask.type_of_work as type_of_work,USERS.username as username, USERS.img as img FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData=>{
+    return client.query('SELECT answer.id as id,answer.que_id as que_id, answer.answer as answer,answer.answer is_true,answer.user_id as user_id, USERS.username as username, USERS.img as img  FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;',[id]).then(ansdata=>{
+      return client.query('SELECT reply.id as id ,reply.ans_id as ans_id, reply.mess as mess,reply.user_id as user_id,USERS.username as username, USERS.img as img  FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData=>{
         return{queData:queData.rows[0],ansdata:ansdata.rows,repData:repData.rows}
-      })
-
+      });
     });
-  })
-}
+  });
+};
+
 function renderAddQuePage(req,res){
   res.render('pages/addNewQuestion')
 };
@@ -343,13 +343,13 @@ function saveAnsInDB(que_id, answer,user_id){
 };
 app.post('/addReply/:id', addReply)
 function addReply(req,res){
-  return saveRepInDB(req.params.id,req.body.mess,req.body.user_id).then(id=>{
+  return saveRepInDB(req.params.id,req.body.mess,req.body.user_id,req.body.que_id).then(id=>{
     res.redirect(`/question/${id}`)
   }).catch(error=>{
     console.log(error);
   });
 };
-function saveRepInDB(ans_id, mess,user_id){
+function saveRepInDB(ans_id, mess,user_id,que_id){
   console.log(ans_id,mess,user_id,'que_id');
   return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)',[user_id,ans_id,mess]).then(data =>{
     return que_id;
