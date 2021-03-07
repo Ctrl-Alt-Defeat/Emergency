@@ -41,7 +41,7 @@ function getUsersLocations(req, res) {
   })
 };
 function getAllLocationsFromDB(work, experience) {
-  let selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE type_of_work = $2 and exp >= $1 and role = 1';
+  let selectQuery = 'SELECT * FROM USERS left outer join schedule ON (USERS.id = schedule.user_id) WHERE ask.type_of_work = $2 and exp >= $1 and role = 1';
   experience = experience || 0;
   let safeArr = [experience, work]
   if (work == 'All') {
@@ -221,6 +221,7 @@ client.connect().then(() => {
 
 
 var nodemailer = require('nodemailer');
+const { search } = require('superagent');
 
 function sendMessage(req, res) {
   console.log(req.body);
@@ -240,6 +241,7 @@ function sendMessage(req, res) {
 
 
 
+
   // ==============================home page =============================
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -251,4 +253,31 @@ function sendMessage(req, res) {
     }
   });
 }
+
+app.get('/ask', renderAskPage);
+
+function renderAskPage(req,res){
+  return searchForQue().then(data =>{
+    res.render('pages/ask',{data:data})
+  }).catch(error=>{
+    console.log(error);
+  });
+};
+app.post('/ask', searchAskPage);
+function searchAskPage(req,res){
+  return searchForQue(req.body["type_of_work"],req.body.subject).then(data =>{
+    res.render('pages/ask',{data:data})
+  }).catch(error=>{
+    console.log(error);
+  });
+};
+
+function searchForQue(work,subject){
+  let queyStr = work & subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 and subject = $2;': work ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;': subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;':'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
+  let safeArr =  work & subject ? [work,subject]: work ? [work]: subject ? [subject]: [];
+  return client.query(queyStr,safeArr).then(data=>{
+    return data.rows;
+  })
+};
+
 

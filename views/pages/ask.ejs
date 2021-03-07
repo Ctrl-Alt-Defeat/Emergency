@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask</title>
+</head>
+<body>
+    <header></header>
+    <main>
+        <form method="POST" action="/ask" >
+            <label for="Work_type">
+                Type Of Work
+                <select name="type_of_work" id="">
+                    <option value="" disabled selected>type of work</option>
+                    <option value="Smith">Smith</option>
+                    <option value="Carpenter">Carpenter</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Builder">Builder</option>
+                    <option value="Paint">Painter</option>
+                    <option value="other">-other-</option>
+                </select>
+            </label>
+            <label for="subject">
+                Subject
+                <input type="text" name="subject">
+            </label>
+            <input type="submit" value="Search">
+        </form>
+        <a href="/addQuestion"><button >AddNewQuestion</button></a> 
+        <section>
+            <% data.forEach (ele => { %>
+                <div class = 'card'>
+                    <h3><%= ele.username %></h3>
+                    <img src="<%= ele.img %>" alt="">
+                    <label for="isAns">
+                        Is Answered: <input type="radio" <%= ele.is_answered == 1 ? "checked" : '' %> >
+                    </label>
+                    <h4><%= ele.subject %></h4>
+                    <p><%= ele.que %></p>
+
+                </div>
+            <% }) %>
+        </section>
+        <script src="/js/ask.js"></script>   
+    </main>
+    <footer></footer> 
+</body>
+</html>

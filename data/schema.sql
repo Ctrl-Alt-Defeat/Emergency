@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS contact;
 DROP TABLE IF EXISTS reply;
 DROP TABLE IF EXISTS answer;
 DROP TABLE IF EXISTS ask;
-DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -48,17 +47,17 @@ CREATE TABLE users (
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 
-
-    CREATE TABLE ask (
+  CREATE TABLE ask (
     id SERIAL PRIMARY KEY,
     user_id int,
-    que numeric,
-    is_answered VARCHAR(250),
+    que VARCHAR(1000),
+    subject VARCHAR(250),
+    type_of_work VARCHAR(250),
+    is_answered numeric,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
   
-
-    CREATE TABLE answer (
+  CREATE TABLE answer (
     id SERIAL PRIMARY KEY,
     user_id int,
     que_id int,
@@ -77,6 +76,3 @@ CREATE TABLE users (
     CONSTRAINT fk_ans_id FOREIGN KEY (ans_id) REFERENCES answer (id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
-
-
--- INSERT INTO  ###(title,,description) VALUES ('1','2');
