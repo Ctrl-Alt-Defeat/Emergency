@@ -202,15 +202,20 @@
 
 		<input type="text"  name="full_name" value=<%= data.full_name%> placeholder="abd" required>
 
-		<select name="status" required>
+		<select name="status" required value =  '<%= data.status%>'>
 			<option value="" disabled selected>Select your status</option>
-			<option value="1">Available</option>
-			<option value="2">not Available</option>
+			<% if( data.status == '0' ){ %>
+				<option value="1" selected>not Available</option>
+				<option value="0">Available</option>
+			<%}else{%>
+				<option value="0"selected>Available</option>
+				<option value="1" >not Available</option>
+			<%}%>
 		</select>
 
 		<input type="hidden"  name="location" id = 'location'>
 
-		<select name="type_of_work" id="">
+		<select name="type_of_work" id="" value ='<%= data.type_of_work%>'>
 			<option value="" disabled selected>type of work    </option>
 			<option value="Smith">Smith</option>
 			<option value="Carpenter">Carpenter</option>
@@ -224,12 +229,10 @@
 		<input class="w100" type="email"  name="email" value=<%= data.email %> reqired autocomplete='off' />
 
 		<input type="text"  name="user_name" value=<%= data.username %> required>
-		<input type="text"  name="exp" value=<%= data.exp%> required/>
+		<input type="text"  name="exp" value=<%= data.exp%> required>
 
 
-		<input type="password"  name="password" placeholder="Insert Password" required/>
-
-		<input type="password" placeholder="Verify Password" required/>
+		<input type="password" value="<%= data.password%>"  name="password" placeholder="Insert Password" required/>
 
 		<input type="text"  name="phone_num" value=<%= data.phone_num %> required>
 
