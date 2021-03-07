@@ -294,3 +294,30 @@ br.clear {
 
   }
 
+#editform , .status{
+    display: flex;
+    max-width: 50%;
+    margin: 5px 5px;
+    line-height: 10px;
+    height: 20px;
+color: #ff7d00;
+float: left;
+ border: none;
+/* border-bottom: solid 2px black;  */
+-webkit-appearance: none;
+}
+
+.near{
+    display: flex;
+    flex-direction: row;
+}
+
+.h3{
+    font-family: 'Dosis';
+    font-size: 35px;
+    color: #ff7d00;
+}
+span{
+    color: #ff7d00;
+
+}
