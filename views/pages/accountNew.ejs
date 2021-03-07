@@ -11,8 +11,8 @@
 	<link rel="stylesheet" href="/styles/account/css/row.css" />
 	<link rel="stylesheet" href="/styles/account/css/form.css" />
 	<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body class="is-preload">
@@ -21,37 +21,40 @@
 	<div id="header">
 
 		<div class="top">
-			<% let visible= is_not_enable == 'true' ?'none': 'block' %>
-			<% let visibleCont = is_not_enable == 'true' ? 'block':'none'%>
-			<% let workerStutas = data.status == 0? 'Not Available' : 'Available'%>
-			<% let workerRole = data.role == 1? 'Worker' : 'Business Owner'%>
+			<% let visible=is_not_enable=='true' ?'none': 'block' %>
+				<% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
+					<% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
+						<% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
 
-					<!-- Logo -->
-					<div id="logo">
-						<span class="image avatar48"><img src="<%= data.img %>" alt="" /></span>
-						
-						<h1 id="title">
-							<%= data.username %>
-						</h1>
-						<p>
-							<%= data.type_of_work%>
-						</p>
-					</div>
+							<!-- Logo -->
+							<div id="logo">
+								<span class="image avatar48"><img src="<%= data.img %>" alt="" /></span>
 
-					<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li><a href="#top" id="top-link"><span class="far fa-address-card">About me</span></a></li>
-							<li><a href="#portfolio" id="portfolio-link"><span
-										class="far fa-comment">Feedbacks</span></a></li>
-							<li><a href="#Edit" style="display: <%= visible%>;" id="portfolio-link"><span
-										class="far fa-edit">Edit Profile</span></a></li>
-							<li><a href="#schedule" id="about-link"><span class="far fa-calendar-alt">Schedule</span></a>
-							</li>
-							<li><a href="#contact" id="contact-link"><span class="icon fa-envelope">Contact</span></a>
-							</li>
-						</ul>
-					</nav>
+								<h1 id="title">
+									<%= data.username %>
+								</h1>
+								<p>
+									<%= data.type_of_work%>
+								</p>
+							</div>
+
+							<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a href="#top" id="top-link"><span class="far fa-address-card">About
+												me</span></a></li>
+									<li><a href="#portfolio" id="portfolio-link"><span
+												class="far fa-comment">Feedbacks</span></a></li>
+									<li><a href="#Edit" style="display: <%= visible%>;" id="portfolio-link"><span
+												class="far fa-edit">Edit Profile</span></a></li>
+									<li><a href="#schedule" id="about-link"><span
+												class="far fa-calendar-alt">Schedule</span></a>
+									</li>
+									<li><a href="#contact" id="contact-link"><span
+												class="icon fa-envelope">Contact</span></a>
+									</li>
+								</ul>
+							</nav>
 
 		</div>
 
@@ -125,7 +128,7 @@
 				</div>
 
 			</div>
-			<div id="map" style="height: 550px;width: 600px;"></div>       
+			<div id="map" style="height: 550px;width: 600px;"></div>
 		</section>
 		<section id="portfolio" class="two">
 			<div class="container">
@@ -193,7 +196,7 @@
 			<div class="container">
 
 
-<!-- ________________________________________________________________________________________________________ -->
+				<!-- ________________________________________________________________________________________________________ -->
 
 
 <div class="ss" >
@@ -231,11 +234,7 @@
 					</select>
 					</div>
 
-
-
-		<input type="hidden"  name="location" id = 'location'>
-
-	
+						<input type="hidden" name="location" id='location'>	
 		
 	<div class="near">
 	<span> Email :</span>	<input id="editform"  class="w100" type="email"  name="email" value=<%= data.email %> reqired autocomplete='off' />
@@ -261,22 +260,46 @@
 			<input id="editform" type="text"  name="phone_num" value=<%= data.phone_num %> required>
 		
 			</div>
-			
+
+
+						<input type="text" name="user_name" value=<%=data.username %> required>
+						<input type="text" name="exp" value=<%=data.exp%> required>
+						<input type="password" value="<%= data.password%>" name="password" placeholder="Insert Password"
+							required />
+
+						<input type="text" name="phone_num" value=<%=data.phone_num %> required>
 
 
 
+						<button class="form-btn sx log-in" type="submit"> Confirme Edit</button>
+						<button class="form-btn dx" type="button">Change location</button>
+					</form>
+					<br>
+				</div>
+		</section>
+		<!-- schedule -->
+		<section id='schedule'>
+			<h2>Schedule</h2>
 
+			<form action="/schedule/<%=data.id%>" method="POST">
+				<div >
 
+					<label  class="time">Select you are available from  :</label>
+				<input type="time"  name="from">
 
-		<button class="form-btn sx log-in" type="submit">  Confirme Edit</button>
-		<button class="form-btn dx" type="button">Change location</button>
-	</form>
-	<br>
-	</div>
-	</section>
-<!-- schedule -->
-		<section id = 'schedule'>
+				<div >
 
+					<label  class="time">Select you are available until  :</label>
+				<input name="until" type="time" >
+				</div>
+				</div>
+
+				<div>
+					<label class="time" > select your available Days : </label>
+					<input name = 'date' type="date">
+				</div>
+				<button type="submit"> submit </button>
+			</form>
 		</section>
 		<!-- _____________________________________________________________________________________________ -->
 		<!-- Contact -->
@@ -293,12 +316,13 @@
 					<div class="col-6 col-12-mobile">Phone Num: <%= data.phone_num%>
 					</div>
 					<br>
-					<div class="col-6 col-12-mobile">Email: <%= data.email%>"</div> 
+					<div class="col-6 col-12-mobile">Email: <%= data.email%>"</div>
 					<div class="col-12" style="display:<%= visibleCont%>">
 						<p>Or You Can Send To Me Adirect Email</p>
-						<form method="post" action ='/message/<%= data.id %>'>
-							<input name = 'message' type="text" placeholder="Write You Message" style="margin-bottom: 20px;">
-							<input name = 'email'   type="text" value='<%= data.email%>' style="display: none;">
+						<form method="post" action='/message/<%= data.id %>'>
+							<input name='message' type="text" placeholder="Write You Message"
+								style="margin-bottom: 20px;">
+							<input name='email' type="text" value='<%= data.email%>' style="display: none;">
 							<input type="submit" value="Send Message" onclick="myFunction()" />
 						</form>
 					</div>
@@ -322,8 +346,8 @@
 	</div>
 
 	<!-- Scripts -->
-	<script >
-		let cordenation =  '<%= data.location%>'
+	<script>
+		let cordenation = '<%= data.location%>'
 		let isUserAccount = '<%= is_not_enable %>';
 		let id = '<%= data.id%>';
 	</script>
