@@ -78,7 +78,7 @@ function handleAcconutPage(req, res) {
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
-        res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows,dataSchedule:dataSchedule.rows });
+        res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
     }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
@@ -112,16 +112,34 @@ app.post('/login', (req, res) => {
   let quer = req.body;
   var email = quer.email;
   var pass = quer.password;
-  let sql = `SELECT * FROM users WHERE email = $1 and password = $2;`;
-  client.query(sql, [email, pass]).then((result) => {
-    if (result.rowCount) {
-      status = 'Ok'
-      res.redirect(`/login/acconut/${result.rows[0].id}?is_not_enable=${false}`)
-    } else {
-      status = 'Wrong Email Or Password'
-      res.redirect('/log_Page');
-    }
-  })
+
+  if (req.query.role) {
+    let sqlForSelectAdmin = 'SELECT * FROM users WHERE role = 3;'
+    client.query(sqlForSelectAdmin).then(admins => {
+      if (checkIfTheAdminInDataBase(admins, email, pass)) {
+        client.query("SELECT * FROM contact;").then(contactTable => {
+          res.render("pages/cotactUsMessages", { object: contactTable.rows, faceImages: arrayOfImages })
+        }).catch(error => {
+          res.render("pages/error", { error: error });
+        })
+      } else {
+        // give alert that "you are not admin"
+      }
+    }).catch(error => {
+      res.render("pages/error", { error: error });
+    })
+  } else {
+    let sql = `SELECT * FROM users WHERE email = $1 and password = $2;`;
+    client.query(sql, [email, pass]).then((result) => {
+      if (result.rowCount) {
+        status = 'Ok'
+        res.redirect(`/login/acconut/${result.rows[0].id}?is_not_enable=${false}`)
+      } else {
+        status = 'Wrong Email Or Password'
+        res.redirect('/log_Page');
+      }
+    })
+  }
 })
 
 
@@ -138,7 +156,7 @@ app.post('/signUp', (req, res) => {
   let password = body.password;
   let phoneNum = body.phone_num;
   let status = body.status;
-  console.log(location,'location');
+  console.log(location, 'location');
   let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;'
 
   let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status];
@@ -166,15 +184,23 @@ function handleContactUsForm(req, res) {
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
   let safeValue = [req.body.text, req.params.id];
   client.query(SQL, safeValue).then(() => {
-
-    client.query("SELECT * FROM contact;").then(contactTable => {
-      res.render("pages/cotactUsMessages", { object: contactTable.rows, faceImages: arrayOfImages })
-    }).catch(error => {
-      res.render("pages/error", { error: error });
-    })
+    res.render('index');
   }).catch(error => {
     res.render("pages/error", { error: error });
   })
+}
+
+// ==============[SALAH] login =====================
+
+function checkIfTheAdminInDataBase(admins, email, pass) {
+  let checker = false;
+  let ourAdmins = admins.rows;
+  ourAdmins.forEach(oneAdmen => {
+    if (email === oneAdmen.email && pass === oneAdmen.password) {
+      checker = true;
+    }
+  });
+  return checker;
 }
 
 
@@ -224,6 +250,7 @@ client.connect().then(() => {
 
 var nodemailer = require('nodemailer');
 const { search } = require('superagent');
+const { query } = require('express');
 
 function sendMessage(req, res) {
   console.log(req.body);
@@ -258,102 +285,102 @@ function sendMessage(req, res) {
 
 app.get('/ask', renderAskPage);
 
-function renderAskPage(req,res){
-  return searchForQue().then(data =>{
-    res.render('pages/ask',{data:data})
-  }).catch(error=>{
+function renderAskPage(req, res) {
+  return searchForQue().then(data => {
+    res.render('pages/ask', { data: data })
+  }).catch(error => {
     console.log(error);
   });
 };
 app.post('/ask', searchAskPage);
-function searchAskPage(req,res){
-  return searchForQue(req.body["type_of_work"],req.body.subject).then(data =>{
-    res.render('pages/ask',{data:data})
-  }).catch(error=>{
+function searchAskPage(req, res) {
+  return searchForQue(req.body["type_of_work"], req.body.subject).then(data => {
+    res.render('pages/ask', { data: data })
+  }).catch(error => {
     console.log(error);
   });
 };
 
-function searchForQue(work,subject){
-  let queyStr = work & subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 and subject = $2;': work ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;': subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;':'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
-  let safeArr =  work & subject ? [work,subject]: work ? [work]: subject ? [subject]: [];
-  return client.query(queyStr,safeArr).then(data=>{
+function searchForQue(work, subject) {
+  let queyStr = work & subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 and subject = $2;' : work ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;' : subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;' : 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
+  let safeArr = work & subject ? [work, subject] : work ? [work] : subject ? [subject] : [];
+  return client.query(queyStr, safeArr).then(data => {
     return data.rows;
   })
 };
 
-app.get('/addQuestion',renderAddQuePage);
-app.get('/question/:id',renderQue)
+app.get('/addQuestion', renderAddQuePage);
+app.get('/question/:id', renderQue)
 
-app.post('/addQue/:id',addQue);
+app.post('/addQue/:id', addQue);
 
-function addQue(req,res){
-  return addQueToDB(req.body["type_of_work"],req.body.subject,req.body.que, req.params.id).then(data=>{
+function addQue(req, res) {
+  return addQueToDB(req.body["type_of_work"], req.body.subject, req.body.que, req.params.id).then(data => {
     res.redirect(`/question/${data.id}`)
-  }).catch(error=>{
+  }).catch(error => {
     console.log(error);
   });
 }
 
-function addQueToDB(work,subject,que,id){
-  return client.query('INSERT INTO Ask (type_of_work,subject,que,user_id,is_answered) values ($1,$2,$3,$4,$5) RETURNING *',[work,subject,que,id,0]).then(data=>{
+function addQueToDB(work, subject, que, id) {
+  return client.query('INSERT INTO Ask (type_of_work,subject,que,user_id,is_answered) values ($1,$2,$3,$4,$5) RETURNING *', [work, subject, que, id, 0]).then(data => {
     return data.rows[0];
-  }).catch(error=>{
+  }).catch(error => {
     console.log(error);
   });
 }
 
-function renderQue (req, res){
-  return getfromQueDB(req.params.id).then(data=>{
+function renderQue(req, res) {
+  return getfromQueDB(req.params.id).then(data => {
     console.log(data)
-    res.render('pages/quePage.ejs',data);
+    res.render('pages/quePage.ejs', data);
   })
 }
-function getfromQueDB(id){
-  return client.query(`SELECT * FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData=>{
-    return client.query('SELECT * FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;',[id]).then(ansdata=>{
-      return client.query('SELECT * FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData=>{
-        return{queData:queData.rows[0],ansdata:ansdata.rows,repData:repData.rows}
+function getfromQueDB(id) {
+  return client.query(`SELECT * FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData => {
+    return client.query('SELECT * FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;', [id]).then(ansdata => {
+      return client.query('SELECT * FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData => {
+        return { queData: queData.rows[0], ansdata: ansdata.rows, repData: repData.rows }
       })
 
     });
   })
 }
-function renderAddQuePage(req,res){
+function renderAddQuePage(req, res) {
   res.render('pages/addNewQuestion')
 };
 
-app.post('/addAns/:id',addAnswer);
+app.post('/addAns/:id', addAnswer);
 
-function addAnswer(req,res){
-  console.log(req.params.id,req.body.answer,req.body.user_id);
-  return saveAnsInDB(req.params.id,req.body.answer,req.body.user_id).then(id=>{
+function addAnswer(req, res) {
+  console.log(req.params.id, req.body.answer, req.body.user_id);
+  return saveAnsInDB(req.params.id, req.body.answer, req.body.user_id).then(id => {
     res.redirect(`/question/${id}`)
-  }).catch(error=>{
+  }).catch(error => {
     console.log(error);
   });
 };
-function saveAnsInDB(que_id, answer,user_id){
-  console.log(que_id,'que_id');
-  return client.query('INSERT INTO answer (user_id,que_id,answer,is_true) VALUES ($1,$2,$3,$4)',[user_id,que_id,answer,0]).then(data =>{
+function saveAnsInDB(que_id, answer, user_id) {
+  console.log(que_id, 'que_id');
+  return client.query('INSERT INTO answer (user_id,que_id,answer,is_true) VALUES ($1,$2,$3,$4)', [user_id, que_id, answer, 0]).then(data => {
     return que_id;
-  }).catch(error=>{
+  }).catch(error => {
     console.log(error);
   });;
 };
 app.post('/addReply/:id', addReply)
-function addReply(req,res){
-  return saveRepInDB(req.params.id,req.body.mess,req.body.user_id).then(id=>{
+function addReply(req, res) {
+  return saveRepInDB(req.params.id, req.body.mess, req.body.user_id).then(id => {
     res.redirect(`/question/${id}`)
-  }).catch(error=>{
+  }).catch(error => {
     console.log(error);
   });
 };
-function saveRepInDB(ans_id, mess,user_id){
-  console.log(ans_id,mess,user_id,'que_id');
-  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)',[user_id,ans_id,mess]).then(data =>{
+function saveRepInDB(ans_id, mess, user_id) {
+  console.log(ans_id, mess, user_id, 'que_id');
+  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)', [user_id, ans_id, mess]).then(data => {
     return que_id;
-  }).catch(error=>{
+  }).catch(error => {
     console.log(error);
   });;
 };
