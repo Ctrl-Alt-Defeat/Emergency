@@ -26,7 +26,8 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     day VARCHAR(255),
     user_id int,
-    hours_avl VARCHAR(255),
+    hours_avl_from VARCHAR(255),
+    hours_avl_to VARCHAR(255),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
   );
 

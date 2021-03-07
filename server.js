@@ -74,7 +74,6 @@ function handleAcconutPage(req, res) {
   return client.query(selectFromDB, safeValue).then(data => {
     let accountDB = data.rows[0];
     let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username);
-
     let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows });
