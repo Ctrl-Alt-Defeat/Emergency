@@ -21,8 +21,8 @@
 	<div id="header">
 
 		<div class="top">
-			<% let visible= is_not_enable == true ?'none': 'block' %>
-			<% let visibleCont = is_not_enable == true ? 'block':'none'%>
+			<% let visible= is_not_enable == 'true' ?'none': 'block' %>
+			<% let visibleCont = is_not_enable == 'true' ? 'block':'none'%>
 			<% let workerStutas = data.status == 0? 'Not Available' : 'Available'%>
 			<% let workerRole = data.role == 1? 'Worker' : 'Business Owner'%>
 
@@ -239,7 +239,8 @@
 		<button class="form-btn dx" type="button">Change location</button>
 	</form>
 	<br>
-
+	</div>
+	</section>
 <!-- _____________________________________________________________________________________________ -->
 		<!-- Contact -->
 		<section id="contact" class="four">
@@ -256,7 +257,7 @@
 					</div>
 					<br>
 					<div class="col-6 col-12-mobile">Email: <%= data.email%>"</div> 
-					<div class="col-12" style="display: <%= visibleCont%>">
+					<div class="col-12" style="display:<%= visibleCont%>">
 						<p>Or You Can Send To Me Adirect Email</p>
 						<form method="post" action ='/message/<%= data.id %>'>
 							<input name = 'message' type="text" placeholder="Write You Message" style="margin-bottom: 20px;">
