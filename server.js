@@ -76,7 +76,10 @@ function handleAcconutPage(req, res) {
     let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username);
     let selectFromFeedbacksDB = 'SELECT * FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
-      res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows });
+      let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
+      return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
+        res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows,dataSchedule:dataSchedule.rows });
+      })
     }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
     })
@@ -89,7 +92,7 @@ function AccountDB(full_name, role, location, img, type_of_work, email, phone_nu
   this.name = full_name;
   this.role = role;
   this.location = location;
-  this.image = img;
+  this.image = img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
   this.work = type_of_work;
   this.email = email;
   this.phone = phone_num;
