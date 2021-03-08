@@ -1,0 +1,73 @@
+@import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
+
+* {
+    font-family: 'Dosis';
+    font-size: x-large;
+    color: #4D5765;
+}
+
+body{
+    background-image:url(https://d3tl80hy6t5toy.cloudfront.net/wp-content/uploads/sites/3/2018/06/07134748/2018-06-11-business-location-ThinkstockPhotos-614503922.jpg) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.map{
+    margin-left: 30%;
+    z-index: 0;
+}
+
+
+.form{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: row;
+    background-color: #f9d9afee;
+    text-align: center;
+    margin-left: 23%;
+    width: fit-content;
+    padding: 2%;
+    border-radius: 15px 0px 15px 0px;
+    box-shadow: 5px 5px 5px 5px;
+    z-index: 3;
+    
+}
+
+.map{
+    margin-top: 4%;
+    margin-bottom: 10%;
+    border-radius: 15px 15px 15px 15px;
+
+}
+
+input, select {
+	border: none;
+	border-bottom: 1px solid #4D5765;;
+	width: 85%;
+	font-family: 'Roboto';
+	color:  #4D5765;;
+	text-align: center;
+	font-size: 21px;
+	font-weight:100;
+	margin-bottom:25px;
+    border-radius: 15px 0px 15px 0px;
+    box-shadow: 5px 5px 5px 5px;
+}
+
+.button{
+    width: auto;
+    height: 10%;
+    margin-top: 4.4%;
+}
+
+
+@media(max-width:800px){
+    .form{
+        margin-top: 20%;
+        margin-left: 2%;
+    }
+
+    .map{
+        margin-left: 11%;
+    }
+}

@@ -3,6 +3,7 @@
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2020 Froala Labs
  */
+ @import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
 
 .fr-clearfix::after {
   clear: both;
@@ -3985,7 +3986,7 @@ span.fr-img-caption.fr-view {
 }
 /*end-commonstyles library*//*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: 'Dosis';
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -4593,7 +4594,7 @@ ol {
   cursor: pointer;
   color: inherit;
   font-size: inherit;
-  font-family: inherit;
+  font-family: 'Dosis';
   line-height: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
@@ -4650,7 +4651,7 @@ ol {
 .u-tab-item a,
 .u-nav-item a {
   font-size: inherit;
-  font-family: inherit;
+  font-family: 'Dosis';
   line-height: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
@@ -4718,7 +4719,7 @@ a {
   font-style: inherit !important;
   font-size: inherit !important;
   font-weight: inherit !important;
-  font-family: inherit !important;
+  font-family: 'Dosis' !important;
   line-height: inherit !important;
   letter-spacing: inherit !important;
   text-transform: inherit !important;
@@ -4726,7 +4727,7 @@ a {
 .u-logo {
   color: inherit;
   font-size: inherit;
-  font-family: inherit;
+  font-family: 'Dosis';
   line-height: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
@@ -16284,7 +16285,7 @@ div.u-video,
   display: block;
   white-space: nowrap;
   font-size: inherit;
-  font-family: inherit;
+  font-family: 'Dosis';
   line-height: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
@@ -16534,6 +16535,7 @@ h2,
 h3,
 h4,
 h5,
+
 h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -16693,7 +16695,7 @@ p {
   word-break: break-all;
 }
 .u-font-arial.u-custom-font {
-  font-family: Arial, sans-serif !important;
+  font-family: 'Dosis' !important;
 }
 .u-font-courier-new.u-custom-font {
   font-family: 'Courier New', monospace !important;
@@ -19411,7 +19413,7 @@ a.u-button-style.u-border-20 {
 }
 /*begin-variables font-family*/
 .u-body {
-  font-family: 'Open Sans',sans-serif;
+  font-family: 'Dosis';
 }
 h1,
 h2,
@@ -19419,7 +19421,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Roboto,sans-serif;
+  font-family:'Dosis';
 }
 /*end-variables font-family*/
 /*begin-variables color*/
@@ -30003,7 +30005,11 @@ a.u-link.u-text-hover-palette-2-light-3:hover {
 .u-text-palette-2-base,
 a.u-button-style.u-text-palette-2-base,
 a.u-button-style.u-text-palette-2-base[class*="u-border-"] {
-  color: #ed7a21 !important;
+  /* color: #ed7a21 !important; */
+  font-family: 'Dosis' !important;;
+    font-size: 35px;
+    /* text-transform: uppercase; */
+    color: #87613d;
 }
 a.u-button-style.u-text-palette-2-base:hover,
 a.u-button-style.u-text-palette-2-base[class*="u-border-"]:hover,
@@ -32328,3 +32334,7 @@ a.u-link.u-text-hover-grey-90:hover {
  /*begin-variables base-font-size*/ 
  html { font-size: 16px; }
  /*end-variables base-font-size*/
+
+ h2{
+  font-family: 'Dosis' !important;
+}

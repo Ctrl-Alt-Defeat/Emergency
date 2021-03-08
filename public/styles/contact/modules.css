@@ -9,12 +9,13 @@
 
 .contactForm .inputBox input[type="submit"] {
   width: 100px;
-  background: #ff7d00;
+  background: #ffd150;
   color: #fff;
   border: none;
   cursor: pointer;
   padding: 10px;
   font-size: 18px;
+  border-radius: 10px;
 }
 
 @media (max-width: 991px)

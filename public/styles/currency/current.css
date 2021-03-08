@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
+
 
 * {
   margin: 0;
@@ -14,7 +16,9 @@ body {
   background-color:  #ffa34e56;
   color:  #ff7d00;
   background-image: url('https://www.tripsavvy.com/thmb/ft0bo-C2pXktmGesplDPVfOZpkE=/950x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/184964313-56a3b1655f9b58b7d0d333db.jpg');
-  position: cover;
+  background-size: cover;
+  background-position: 100% ;
+
 }
 header{
   margin: 0%;
@@ -25,7 +29,7 @@ main{
 }
 .container {
   width: 500px;
-  margin: 20px 700px;
+  margin: 20px 600px;
   user-select: none;
   overflow-x: hidden;
   position: relative;
@@ -37,6 +41,12 @@ main{
 }
 .header h1 {
   font-size: 2.25rem;
+  font-family: 'Dosis';
+  font-size:60px;
+  font-weight:500;
+  text-decoration:underline;
+  color: #87613d;
+
 }
 .date {
   background-color: rgb(5, 5, 5);
@@ -191,7 +201,7 @@ ul.add-currency-list li span {
   background-color: #ddd;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 780px) {
   html { font-size: 14px; }
   .container { width: 100%; margin: 0 auto; }
   ul.currencies { height: calc(100vh - 83px - 34px - 51px); }
@@ -203,4 +213,7 @@ ul.add-currency-list li span {
   .info .base-currency-rate { margin-left: 3.5rem; }
   ul.add-currency-list { bottom: 48px; height: calc(100vh - 80px - 51px); }
   .add-currency-btn i { left: 25%; top:0.65rem; }
+}
+footer{
+  margin-top: 5px;
 }

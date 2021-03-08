@@ -1,17 +1,16 @@
+@import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
+
 body
 {
   background-color: white;
 }
-header{
-  margin: 0%;
-  top: 0%;
-}
+
 main{
   margin-top: 140px;
 }
 .row{
     display: flex;
-    margin-top: 180px;
+    margin-top: 60px;
 }
 .containers
 {
@@ -195,16 +194,17 @@ p
 
 h2
 {
-  font-family: 'Dosis', sans-serif;
+  font-family: 'Dosis';
 }
 
 .contentHead
 {
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: 'Dosis';
   font-size:60px;
   font-weight:500;
   text-decoration:underline;
-  color: rgb(234, 122, 38);
+  color: #87613d;
+
 }
 
 sup
@@ -328,6 +328,30 @@ body {
   font-style: italic;
   margin-top: 4px;
 }
+footer{
+  margin-top: 3200px;
+}
+
+@media (max-width: 780px) {
+  .contentHead{display: flex;
+  justify-content: center;}
+  .row{display: flex;
+  justify-content: center;
+flex-direction: column;
+}
+.content{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 190px 0 0 35px;
+}
+footer{
+  display: flex;
+  top: 50%;
+}
+  
+}
+
 /* ________________________________________________________________________________
  */
 
