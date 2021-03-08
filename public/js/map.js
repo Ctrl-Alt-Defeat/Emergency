@@ -63,12 +63,14 @@ function getDataFromDB() {
 }
 
 function drowLocation() {
-    let allLocationMap = otherLocations.map(ele => {
+    console.log(otherLocations);
+    let finalLocation = [];
+    let allLocationMap = otherLocations.forEach(ele => {
         let lon = Number(ele.location.split(',')[0]);
         let lat = Number(ele.location.split(',')[1]);
         console.log([lon, lat], coordinates);
         let workStatus = ele.status ? 'Available' : 'Not Available';
-        return {
+        finalLocation.push({
             'type': 'Feature',
             'properties': {
                 'description':
@@ -79,7 +81,7 @@ function drowLocation() {
                 'type': 'Point',
                 'coordinates': [lon, lat]
             }
-        }
+        })
     })
     allLocationMap.unshift({
         'type': 'Feature',
