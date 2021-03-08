@@ -3,61 +3,92 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="colorlib.com">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/ask/askSearch.css">
     <title>Ask</title>
 </head>
 
+
 <body>
-    <header></header>
+    <%- include('../partials/header') %>
     <main>
-        <form method="POST" action="/ask">
-            <label for="Work_type">
-                Type Of Work
-                <select name="type_of_work" id="">
-                    <option value="" disabled selected>type of work</option>
-                    <option value="Smith">Smith</option>
-                    <option value="Carpenter">Carpenter</option>
-                    <option value="Plumber">Plumber</option>
-                    <option value="Builder">Builder</option>
-                    <option value="Paint">Painter</option>
-                    <option value="other">-other-</option>
-                </select>
-            </label>
-            <label for="subject">
-                Subject
-                <input type="text" name="subject">
-            </label>
-            <input type="submit" value="Search">
-        </form>
-        <a href="/addQuestion"><button>AddNewQuestion</button></a>
-        <section>
+        <div class="s01">
+            <form method="POST" action="/ask">
+                <fieldset>
+                <legend>Add Or Search For Question</legend>
+              </fieldset>
+              <div class="inner-form">
+                <div class="input-field first-wrap">
+                        <select class="input-field third-wrap" name="type_of_work" id="input_select">
+                            <option value="" disabled selected>type of work</option>
+                            <option value="Smith">Smith</option>
+                            <option value="Carpenter">Carpenter</option>
+                            <option value="Plumber">Plumber</option>
+                            <option value="Builder">Builder</option>
+                            <option value="Paint">Painter</option>
+                            <option value="other">-other-</option>
+                        </select>
+                </div>
+                <div class="input-field second-wrap">
+                        <input type="text" name="subject" placeholder="Subject" id="input_select">
+                  </div>
+                <div class="input-field third-wrap">
+                  <input class="btn-search" type="submit" value="Search">
+                </div>
+                <div class="input-field third-wrap" style="display: table-cell;vertical-align: middle;">
+                    <a style="text-decoration: none" href="/addQuestion"><div class="btn-search" style="padding-top:10%;">Add Question</div></a>
+                </div>
+              </div>
+            </form>
+          </div>
+        <section id ='allQue'>
             <% data.forEach (ele=> { %>
                 <div class='card'>
-                    <h3>
-                        <%= ele.username %>
-                    </h3>
-                    <img src="<%= ele.img %>" alt="">
-                    <label for="isAns">
-                        Is Answered: <input type="radio" <%=ele.is_answered==1 ? "checked" : '' %> >
-                    </label>
-                    <h4>
-                        <%= ele.subject %>
-                    </h4>
-                    <p>
-                        <%= ele.que %>
-                    </p>
-                    <a href="/question/<%= ele.id %>">
-                        <button>
-                            Show Question
-                        </button>
+                    <div class="container">
+                        <div class="card">
+                            <div class="face face1">
+                                <div class="content">
+                                    <img src="https://img.pngio.com/ask-question-png-png-image-png-ask-questions-675_372.png">     
+                                    <h4>
+                                        <%= ele.subject %>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="face face2">
+                                <div class="content">
+                                    <div class="content">
+                                        <div id = 'header'>
+                                            <img style="width: 40%" src="https://sitemap.searchkings.com/img/team/marco-b7f7f938bb.png" alt="">
+                                            <h3>
+                                                <%= ele.username %>
+                                            </h3>   
+                                        </div>
+   
+                                    </div>
+                                    <div class="content">
+                                    <h5> <%=ele.is_answered==1 ? "Answered" : 'Not Answered' %> </h5>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            <%= ele.que %>
+                                        </p>
+                                    </div>
+
+                                    <a href="/question/<%= ele.id %>">Show Question</a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     </a>
                 </div>
                 <% }) %>
         </section>
         <script src="/js/ask.js"></script>
     </main>
-    <footer></footer>
+    <%- include('../partials/footer') %>
 </body>
-
 </html>
