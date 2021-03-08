@@ -7,28 +7,36 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="styles/header-footer/header.css">
+    <link rel="stylesheet" href="styles/header-footer/footer.css">
+    <link rel="stylesheet" href="/styles/map/map.css" />
     <title>Location</title>
 </head>
 <body>
-    <form id = 'searchForm'>
+    <%- include('../partials/header')%>
+    <form class="form" id = 'searchForm'>
         <label for="experience">
             Search By Experience
             <input type="number" id = 'experience' name = 'experience' placeholder="Search By Experience">
         </label>
-        <label for="work" id ='searchForm'>
-            Type Of Work
-            <select name="work" id = 'work'>
-                <option value="All">All</option>
-                <option value="Smith">Smith</option>
-                <option value="Carpenter">Carpenter</option>
-                <option value="Plumber">Plumber</option>
-                <option value="Builder">Builder</option>
-                <option value="Paint">Paint</option>
-            </select>
-        </label>
-        <input type="submit" value="Search">
+        <div class="select">
+            <label for="work" id ='searchForm'>
+                Type Of Work
+                <select name="work" id = 'work'>
+                    <option value="All">All</option>
+                    <option value="Smith">Smith</option>
+                    <option value="Carpenter">Carpenter</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Builder">Builder</option>
+                    <option value="Paint">Paint</option>
+                </select>
+            </label>
+        </div>
+        <br>
+        <input class="button" type="submit" value="Search">
     </form>
-    <div id="map" style="height: 550px;width: 600px;"></div>       
+    <div class="map" id="map" style="height: 550px;width: 600px;"></div>  
+    <%- include('../partials/footer')%>
     <script src="/js/map.js">
     </script>
 </body>
