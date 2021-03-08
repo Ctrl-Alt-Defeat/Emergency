@@ -139,7 +139,7 @@
 		<section id="portfolio" class="two">
 			<h2 style="margin-bottom: 3%;">Feedbacks</h2>
 
-			<form class="feedback" action="/feedback/<%= data.id%>" method="POST" >
+			<form class="feedback" action="/feedback/<%= data.id%>" method="POST" style="display:<%= visibleCont%>" >
 				<input type="hidden" name="ownerid"value = '1'>
 				<input type="text" name="feedback" placeholder="Do you have any feedback?" style="width: 50%; margin: auto; margin-bottom: 3%;" required>
 				<button type="submit">submit</button>
@@ -154,7 +154,7 @@
 								<h3><%= ele.username %></h3>
 								<input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
 								<p class="small"><%= ele.text %></p>	
-								<button type="submit" class="delete"> x </button>
+								<button  type="submit" class="delete " style="display:<%= visible%>"> x </button>
 							</a>
 						</div>
 					</form>	
@@ -245,7 +245,7 @@
 		<section id='schedule'>
 			<h2>Schedule</h2>
 
-			<form action="/schedule/<%=data.id%>" method="POST">
+			<form action="/schedule/<%=data.id%>" method="POST" style="display: <%= visible%>;" >
 				<div>
 					<label class="time">Select you are available from :</label>
 					<input type="time" name="from">
@@ -263,20 +263,18 @@
 				</div>
 				<button type="submit"> submit </button>
 			</form>
-			<form action="">
-			<div>
-				<div>
-
-				
+				<div class="cardFeed">
+					<% dataSchedule.forEach(ele=>{%>
+							<div class="container1" >
+								<a class="card1" >
+									<h3><%= ele.day %></h3>
+									<input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
+									<p class="small"><%= ele.hours_avl_from%></p>	
+									<p class="small"><%= ele.hours_avl_from %></p>	
+								</a>
+							</div>
+					<%}) %>
 				</div>
-				<div>
-
-				</div>
-				<div>
-
-				</div>
-			</div>
-		</form>
 		</section>
 		<!-- _____________________________________________________________________________________________ -->
 		<!-- Contact -->
