@@ -452,7 +452,7 @@ legend {
 }
 
 .s01 {
-  min-height: 100vh;
+  min-height: 67.5vh;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -460,10 +460,8 @@ legend {
   -ms-flex-align: center;
       align-items: center;
   font-family: 'Poppins', sans-serif;
-  background-color: #e7ac7434;
   background-size: cover;
   background-position: center center;
-  padding: 15px;
 }
 
 .s01 form {
@@ -475,7 +473,7 @@ legend {
   font-family: 'Dosis';
   font-size: 50px;
   text-align: center;
-  margin-bottom: 120px;
+  margin-bottom: 50px;
   text-transform: uppercase;
   color: #87613d;
 }
@@ -554,7 +552,7 @@ legend {
   width: 100%;
   background: #ff7d00;
   white-space: nowrap;
-  border-radius: .5px;
+  border-radius: 25px;
   font-size: 20px;
   color: #fff;
   transition: all .2s ease-out, color .2s ease-out;
@@ -628,12 +626,13 @@ legend {
   border-bottom: 1px solid #ffc185;
   width: 85%;
   font-family: 'Roboto';
-  color:  #ffc185;;
+  color: #ff7d00;
   font-size: 21px;
   font-weight: 100;
   margin-bottom: 25px;
-  padding:0px;
-}
+  padding: 0px;
+  background-color: white;
+  
 .container{
   width: 100%;
   position: relative;
