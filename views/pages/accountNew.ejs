@@ -2,344 +2,220 @@
 <html>
 
 <head>
-	<title>Prologue by HTML5 UP</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/styles/account/css/base.css" />
-	<link rel="stylesheet" href="/styles/account/css/layout.css" />
-	<link rel="stylesheet" href="/styles/account/css/modules.css" />
-	<link rel="stylesheet" href="/styles/account/css/row.css" />
-	<link rel="stylesheet" href="/styles/account/css/form.css" />
-	<link rel="stylesheet" href="styles/contact/reset.css">
-<!-- 
-    <link rel="stylesheet" href="styles/header-footer/header.css">
-    <link rel="stylesheet" href="styles/header-footer/footer.css"> -->
-
-	<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+    <title>Prologue by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="styles/account/style.css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+	<script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/all.js"
+        integrity="sha384-G/ZR3ntz68JZrH4pfPJyRbjW+c0+ojii5f+GYiYwldYU69A+Ejat6yIfLSxljXxD"
+        crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"> 
+    
+   
 </head>
 
-<body class="is-preload">
-	<!-- <%- include('../partials/header') %> -->
-	<!-- Header -->
-	<div id="header">
+<body>
+	
+	<h1>صلاح</h1>
+    <div class="top">
+        <% let visible=is_not_enable=='true' ?'none': 'block' %>
+            <% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
+                <% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
+                    <% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
 
-		<div class="top">
-			<% let visible=is_not_enable=='true' ?'none': 'block' %>
-				<% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
-					<% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
-						<% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
+                        <!-- Logo -->
+                        <div id="logo">
+                            <span class="image avatar48" style="background: none;"><img src="<%= data.img %>"
+                                    alt="" /></span>
 
-							<!-- Logo -->
-							<div id="logo">
-								<span class="image avatar48" style="background: none;"><img src="<%= data.img %>"  alt="" /></span>
+                            <h1 id="title">
+                                <%= data.username %>
+                            </h1>
+                            <p>
+                                <%= data.type_of_work%>
+                            </p>
+                        </div>
+                       
+                        <!-- <li><a href="<%= data.email%>" class="icon fa-envelope"><span class="label">Email</span></a></li> -->
+                        <h1> Hello <%= data.full_name%>
+                        </h1>
+						<div id="map" style="height: 550px;width: 600px;"></div>
+    </div>
+    <div class="div2">
+        <p>Your name : <%= data.full_name%>
+        </p>
+        <p>Major : <%= data.type_of_work%>
+        </p>
+        <p>experiance : <%= data.exp%>
+        </p>
+        <p>email : <%= data.email%>
+        </p>
+        <p>Role : <%= workerRole%>
+        </p>
+        <p>status : <%= workerStutas%>
+        </p>
+    </div>
+    <section id="portfolio" class="two">
+        <h2>Feedbacks</h2>
+        <form class="feedback" action="/feedback/<%= data.id%>" method="POST" style="display:<%= visibleCont%>">
+            <input type="hidden" name="ownerid" value='1'>
+            <input type="text" name="feedback" placeholder="Do you have any feedback?" required>
+            <button type="submit">submit</button>
+        </form>
+        <div class="cardFeed">
+            <% dataFeedbacks.forEach(ele=>{%>
+                <form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
+                    <div class="container1">
+                        <a class="card1">
+                            <img src="<%= ele.img %>" height='60px' width='60px'>
+                            <h3>
+                                <%= ele.username %>
+                            </h3>
+                            <input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
+                            <p class="small">
+                                <%= ele.text %>
+                            </p>
+                            <button type="submit" class="delete " style="display:<%= visible%>"> x </button>
+                        </a>
+                    </div>
+                </form>
+                <%}) %>
+        </div>
+    </section>
+    <section id="Edit" class="two" style="display: <%= visible%>;">
+        <form action="/update/<%=data.id%>?_method=put" method="POST">
+            <h3>Edit your profile</h3>
 
-								<h1 id="title">
-									<%= data.username %>
-								</h1>
-								<p>
-									<%= data.type_of_work%>
-								</p>
-							</div>
+            <div class="near">
+                <span> Full Name :</span>
+                <input id="editform" type="text" name="full_name" value=<%=data.full_name%> required>
+            </div>
+            <div class="near">
+                <span> Status :</span>
+                <select id="editform" name="status" required value='<%= data.status%>'>
+                    <option value="" disabled selected>Select your status</option>
+                    <% if( data.status=='0' ){ %>
+                        <option value="1" selected>not Available</option>
+                        <option value="0">Available</option>
+                        <%}else{%>
+                            <option value="0" selected>Available</option>
+                            <option value="1">not Available</option>
+                            <%}%>
+                </select>
+            </div>
+            <div class="near">
+                <span> Type Of Work :</span>
+                <select name="type_of_work" id="editform" value='<%= data.type_of_work%>'>
+                    <option value="" disabled selected>type of work </option>
+                    <option value="Smith">Smith</option>
+                    <option value="Carpenter">Carpenter</option>
+                    <option value="Plumber">Plumber</option>
+                    <option value="Builder">Builder</option>
+                    <option value="Paint">Painter</option>
+                    <option value="other">-other-</option>
+                </select>
+            </div>
 
-							<!-- Nav -->
-							<nav id="nav">
-								<ul>
-									<li><a href="#top" id="top-link"><span class="far fa-address-card">About
-												me</span></a></li>
-									<li><a href="#portfolio" id="portfolio-link"><span
-												class="far fa-comment">Feedbacks</span></a></li>
-									<li><a href="#Edit" style="display: <%= visible%>;" id="portfolio-link"><span
-												class="far fa-edit">Edit Profile</span></a></li>
-									<li><a href="#schedule" id="about-link"><span
-												class="far fa-calendar-alt">Schedule</span></a>
-									</li>
-									<li><a href="#contact" id="contact-link"><span
-												class="icon fa-envelope">Contact</span></a>
-									</li>
-								</ul>
-							</nav>
+            <input type="hidden" name="location" id='location'>
 
-		</div>
+            <div class="near">
+                <span> Email :</span> <input id="editform" class="w100" type="email" name="email" value=<%=data.email %>
+                reqired autocomplete='off' />
+            </div>
 
-		<div class="bottom">
+            <div class="near">
+                <span> user Name :</span>
+                <input id="editform" type="text" name="user_name" value=<%=data.username %> required>
+            </div>
 
-			<!-- Social Icons -->
-			<ul class="icons">
-				<li><a href="/" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-				<li><a href="/" class="icon fa-github"><span class="label">Github</span></a></li>
-				<li><a href="/" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-				<li><a href="<%= data.email%>" class="icon fa-envelope"><span class="label">Email</span></a></li>
-			</ul>
+            <div class="near">
+                <span> Experiance :</span>
+                <input id="editform" type="text" name="exp" value=<%=data.exp%> required>
+            </div>
+            <div class="near">
+                <span> Password :</span>
+                <input id="editform" type="password" value="<%= data.password%>" name="password"
+                    placeholder="Insert Password" required>
+            </div>
+            <div class="near">
+                <span> Phone Number :</span>
+                <input id="editform" type="text" name="phone_num" value=<%=data.phone_num %> required>
 
-		</div>
+            </div>
+            <button class="form-btn sx log-in" type="submit"> Confirme Edit</button>
+            <button class="form-btn dx" type="button">Change location</button>
+        </form>
+    </section>
+    <section id='schedule'>
+        <h2>Schedule</h2>
+        <form action="/schedule/<%=data.id%>" method="POST" style="display: <%= visible%>;">
+            <div>
+                <div>
+                    <label class="time">Select you are available from :</label>
+                    <input type="time" name="from">
+                </div>
+                <div>
+                    <label class="time">Select you are available until :</label>
+                    <input name="until" type="time">
+                </div>
+                <div>
+                    <label class="time"> select your available Days : </label>
+                    <input name='date' type="date">
+                </div>
+                <button type="submit"> submit </button>
+            </div>
+        </form>
+        <div class="cardFeed">
+            <% dataSchedule.forEach(ele=>{%>
+                <div class="container1">
+                    <a class="card1">
+                        <h3>
+                            <%= ele.day %>
+                        </h3>
+                        <input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
+                        <p class="small">
+                            <%= ele.hours_avl_from%>
+                        </p>
+                        <p class="small">
+                            <%= ele.hours_avl_from %>
+                        </p>
+                    </a>
+                </div>
+                <%}) %>
+        </div>
+    </section>
+    <section id="contact" class="four">
 
-	</div>
+        <h2>Contact</h2>
+        <p>Sent me an email now or call me and let me save your life !!</p>
 
-	<!-- Main -->
-	<div id="main">
+        <div class="row">
+            <div class="col-6 col-12-mobile">Phone Num: <%= data.phone_num%>
+            </div>
+            <br>
+            <div class="col-6 col-12-mobile">Email: <%= data.email%>"</div>
+            <div class="col-12" style="display:<%= visibleCont%>">
+                <p>Or You Can Send To Me Adirect Email</p>
+                <form method="post" action='/message/<%= data.id %>'>
+                    <input name='message' type="text" placeholder="Write You Message" style="margin-bottom: 20px;">
+                    <input name='email' type="text" value='<%= data.email%>' style="display: none;">
+                    <input type="submit" value="Send Message" onclick="myFunction()" />
+                </form>
+            </div>
+        </div>
+    </section>
 
-		<!-- Intro -->
-		<section id="top" class="one dark cover" style="padding: 2em 0;">
-			<div class="container">
-
-				<header>
-					<h2 class="alt">Hello <strong>
-							<%= data.full_name%>
-						</strong>, welcome in <a href="/">Emergency </a>-App.<br />
-
-				</header>
-			</div>
-		</section>
-
-		<!-- About Me -->
-		<section id="about" class="three">
-			<div class="container">
-
-				<header style="margin: 0 0 1em 0;">
-					<h2>About <%= data.full_name%>
-					</h2>
-				</header>
-
-				<a href="#" id="funnyimg" class="image featured"><img src="images/funny3.gif" alt="" /></a>
-				<div class="div1">
-					<div class="div2">
-						<div class="border">
-							Your name : <%= data.full_name%>
-						</div>
-						<div class="border">
-							Major : <%= data.type_of_work%>
-						</div>
-						<div class="border">
-							experiance : <%= data.exp%>
-						</div>
-
-					</div>
-					<div class="div3">
-
-						<div class="border">
-							email : <%= data.email%>
-						</div>
-						<div class="border">
-							Role : <%= workerRole%>
-						</div>
-						<div class="border">
-							status : <%= workerStutas%>
-						</div>
-
-					</div>
-				</div>
-
-			</div>
-			<div id="map" style="height: 550px;width: 600px;"></div>
-		</section>
-
-		<section id="portfolio" class="two">
-			<h2 style="margin-bottom: 3%;">Feedbacks</h2>
-
-			<form class="feedback" action="/feedback/<%= data.id%>" method="POST" style="display:<%= visibleCont%>" >
-				<input type="hidden" name="ownerid"value = '1'>
-				<input type="text" name="feedback" placeholder="Do you have any feedback?" style="width: 50%; margin: auto; margin-bottom: 3%;" required>
-				<button type="submit">submit</button>
-			</form>
-
-			<div class="cardFeed">
-				<% dataFeedbacks.forEach(ele=>{%>
-					<form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
-						<div class="container1" >
-							<a class="card1" >
-								<img src="<%= ele.img %>" height='60px' width='60px'>
-								<h3><%= ele.username %></h3>
-								<input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
-								<p class="small"><%= ele.text %></p>	
-								<button  type="submit" class="delete " style="display:<%= visible%>"> x </button>
-							</a>
-						</div>
-					</form>	
-				<%}) %>
-			</div>
-		</section>
-		<!-- Portfolio -->
-		<section id="Edit" class="two" style="display: <%= visible%>;">
-			<div class="container">
-
-
-				<!-- ________________________________________________________________________________________________________ -->
-
-
-				<div class="ss">
-					<form action="/update/<%=data.id%>?_method=put" method="POST">
-						<h3>Edit your profile</h3>
-
-						<div class="near">
-							<span> Full Name :</span>
-							<input id="editform" type="text" name="full_name" value=<%=data.full_name%> required>
-
-						</div>
-						<div class="near">
-							<span> Status :</span>
-							<select id="editform" name="status" required value='<%= data.status%>'>
-								<option value="" disabled selected>Select your status</option>
-								<% if( data.status=='0' ){ %>
-									<option value="1" selected>not Available</option>
-									<option value="0">Available</option>
-									<%}else{%>
-										<option value="0" selected>Available</option>
-										<option value="1">not Available</option>
-										<%}%>
-							</select>
-						</div>
-						<div class="near">
-							<span> Type Of Work :</span>
-							<select name="type_of_work" id="editform" value='<%= data.type_of_work%>'>
-								<option value="" disabled selected>type of work </option>
-								<option value="Smith">Smith</option>
-								<option value="Carpenter">Carpenter</option>
-								<option value="Plumber">Plumber</option>
-								<option value="Builder">Builder</option>
-								<option value="Paint">Painter</option>
-								<option value="other">-other-</option>
-							</select>
-						</div>
-
-						<input type="hidden" name="location" id='location'>
-
-						<div class="near">
-							<span> Email :</span> <input id="editform" class="w100" type="email" name="email"
-								value=<%=data.email %> reqired autocomplete='off' />
-						</div>
-
-						<div class="near">
-							<span> user Name :</span>
-							<input id="editform" type="text" name="user_name" value=<%=data.username %> required>
-						</div>
-
-						<div class="near">
-							<span> Experiance :</span>
-							<input id="editform" type="text" name="exp" value=<%=data.exp%> required>
-
-						</div>
-						<div class="near">
-							<span> Password :</span>
-							<input id="editform" type="password" value="<%= data.password%>" name="password"
-								placeholder="Insert Password" required />
-
-						</div>
-						<div class="near">
-							<span> Phone Number :</span>
-							<input id="editform" type="text" name="phone_num" value=<%=data.phone_num %> required>
-
-						</div>
-
-
-
-						<button class="form-btn sx log-in" type="submit"> Confirme Edit</button>
-						<button class="form-btn dx" type="button">Change location</button>
-					</form>
-					<br>
-				</div>
-		</section>
-		<!-- schedule -->
-		<section id='schedule'>
-			<h2>Schedule</h2>
-
-			<form action="/schedule/<%=data.id%>" method="POST" style="display: <%= visible%>;" >
-				<div>
-					<label class="time">Select you are available from :</label>
-					<input type="time" name="from">
-
-					<div>
-
-						<label class="time">Select you are available until :</label>
-						<input name="until" type="time">
-					</div>
-				</div>
-
-				<div>
-					<label class="time"> select your available Days : </label>
-					<input name='date' type="date">
-				</div>
-				<button type="submit"> submit </button>
-			</form>
-				<div class="cardFeed">
-					<% dataSchedule.forEach(ele=>{%>
-							<div class="container1" >
-								<a class="card1" >
-									<h3><%= ele.day %></h3>
-									<input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
-									<p class="small"><%= ele.hours_avl_from%></p>	
-									<p class="small"><%= ele.hours_avl_from %></p>	
-								</a>
-							</div>
-					<%}) %>
-				</div>
-		</section>
-		<!-- _____________________________________________________________________________________________ -->
-		<!-- Contact -->
-		<section id="contact" class="four">
-			<div class="container">
-
-				<header>
-					<h2>Contact</h2>
-				</header>
-
-				<p>Sent me an email now or call me and let me save your life !!</p>
-
-				<div class="row">
-					<div class="col-6 col-12-mobile">Phone Num: <%= data.phone_num%>
-					</div>
-					<br>
-					<div class="col-6 col-12-mobile">Email: <%= data.email%>"</div>
-					<div class="col-12" style="display:<%= visibleCont%>">
-						<p>Or You Can Send To Me Adirect Email</p>
-						<form method="post" action='/message/<%= data.id %>'>
-							<input name='message' type="text" placeholder="Write You Message"
-								style="margin-bottom: 20px;">
-							<input name='email' type="text" value='<%= data.email%>' style="display: none;">
-							<input type="submit" value="Send Message" onclick="myFunction()" />
-						</form>
-					</div>
-
-
-				</div>
-		</section>
-
-	</div>
-
-	<!-- Footer -->
-	<div id="footer">
-
-		<!-- Copyright -->
-		<ul class="copyright">
-			<li>&copy; Untitled. All rights reserved.</li>
-			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-		</ul>
-
-
-	</div>
-
-	<!-- Scripts -->
-	<script>
-		let cordenation = '<%= data.location%>'
-		let isUserAccount = '<%= is_not_enable %>';
-		let id = '<%= data.id%>';
-	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery.scrolly@0.0.1/jquery.scrolly.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.scrollex/0.2.1/jquery.scrollex.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
-	<script src="/js/jsAccount/breakpoints.min.js"></script>
-	<script src="/js/jsAccount/app.js"></script>
-	<script src="/js/jsAccount/util.js"></script>
-	<script src="/js/jsAccount/main.js"></script>
-	<script src="/js/jsAccount/jquery.min.js"></script>
-	<script src="/js/jsAccount/jquery.scrollex.min.js"></script>
-	<script src="/js/jsAccount/jquery.scrolly.min.js"></script>
-	<script src="/js/jsAccount/browser.min.js"></script>
-	<script src="https://kit.fontawesome.com/63131ae64f.js" crossorigin="anonymous"></script>
 
 </body>
-
+<script>
+    let cordenation = '<%= data.location%>'
+    let isUserAccount = '<%= is_not_enable %>';
+    let id = '<%= data.id%>';
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+<script src="/js/jsAccount/breakpoints.min.js"></script>
+<script src="/js/jsAccount/app.js"></script>
+</body>
 </html>
