@@ -571,5 +571,12 @@ position: absolute;
 h2{
   font-family: 'Dosis' !important;
 }
+@media (max-width: 575px) {
+  .cards-wrapper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
 
 
