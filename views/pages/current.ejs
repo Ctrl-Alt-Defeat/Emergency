@@ -12,9 +12,7 @@
     
 </head>
 <body>
-  <header>
   <%- include('../partials/header')%>
-</header>
 <br>
 <br>
 <br>
@@ -25,17 +23,19 @@
 
 <main>
     <div class="container">
+      <section>
         <div class="header">
           <h1>Currency Converter</h1>
         </div>
         <div class="date"></div>
         <ul class="currencies"></ul>
         <button class="add-currency-btn"><i class="fas fa-long-arrow-alt-left"></i>Add Currency</button>
-        <ul class="add-currency-list"></ul>
+        <ul class="add-currency-list"></ul></section>
       </div> 
     </main>
-</body>
 <%- include('../partials/footer')%>
+
+</body>
 
 <script src="/js/current.js"></script>
 
