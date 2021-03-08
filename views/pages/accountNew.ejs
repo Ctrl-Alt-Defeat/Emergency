@@ -33,7 +33,7 @@
 
 							<!-- Logo -->
 							<div id="logo">
-								<span class="image avatar48"><img src="<%= data.img %>" alt="" /></span>
+								<span class="image avatar48" style="background: none;"><img src="<%= data.img %>"  alt="" /></span>
 
 								<h1 id="title">
 									<%= data.username %>
@@ -150,7 +150,7 @@
 					<form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
 						<div class="container1" >
 							<a class="card1" >
-								<img src="<%= ele.img%>" height='60px' width='60px'>
+								<img src="<%= ele.img %>" height='60px' width='60px'>
 								<h3><%= ele.username %></h3>
 								<input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
 								<p class="small"><%= ele.text %></p>	

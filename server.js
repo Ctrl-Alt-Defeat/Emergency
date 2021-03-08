@@ -86,7 +86,6 @@ function handleAcconutPage(req, res) {
         let username = element.username;
         let img = element.img
         let user_id = element.user_id;
-
         let feedQuery = new Feedback(username, text, img, user_id);
         feedbackArray.push(feedQuery);
       });
@@ -94,7 +93,7 @@ function handleAcconutPage(req, res) {
       // console.log(feedbackArray);
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
-        console.log({ data: allData, is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
+        console.log({ data: allData, is_not_enable: req.query.is_not_enable, dataFeedbacks: feedbackArray, dataSchedule: dataSchedule.rows });
         res.render('pages/accountNew', { data: allData, is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
 
@@ -116,17 +115,19 @@ function Feedback(username, text, img, userid) {
 
 function AccountDB(full_name, role, location, img, type_of_work, email, phone_num, status, exp, username,id) {
   this.id = id;
-  this.name = full_name;
+  this.full_name = full_name;
   this.role = role;
   this.location = location;
-  this.image = img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
-  this.work = type_of_work;
+  this.img = img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
+  this.type_of_work = type_of_work;
   this.email = email;
-  this.phone = phone_num;
+  this.phone_num = phone_num;
   this.status = status;
-  this.exp = exp;
+  this.exp = exp || 0;
   this.username = username;
-}
+};
+
+
 
 // {{{{{login}}}}}________________________
 app.get('/log_Page', (req, res) => {
