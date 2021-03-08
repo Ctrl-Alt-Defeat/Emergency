@@ -11,19 +11,19 @@ body {
 .container{
 	width: auto;
 	height:auto;
-    margin-top: 10%;
+    margin-top: 1%;
 }
 
 form {
 	text-align: center;
 	background: #fff;
-	width: 600px;
+    width: 480px;
     height: 400px;
 	border-radius: 5px;
 	padding: 30px 20px 0 20px;
 	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
 	box-sizing: border-box;
-    margin: auto;
+    margin: 53px 0px 0px 999px;
 }
 
 p {
@@ -49,6 +49,8 @@ p > span {
 	color: #87613d;
 	margin-bottom: 30px;
 	text-align: center;
+	margin-left: 623px;
+
 
 }
 
@@ -127,7 +129,8 @@ input, select {
 	text-align: center;
 	font-size: 21px;
 	font-weight:100;
-	margin-bottom:25px;
+	margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 ::-webkit-input-placeholder {
@@ -161,6 +164,8 @@ input,
 
 .addQue {
 	z-index: 2;
+	margin-bottom: 100px;
+
 }
 
 .active-dx{
@@ -257,6 +262,8 @@ select{
   	text-align: center;
   	-ms-text-align-last: center;
   	-moz-text-align-last: center;
+	  background-color: white;
+
 }
 
 #header_div{
@@ -264,4 +271,6 @@ select{
     display: grid;
     grid-template-columns: auto auto;
     grid-column-gap: 60px;
+	display: flow-root;
+  
 }
