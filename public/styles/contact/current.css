@@ -29,14 +29,14 @@ body {
   font-size: 2.25rem;
 }
 .date {
-  background-color: #222;
+  background-color: rgb(112, 96, 96);
   text-align: right;
   font-size: 0.75rem;
   padding: 0.75rem 2rem 0.75rem 0;
 }
 ul.currencies {
   height: calc(100vh - 40px - 100px - 40px - 58px);
-  background-color: #222;
+  background-color: rgb(158, 129, 129);
   padding: 0 1.5rem 1rem 1.5rem;
   overflow-y: auto;
 }
@@ -108,8 +108,8 @@ ul.currencies::-webkit-scrollbar {
   width: 5px;
 }
 ul.currencies::-webkit-scrollbar-thumb {
-  background-color: #2d2d37;
-  border-bottom: 1rem solid #222;
+  background-color: #a3a3b9;
+  border-bottom: 1rem solid rgb(180, 147, 147);
 }
 
 ul.add-currency-list {
@@ -117,7 +117,7 @@ ul.add-currency-list {
   bottom: 54px;
   left: 105%;
   background-color: #f1f1f1;
-  color: #333;
+  color: rgb(167, 142, 142);
   width: 100%;
   height: calc(100vh - 40px - 100px - 55px);
   overflow-y: auto;
