@@ -331,6 +331,27 @@ body {
 footer{
   margin-top: 3200px;
 }
+
+@media (max-width: 780px) {
+  .contentHead{display: flex;
+  justify-content: center;}
+  .row{display: flex;
+  justify-content: center;
+flex-direction: column;
+}
+.content{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 190px 0 0 35px;
+}
+footer{
+  display: flex;
+  top: 50%;
+}
+  
+}
+
 /* ________________________________________________________________________________
  */
 
