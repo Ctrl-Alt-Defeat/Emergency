@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:300,600");
 
 :root {
-  --background: #ff7d00;
+  --background: #ffd150;
 }
 
 *,
@@ -15,22 +15,23 @@
 header {
   background: var(--background);
   text-align: center;
-  position: fixed;
+  position: relative;
   z-index: 999;
   width: 100%;
+  height: 4rem;
 }
 
-.nav-toggle {
+.header-nav-toggle {
   position: absolute !important;
   top: -9999px !important;
   left: -9999px !important;
 }
 
-.nav-toggle:focus ~ .nav-toggle-label {
+.header-nav-toggle:focus ~ .header-nav-toggle-label {
   outline: 3px solid rgba(lightblue, 0.75);
 }
 
-.nav-toggle-label {
+.header-nav-toggle-label {
   position: absolute;
   top: 0;
   left: 0;
@@ -40,9 +41,9 @@ header {
   align-items: center;
 }
 
-.nav-toggle-label span,
-.nav-toggle-label span::before,
-.nav-toggle-label span::after {
+.header-nav-toggle-label span,
+.header-nav-toggle-label span::before,
+.header-nav-toggle-label span::after {
   display: block;
   background: white;
   height: 2px;
@@ -51,17 +52,17 @@ header {
   position: relative;
 }
 
-.nav-toggle-label span::before,
-.nav-toggle-label span::after {
+.header-nav-toggle-label span::before,
+.header-nav-toggle-label span::after {
   content: "";
   position: absolute;
 }
 
-.nav-toggle-label span::before {
+.header-nav-toggle-label span::before {
   bottom: 7px;
 }
 
-.nav-toggle-label span::after {
+.header-nav-toggle-label span::after {
   top: 7px;
 }
 
@@ -101,23 +102,27 @@ nav a:hover {
   color: #87613d;
 }
 
-.nav-toggle:checked ~ nav {
+.header-nav-toggle:checked ~ nav {
   transform: scale(1, 1);
 }
 
-.nav-toggle:checked ~ nav a {
+.header-nav-toggle:checked ~ nav a {
   opacity: 1;
   transition: opacity 250ms ease-in-out 250ms;
 }
 
-.logo {
+.header-logo {
   height: 10rem;
   margin-left: 4rem;
   padding: 1rem;
+  position: absolute;
+  bottom: -5rem;
+  z-index: 1;
+  right: 9rem;
 }
 
 @media screen and (min-width: 1028px) {
-  .nav-toggle-label {
+  .header-nav-toggle-label {
     display: none;
   }
 
@@ -126,10 +131,12 @@ nav a:hover {
     grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
   }
 
-  .logo {
+  .header-logo {
     grid-column: 1 / 3;
-    height: 7rem;
+    height: 10rem;
     padding: 1rem;
+    bottom: -5rem;
+    right: 4rem;
   }
 
   nav {
@@ -177,4 +184,11 @@ nav a:hover {
   nav a:hover::before {
     transform: scale(1, 1);
   }
+}
+
+@media (min-width: 510px) {
+.log {
+    right: 10rem;
+    bottom: -5rem;
+}
 }
