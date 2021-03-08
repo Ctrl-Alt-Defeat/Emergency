@@ -1,6 +1,6 @@
 body
 {
-  background:url('https://s-media-cache-ak0.pinimg.com/736x/f4/ac/6a/f4ac6aac3afb587f6cae04155656fca3.jpg');
+  background-color: white;
 }
 header{
   margin: 0%;
@@ -195,7 +195,7 @@ p
 
 h2
 {
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Dosis', sans-serif;
 }
 
 .contentHead
@@ -204,12 +204,12 @@ h2
   font-size:60px;
   font-weight:500;
   text-decoration:underline;
+  color: rgb(234, 122, 38);
 }
 
 sup
 {
-  font-family: 'Open Sans Condensed', sans-serif;
-  font-style: italic;
+  font-family: 'Dosis, sans-serif';
   font-size:smaller;
 }
 
@@ -224,9 +224,9 @@ span
 
 body {
   align-items: center;
-  background-color: #f2f2f2;
+  background-color: white;
   display: flex;
-  font-family: "Merriweather", serif;
+  font-family: 'Dosis', sans-serif;
   flex-wrap: wrap;
   justify-content: center;
   height: 100vh;

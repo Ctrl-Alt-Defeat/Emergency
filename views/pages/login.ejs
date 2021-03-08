@@ -9,7 +9,24 @@
 
 </head>
 <body>
+    <div class="welcome">
+        <h3>Welcome To Emergncy.com</h3>
+        <img src="https://raw.githubusercontent.com/Ctrl-Alt-Defeat/Emergency/main/public/styles/account/css/images/157147115_464909161346678_4208861771888485761_n.png" alt="">
+        <h3>Your Assistant is One Button Away!</h3>
+
+    </div>
     <div class="container">
+        <form class="signIn" action="/login" method="post" id = 'signIn'>
+        
+            <h3>Welcome</br>Back !</h3>
+            <button class="fb" type="button" onclick="changeColor()" >Log In As Admin</button>
+            <p id = 'admin' style="display: none">- Start As Admin -</p>
+            <input type="email" placeholder="Insert eMail" name="email" autocomplete='off' reqired />
+            <input type="password" placeholder="Insert Password" name="password" reqired />
+            <button class="form-btn sx back" type="button">Create Account</button>
+            <button class="form-btn dx" type="submit">Log In</button>
+        </form>
+
         <form class="signUp" action="/signUp" method="POST">
             <h3>Create Your Account</h3>
 
@@ -44,21 +61,12 @@
 
             <input  name="status" value="0" type="hidden" >
 
-            <button class="form-btn sx log-in" type="button">Log In</button>
+            <button class="form-btn sx log-in" type="button">Already have Account?</button>
             <button class="form-btn dx" type="submit">Sign Up</button>
         </form>
 
 
-        <form class="signIn" action="/login" method="post" id = 'signIn'>
         
-            <h3>Welcome</br>Back !</h3>
-            <button class="fb" type="button" onclick="changeColor()" >Log In As Admin</button>
-            <p id = 'admin' style="display: none">- Start As Admin -</p>
-            <input type="email" placeholder="Insert eMail" name="email" autocomplete='off' reqired />
-            <input type="password" placeholder="Insert Password" name="password" reqired />
-            <button class="form-btn sx back" type="button">Back</button>
-            <button class="form-btn dx" type="submit">Log In</button>
-        </form>
     </div>  
     
 </body>
