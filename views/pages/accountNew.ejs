@@ -10,13 +10,18 @@
 	<link rel="stylesheet" href="/styles/account/css/modules.css" />
 	<link rel="stylesheet" href="/styles/account/css/row.css" />
 	<link rel="stylesheet" href="/styles/account/css/form.css" />
+	<link rel="stylesheet" href="styles/contact/reset.css">
+<!-- 
+    <link rel="stylesheet" href="styles/header-footer/header.css">
+    <link rel="stylesheet" href="styles/header-footer/footer.css"> -->
+
 	<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body class="is-preload">
-
+	<!-- <%- include('../partials/header') %> -->
 	<!-- Header -->
 	<div id="header">
 
@@ -143,7 +148,7 @@
 			<div class="cardFeed">
 				<% dataFeedbacks.forEach(ele=>{%>
 					<form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
-						<div class="container" >
+						<div class="container1" >
 							<a class="card1" >
 								<img src="<%= ele.img%>" height='60px' width='60px'>
 								<h3><%= ele.username %></h3>
@@ -164,75 +169,77 @@
 				<!-- ________________________________________________________________________________________________________ -->
 
 
-<div class="ss" >
-	<form  action="/update/<%=data.id%>?_method=put" method="POST">
-		<h3>Edit your profile</h3>
+				<div class="ss">
+					<form action="/update/<%=data.id%>?_method=put" method="POST">
+						<h3>Edit your profile</h3>
 
-		<div class="near">
-			<span> Full Name :</span>
-			<input id="editform" type="text"  name="full_name" value=<%= data.full_name%>  required>
-		
-			</div>
-			<div class="near">
-				<span> Status :</span>
-				<select id="editform" name="status" required value =  '<%= data.status%>'>
-					<option value="" disabled selected>Select your status</option>
-					<% if( data.status == '0' ){ %>
-						<option value="1" selected>not Available</option>
-						<option value="0">Available</option>
-					<%}else{%>
-						<option value="0"selected>Available</option>
-						<option value="1" >not Available</option>
-					<%}%>
-				</select>
-				</div>
-				<div class="near">
-					<span> Type Of Work :</span>
-					<select name="type_of_work" id="editform" value ='<%= data.type_of_work%>'>
-						<option value="" disabled selected>type of work    </option>
-						<option value="Smith">Smith</option>
-						<option value="Carpenter">Carpenter</option>
-						<option value="Plumber">Plumber</option>
-						<option value="Builder">Builder</option>
-						<option value="Paint">Painter</option>
-						<option value="other">-other-</option>
-					</select>
-					</div>
+						<div class="near">
+							<span> Full Name :</span>
+							<input id="editform" type="text" name="full_name" value=<%=data.full_name%> required>
 
-						<input type="hidden" name="location" id='location'>	
-		
-	<div class="near">
-	<span> Email :</span>	<input id="editform"  class="w100" type="email"  name="email" value=<%= data.email %> reqired autocomplete='off' />
-</div>
+						</div>
+						<div class="near">
+							<span> Status :</span>
+							<select id="editform" name="status" required value='<%= data.status%>'>
+								<option value="" disabled selected>Select your status</option>
+								<% if( data.status=='0' ){ %>
+									<option value="1" selected>not Available</option>
+									<option value="0">Available</option>
+									<%}else{%>
+										<option value="0" selected>Available</option>
+										<option value="1">not Available</option>
+										<%}%>
+							</select>
+						</div>
+						<div class="near">
+							<span> Type Of Work :</span>
+							<select name="type_of_work" id="editform" value='<%= data.type_of_work%>'>
+								<option value="" disabled selected>type of work </option>
+								<option value="Smith">Smith</option>
+								<option value="Carpenter">Carpenter</option>
+								<option value="Plumber">Plumber</option>
+								<option value="Builder">Builder</option>
+								<option value="Paint">Painter</option>
+								<option value="other">-other-</option>
+							</select>
+						</div>
 
-<div class="near">
-	<span> user Name :</span>
-		<input id="editform" type="text"  name="user_name" value=<%= data.username %> required>
-</div>
+						<input type="hidden" name="location" id='location'>
 
-<div class="near">
-	<span> Experiance :</span>
-	<input id="editform" type="text"  name="exp" value=<%= data.exp%> required>
+						<div class="near">
+							<span> Email :</span> <input id="editform" class="w100" type="email" name="email"
+								value=<%=data.email %> reqired autocomplete='off' />
+						</div>
 
-	</div>
-	<div class="near">
-		<span> Password :</span>
-		<input id="editform" type="password" value="<%= data.password%>"  name="password" placeholder="Insert Password" required/>
-	
-		</div>
-		<div class="near">
-			<span> Phone Number :</span>
-			<input id="editform" type="text"  name="phone_num" value=<%= data.phone_num %> required>
-		
-			</div>
+						<div class="near">
+							<span> user Name :</span>
+							<input id="editform" type="text" name="user_name" value=<%=data.username %> required>
+						</div>
 
+						<div class="near">
+							<span> Experiance :</span>
+							<input id="editform" type="text" name="exp" value=<%=data.exp%> required>
 
+						</div>
+						<div class="near">
+							<span> Password :</span>
+							<input id="editform" type="password" value="<%= data.password%>" name="password"
+								placeholder="Insert Password" required />
+
+						</div>
+						<div class="near">
+							<span> Phone Number :</span>
+							<input id="editform" type="text" name="phone_num" value=<%=data.phone_num %> required>
+
+						</div>
+
+<!-- 
 						<input type="text" name="user_name" value=<%=data.username %> required>
 						<input type="text" name="exp" value=<%=data.exp%> required>
 						<input type="password" value="<%= data.password%>" name="password" placeholder="Insert Password"
 							required />
 
-						<input type="text" name="phone_num" value=<%=data.phone_num %> required>
+						<input type="text" name="phone_num" value=<%=data.phone_num %> required> -->
 
 
 
@@ -247,23 +254,35 @@
 			<h2>Schedule</h2>
 
 			<form action="/schedule/<%=data.id%>" method="POST">
-				<div >
-					<label  class="time">Select you are available from  :</label>
-				<input type="time"  name="from">
+				<div>
+					<label class="time">Select you are available from :</label>
+					<input type="time" name="from">
 
-				<div >
+					<div>
 
-					<label  class="time">Select you are available until  :</label>
-				<input name="until" type="time" >
-				</div>
+						<label class="time">Select you are available until :</label>
+						<input name="until" type="time">
+					</div>
 				</div>
 
 				<div>
-					<label class="time" > select your available Days : </label>
-					<input name = 'date' type="date">
+					<label class="time"> select your available Days : </label>
+					<input name='date' type="date">
 				</div>
 				<button type="submit"> submit </button>
 			</form>
+			<form action="">
+			<div>
+				<div>
+				</div>
+				<div>
+
+				</div>
+				<div>
+
+				</div>
+			</div>
+		</form>
 		</section>
 		<!-- _____________________________________________________________________________________________ -->
 		<!-- Contact -->
