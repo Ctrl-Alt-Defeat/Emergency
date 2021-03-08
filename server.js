@@ -74,7 +74,11 @@ function handleAcconutPage(req, res) {
   let safeValue = [id];
   return client.query(selectFromDB, safeValue).then(data => {
     let accountDB = data.rows[0];
+    let acconutArr =[];
+
     let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username);
+
+    acconutArr.push(allData);
     let selectFromFeedbacksDB = 'SELECT users.img as img, users.username as username, users.id as user_id, feedback.id as id, feedback.text as text FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       // console.log(dataFeedbacks.rows)
@@ -95,8 +99,8 @@ function handleAcconutPage(req, res) {
       res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: feedbackArray });
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
-        // console.log(dataSchedule.rows[0]);
-        res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
+        console.log('dataSchedule',dataSchedule.rows[0]);
+        res.render('pages/accountNew', { data: acconutArr, is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
 
     }).catch(error => {
@@ -191,7 +195,7 @@ app.post('/feedback/:id', (req, res) => {
 //================================Delete feedback =============================
 
 
-app.delete('/deleteFeedback/:id', (req, res) => {
+// app.delete('/deleteFeedback/:id', (req, res) => {
 
  app.delete('/deleteFeedback/:id',(req,res)=>{
     let text = req.body.text;
@@ -267,7 +271,7 @@ function saveSchedule(req, res) {
   console.log(input, id);
   let insartQuery = 'INSERT INTO schedule (hours_avl_from,hours_avl_to,day,user_id) VALUES ($1,$2,$3,$4) RETURNING *;';
   let safeValue = [input.from, input.until, input.date, id];
-  client.query(insartQuery, safeValue).then(dataSchedule => {
+  client.query(insartQuery, safeValue).then(saveSchedule => {
     // console.log(dataSchedule.rows)
     res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
   })
@@ -499,5 +503,5 @@ function saveRepInDB(ans_id, mess, user_id, que_id) {
     return que_id;
   }).catch(error => {
     console.log(error);
-  });
+  });;
 };

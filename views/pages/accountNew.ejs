@@ -10,13 +10,18 @@
 	<link rel="stylesheet" href="/styles/account/css/modules.css" />
 	<link rel="stylesheet" href="/styles/account/css/row.css" />
 	<link rel="stylesheet" href="/styles/account/css/form.css" />
+	<link rel="stylesheet" href="styles/contact/reset.css">
+<!-- 
+    <link rel="stylesheet" href="styles/header-footer/header.css">
+    <link rel="stylesheet" href="styles/header-footer/footer.css"> -->
+
 	<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body class="is-preload">
-
+	<!-- <%- include('../partials/header') %> -->
 	<!-- Header -->
 	<div id="header">
 
@@ -143,7 +148,7 @@
 			<div class="cardFeed">
 				<% dataFeedbacks.forEach(ele=>{%>
 					<form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
-						<div class="container" >
+						<div class="container1" >
 							<a class="card1" >
 								<img src="<%= ele.img%>" height='60px' width='60px'>
 								<h3><%= ele.username %></h3>
@@ -266,10 +271,9 @@
 				</div>
 				<button type="submit"> submit </button>
 			</form>
-
+			<form action="">
 			<div>
 				<div>
-					<!-- available hour : <%= data.hours_avl_from%> -->
 				</div>
 				<div>
 
@@ -278,6 +282,7 @@
 
 				</div>
 			</div>
+		</form>
 		</section>
 		<!-- _____________________________________________________________________________________________ -->
 		<!-- Contact -->
