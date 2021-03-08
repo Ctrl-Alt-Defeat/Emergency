@@ -26,7 +26,7 @@ app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
 app.post('/message/:id', sendMessage);
 app.get('/', home);
-app.post('/schedule/:id',saveSchedule);
+app.post('/schedule/:id', saveSchedule);
 
 function home(req, res) {
   res.render('index');
@@ -81,22 +81,22 @@ function handleAcconutPage(req, res) {
       //constructor for the data text img username
       let feedbackArray = [];
       dataFeedbacks.rows.forEach(element => {
-        let text= element.text;
-        let username=element.username;
-        let img=element.img
-        let user_id=element.user_id;
+        let text = element.text;
+        let username = element.username;
+        let img = element.img
+        let user_id = element.user_id;
 
-        let feedQuery= new Feedback(username,text,img,user_id);
+        let feedQuery = new Feedback(username, text, img, user_id);
         feedbackArray.push(feedQuery);
       });
 
       res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: feedbackArray });
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
-        console.log(dataSchedule.rows[0]);
+        console.log('hiiiiiiiii',dataSchedule.rows[0]);
         res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
-      
+
     }).catch(error => {
       console.log(`an error occurred while getting task with ID number ${id} from DB ${error}`);
     })
@@ -105,11 +105,11 @@ function handleAcconutPage(req, res) {
   });
 }
 
-function Feedback(username,text,img,userid){
-  this.username=username;
-  this.text=text;
-  this.img= img || "https://cdn0.iconfinder.com/data/icons/user-profiles-avatars/128/12-512.png";
-  this.user_id=userid;
+function Feedback(username, text, img, userid) {
+  this.username = username;
+  this.text = text;
+  this.img = img || "https://cdn0.iconfinder.com/data/icons/user-profiles-avatars/128/12-512.png";
+  this.user_id = userid;
 
 }
 
@@ -163,49 +163,49 @@ app.post('/signUp', (req, res) => {
 
 //===============================================feedback=============================================
 
-app.post('/feedback/:id',(req,res)=>{
+app.post('/feedback/:id', (req, res) => {
 
   let body = req.body;
-  console.log(body); 
- 
+  console.log(body);
+
   let text = body.feedback;
-  let ownerid= body.ownerid;
-  let userid=req.params.id;
+  let ownerid = body.ownerid;
+  let userid = req.params.id;
 
-  let insertQuery= 'INSERT INTO feedback(text,owner_id,user_id) VALUES ($1,$2,$3) RETURNING *;';
-  let safeValue= [text,ownerid,userid];
-  
- 
-  client.query(insertQuery,safeValue).then(data=>{
-   res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
-  }).catch(error=>{
-    console.log('error has been detected ...',error);
+  let insertQuery = 'INSERT INTO feedback(text,owner_id,user_id) VALUES ($1,$2,$3) RETURNING *;';
+  let safeValue = [text, ownerid, userid];
+
+
+  client.query(insertQuery, safeValue).then(data => {
+    res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
+  }).catch(error => {
+    console.log('error has been detected ...', error);
   });
- 
- });
+
+});
 
 
- //================================Delete feedback =============================
+//================================Delete feedback =============================
 
 
- app.delete('/deleteFeedback/:id',(req,res)=>{
+app.delete('/deleteFeedback/:id', (req, res) => {
 
-   let id = req.params.id;
-   console.log(id);
-   
-   let deleteQuery= 'DELETE FROM feedback WHERE user_id=$1;';
-   let safeValue= [id];
- 
-   client.query(deleteQuery,safeValue).then(()=>{
+  let id = req.params.id;
+  console.log(id);
+
+  let deleteQuery = 'DELETE FROM feedback WHERE user_id=$1;';
+  let safeValue = [id];
+
+  client.query(deleteQuery, safeValue).then(() => {
     res.redirect(`/login/acconut/${id}?is_not_enable=${false}`);
-  }).catch(error=>{
-     console.log('errrrroooooooooooorrr   ', error)
- 
-   });
- });
- 
- //=========================================
- 
+  }).catch(error => {
+    console.log('errrrroooooooooooorrr   ', error)
+
+  });
+});
+
+//=========================================
+
 //====================================================================================
 
 
@@ -258,14 +258,14 @@ app.get('/aboutus', (req, res) => {
   res.render('pages/aboutus');
 })
 
-function saveSchedule(req,res){
+function saveSchedule(req, res) {
   let input = req.body;
   let id = req.params.id;
-  console.log(input,id);
+  console.log(input, id);
   let insartQuery = 'INSERT INTO schedule (hours_avl_from,hours_avl_to,day,user_id) VALUES ($1,$2,$3,$4) RETURNING *;';
-  let safeValue = [input.from,input.until,input.date, id];
-  client.query(insartQuery,safeValue).then(dataSchedule =>{
-    console.log(dataSchedule.rows)
+  let safeValue = [input.from, input.until, input.date, id];
+  client.query(insartQuery, safeValue).then(dataSchedule => {
+    // console.log(dataSchedule.rows)
     res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
   })
 
@@ -373,9 +373,9 @@ function saveAnsInDB(que_id, answer, user_id) {
     console.log(error);
   });;
 };
-function saveRepInDB(ans_id, mess,user_id,que_id){
-  console.log(ans_id,mess,user_id,'que_id');
-  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)',[user_id,ans_id,mess]).then(data =>{
+function saveRepInDB(ans_id, mess, user_id, que_id) {
+  console.log(ans_id, mess, user_id, 'que_id');
+  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)', [user_id, ans_id, mess]).then(data => {
     return que_id;
   }).catch(error => {
     console.log(error);
@@ -383,7 +383,7 @@ function saveRepInDB(ans_id, mess,user_id,que_id){
 };
 // ________________________________________________________________________________current//
 
-app.get('/current',(req,res)=>{
+app.get('/current', (req, res) => {
   res.render('pages/current')
 })
 
@@ -449,17 +449,17 @@ client.connect().then(() => {
   console.log(e, 'errrrrroooooorrrr');
 })
 
-function getfromQueDB(id){
-  return client.query(`SELECT ask.id as id, ASK.que as que, Ask.user_id as user_id, Ask.is_answered as is_answered, Ask.subject as subject,Ask.type_of_work as type_of_work,USERS.username as username, USERS.img as img FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData=>{
-    return client.query('SELECT answer.id as id,answer.que_id as que_id, answer.answer as answer,answer.answer is_true,answer.user_id as user_id, USERS.username as username, USERS.img as img  FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;',[id]).then(ansdata=>{
-      return client.query('SELECT reply.id as id ,reply.ans_id as ans_id, reply.mess as mess,reply.user_id as user_id,USERS.username as username, USERS.img as img  FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData=>{
-        return{queData:queData.rows[0],ansdata:ansdata.rows,repData:repData.rows}
+function getfromQueDB(id) {
+  return client.query(`SELECT ask.id as id, ASK.que as que, Ask.user_id as user_id, Ask.is_answered as is_answered, Ask.subject as subject,Ask.type_of_work as type_of_work,USERS.username as username, USERS.img as img FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData => {
+    return client.query('SELECT answer.id as id,answer.que_id as que_id, answer.answer as answer,answer.answer is_true,answer.user_id as user_id, USERS.username as username, USERS.img as img  FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;', [id]).then(ansdata => {
+      return client.query('SELECT reply.id as id ,reply.ans_id as ans_id, reply.mess as mess,reply.user_id as user_id,USERS.username as username, USERS.img as img  FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData => {
+        return { queData: queData.rows[0], ansdata: ansdata.rows, repData: repData.rows }
       });
     });
   });
 };
 
-function renderAddQuePage(req,res){
+function renderAddQuePage(req, res) {
 
   res.render('pages/addNewQuestion')
 };
@@ -482,19 +482,19 @@ function saveAnsInDB(que_id, answer, user_id) {
   });;
 };
 app.post('/addReply/:id', addReply)
-function addReply(req,res){
-  return saveRepInDB(req.params.id,req.body.mess,req.body.user_id,req.body.que_id).then(id=>{
+function addReply(req, res) {
+  return saveRepInDB(req.params.id, req.body.mess, req.body.user_id, req.body.que_id).then(id => {
     res.redirect(`/question/${id}`)
   }).catch(error => {
     console.log(error);
   });
 };
 
-function saveRepInDB(ans_id, mess,user_id,que_id){
-  console.log(ans_id,mess,user_id,'que_id');
-  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)',[user_id,ans_id,mess]).then(data =>{
+function saveRepInDB(ans_id, mess, user_id, que_id) {
+  console.log(ans_id, mess, user_id, 'que_id');
+  return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)', [user_id, ans_id, mess]).then(data => {
     return que_id;
   }).catch(error => {
     console.log(error);
-  });;
+  });
 };
