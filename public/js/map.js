@@ -83,9 +83,6 @@ function drowLocation() {
             }
         })
     }
-    otherLocations.forEach(ele => {
-
-    })
     finalLocation.unshift({
         'type': 'Feature',
         'properties': {
