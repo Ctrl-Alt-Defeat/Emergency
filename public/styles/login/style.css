@@ -6,17 +6,27 @@
 
 body {
 	background:#f7f3ed;
+	
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	
 }
 
-.container{
-	display: flex;
-	position:absolute;
-	width: auto;
-	height:auto;
-	/* top: calc(50% - 240px); */
-	margin-top: 10%;
-	left: calc(70% - 160px);
-	margin-bottom: 10%;
+@media(min-width:700px){
+	.container{
+		/* margin-top: 10%; 
+		width: auto;
+		height: auto;
+		
+		
+		margin-bottom: 10%;*/
+		position: relative; 
+		left: 58%;
+		top: -650px; 
+		margin-top: 8%;
+		width: 10%;
+	}
 }
 
 form {
@@ -275,15 +285,16 @@ select{
 
 .welcome{
 	height: 30%;
-	width: 30%;
-	margin-top: 7%;
-	margin-left: 5%;
-	float: left;
-	padding: 4%;
-	text-align: center;
-	z-index: 0;
-
+    width: 30%;
+    margin-top: 5%;
+    margin-left: 5%;
+    /* float: left; */
+    padding: 4%;
+    text-align: center;
+    /* z-index: 0; */
 }
+
+
 
 .welcome img{
 	margin-left: 3%;
@@ -295,3 +306,42 @@ select{
 }
 
 
+
+@media(max-width:700px){
+	body{
+		height: 100%;
+		width: 100%;
+	}
+
+	body{
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+	}
+
+	.welcome{
+		grid-column-start: 1;
+		grid-column-end: 2;
+		grid-row-start: 1;
+		grid-row-end: 2;
+		display: block;
+		/* justify-content: center; */
+		height: 100%;
+		width: 100%;
+		position: relative;
+	}
+
+	.container{
+		grid-column-start: 1;
+		grid-column-end: 2;
+		grid-row-start: 2;
+		grid-row-end: 3;
+		display: inline-block;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		margin-left: 22%;
+	}
+	
+
+}
