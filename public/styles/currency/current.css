@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   font-size: 16px;
 }
@@ -12,10 +13,19 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color:  #ffa34e56;
   color:  #ff7d00;
+  background-image: url('https://www.tripsavvy.com/thmb/ft0bo-C2pXktmGesplDPVfOZpkE=/950x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/184964313-56a3b1655f9b58b7d0d333db.jpg');
+  position: cover;
+}
+header{
+  margin: 0%;
+  padding: 0%;
+}
+main{
+  margin-top: -25px;
 }
 .container {
   width: 500px;
-  margin: 20px auto;
+  margin: 20px 700px;
   user-select: none;
   overflow-x: hidden;
   position: relative;
@@ -29,14 +39,15 @@ body {
   font-size: 2.25rem;
 }
 .date {
-  background-color: rgb(112, 96, 96);
+  background-color: rgb(5, 5, 5);
+  color: white;
   text-align: right;
   font-size: 0.75rem;
   padding: 0.75rem 2rem 0.75rem 0;
 }
 ul.currencies {
   height: calc(100vh - 40px - 100px - 40px - 58px);
-  background-color: rgb(158, 129, 129);
+  background-color:white;
   padding: 0 1.5rem 1rem 1.5rem;
   overflow-y: auto;
 }
@@ -166,7 +177,8 @@ ul.add-currency-list li span {
 }
 
 .add-currency-btn.open {
-  background-color: #d9534f;
+  background-color:  #ff7d00;
+  color: white;
 }
 .add-currency-btn.open i {
   opacity: 1;
