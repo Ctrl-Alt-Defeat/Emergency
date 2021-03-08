@@ -60,6 +60,8 @@ p > span {
 input,
 button{
 	outline: none !important; 
+	border: none;
+    background: none;
 }
 
 button.fb {

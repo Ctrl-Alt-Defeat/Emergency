@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 html, body {
-  background: #FCEEB5;
+  background: #fff;
   font-family: Abel, Arial, Verdana, sans-serif;
 }
 
 .center {
   position: absolute;
   top: 50%;
-  left: 50%;
+    left: 50%;
   -webkit-transform: translate(-50%, -50%);
 }
 
@@ -22,6 +22,7 @@ html, body {
   overflow: hidden;
   position: relative;
   margin: 1.5rem;
+  
 }
 
 .card h1 {
