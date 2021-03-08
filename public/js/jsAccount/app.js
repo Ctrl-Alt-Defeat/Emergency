@@ -72,5 +72,4 @@ map.on('load', function () {
 
 
 isUserAccount == "false" ? window.localStorage.setItem('id' ,id ):console.log('no')
-
 document.getElementById('ownerid').value = localStorage.getItem('id');
