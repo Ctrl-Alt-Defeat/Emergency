@@ -1,1 +1,2 @@
 INSERT INTO schedule (day,hours_avl_from,hours_avl_to) VALUES ('1','1','1'); 
+INSERT INTO  users(full_name,role,location,img,type_of_work,email,password,phone_num,status,exp,username) VALUES ('full_nameo','3','35.87962969999998,32.0484636','https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80','Carpenter','areej.obaidd@yahoo.com','23242rerwe','070966666666','0',2,'useraxme');

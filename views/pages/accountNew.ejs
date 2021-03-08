@@ -132,33 +132,29 @@
 		</section>
 
 		<section id="portfolio" class="two">
-			<h3>Feedbacks</h3>
+			<h2 style="margin-bottom: 3%;">Feedbacks</h2>
 
-			<form class="feedback" action="/feedback/<%= data.id%>" method="POST">
-				<input type="hidden" name="ownerid" value='1'>
-				<input type="text" name="feedback" placeholder="Do you have any feedback?"
-					style="width: 50%; margin: auto;" required>
+			<form class="feedback" action="/feedback/<%= data.id%>" method="POST" >
+				<input type="hidden" name="ownerid"value = '1'>
+				<input type="text" name="feedback" placeholder="Do you have any feedback?" style="width: 50%; margin: auto; margin-bottom: 3%;" required>
 				<button type="submit">submit</button>
 			</form>
 
-
-			<% dataFeedbacks.forEach(ele=>{%>
-				<form action="/deleteFeedback/<%= ele.id%>?_method=DELETE" method="POST">
-					<div class="container">
-						<a class="card1">
-							<img src='' height='60px' width='60px'>
-							<h3>
-								<%= ele.username %>
-							</h3>
-							<p class="small">
-								<%= ele.text %>
-							</p>
-							<button id='deletebtn' type="submit" class="delete"> delete </button>
-						</a>
-					</div>
-				</form>
+			<div class="cardFeed">
+				<% dataFeedbacks.forEach(ele=>{%>
+					<form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
+						<div class="container" >
+							<a class="card1" >
+								<img src="<%= ele.img%>" height='60px' width='60px'>
+								<h3><%= ele.username %></h3>
+								<input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
+								<p class="small"><%= ele.text %></p>	
+								<button type="submit" class="delete"> x </button>
+							</a>
+						</div>
+					</form>	
 				<%}) %>
-
+			</div>
 		</section>
 		<!-- Portfolio -->
 		<section id="Edit" class="two" style="display: <%= visible%>;">

@@ -90,10 +90,12 @@ function handleAcconutPage(req, res) {
         feedbackArray.push(feedQuery);
       });
 
+      // console.log(feedbackArray);
+      
       res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: feedbackArray });
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
-        console.log('hiiiiiiiii',dataSchedule.rows[0]);
+        // console.log(dataSchedule.rows[0]);
         res.render('pages/accountNew', { data: data.rows[0], is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
 
@@ -136,6 +138,7 @@ app.get('/log_Page', (req, res) => {
 //===========================Sign up==================================
 
 app.post('/signUp', (req, res) => {
+ 
   let body = req.body;
   var full_name = body.full_name;
   let role = body.role;
@@ -166,8 +169,8 @@ app.post('/signUp', (req, res) => {
 app.post('/feedback/:id', (req, res) => {
 
   let body = req.body;
-  console.log(body);
-
+  // console.log(body); 
+ 
   let text = body.feedback;
   let ownerid = body.ownerid;
   let userid = req.params.id;
@@ -190,22 +193,22 @@ app.post('/feedback/:id', (req, res) => {
 
 app.delete('/deleteFeedback/:id', (req, res) => {
 
-  let id = req.params.id;
-  console.log(id);
-
-  let deleteQuery = 'DELETE FROM feedback WHERE user_id=$1;';
-  let safeValue = [id];
-
-  client.query(deleteQuery, safeValue).then(() => {
-    res.redirect(`/login/acconut/${id}?is_not_enable=${false}`);
-  }).catch(error => {
-    console.log('errrrroooooooooooorrr   ', error)
-
+ app.delete('/deleteFeedback/:id',(req,res)=>{
+    let text = req.body.text;
+    console.log(text);
+    let deleteQuery= 'DELETE FROM feedback WHERE text=$1;';
+    let safeValue= [text];
+  
+    client.query(deleteQuery,safeValue).then(()=>{
+      res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
+    }).catch(error=>{
+      console.log('errrrroooooooooooorrr   ', error)
+  
+    });
   });
-});
-
-//=========================================
-
+ 
+ //=========================================
+ 
 //====================================================================================
 
 
