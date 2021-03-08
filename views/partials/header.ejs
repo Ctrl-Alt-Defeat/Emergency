@@ -3,16 +3,30 @@
   <input type="checkbox" id="nav-toggle" class="header-nav-toggle">
   <nav>
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/log_Page">Signup</a></li>
-      <li><a href="/map">Map</a></li>
-      <li><a href="/ask">Ask</a></li>
+      <li><a href="/" >Home</a></li>
+      <li><a href="/log_Page" id = 'log_page'>Signup</a></li>
+      <li><a href="/map" class = 'nav'>Map</a></li>
+      <li><a href="/ask" class = 'nav'>Ask</a></li>
+      <li><a href="/contact" class = 'nav'>Contact</a></li>
+      <li><a href="/current" >Currency</a></li>
       <li><a href="/aboutus">About</a></li>
-      <li><a href="/current">Currency</a></li>
-      <li><a href="/contact">Contact</a></li>
+      <li><img src="" alt="" id = 'header_img'></li>
     </ul>
   </nav>
   <label for="nav-toggle" class="header-nav-toggle-label">
     <span></span>
   </label>
 </header>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  let id = localStorage.getItem('id');
+  if(id){
+    $('#log_page').text(localStorage.getItem('username'));
+    $('#header_img').attr("src",localStorage.getItem('img'));
+    $('.nav').css('pointer-events', 'auto');
+  }else{
+    $('#log_page').text('Signup');
+    $('.nav').css('pointer-events', 'none');
+    $('#header_img').attr("src",'https://cdn.business2community.com/wp-content/uploads/2014/08/My_profile-orange.png');
+  };
+</script>

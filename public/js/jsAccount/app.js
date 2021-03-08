@@ -72,4 +72,7 @@ map.on('load', function () {
 
 
 isUserAccount == "false" ? window.localStorage.setItem('id' ,id ):console.log('no')
-document.getElementById('ownerid').value = localStorage.getItem('id');
+isUserAccount == "false" ? window.localStorage.setItem('username' ,username ):console.log('no')
+isUserAccount == "false" ? window.localStorage.setItem('img' ,img ):console.log('no')
+
+document.getElementById('ownerid').value = localStorage.getItem("id");;
