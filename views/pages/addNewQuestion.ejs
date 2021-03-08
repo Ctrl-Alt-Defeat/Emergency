@@ -6,13 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/ask/addQue.css">
+    <link rel="stylesheet" href="styles/header-footer/header.css">
+    <link rel="stylesheet" href="styles/header-footer/footer.css">
     <title>Document</title>
 </head>
 
 <body>
+    <%- include('../partials/header') %>
+<img class="img" src="https://suprabeam.com/wp-content/uploads/2020/02/faq.png" alt="">
     <div class="container">
+        <h3 class="h3">Add New Question</h3>
         <form class="addQue" method='POST' id='addQue'>
-            <h3>Add New Question</h3>
+            
             <div id='header_div'>
                 <select name="type_of_work" id='input_select'>
                     <option value="" disabled selected>type of work</option>
@@ -31,6 +36,7 @@
         </form>
     </div>
     <script src="/js/addque.js"></script>
+    <%- include('../partials/footer') %>
 </body>
 
 </html>
