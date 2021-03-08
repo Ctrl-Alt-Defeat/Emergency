@@ -5,20 +5,23 @@
     <title>Prologue by HTML5 UP</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="styles/account/style.css">
+	<link rel="stylesheet" href="/styles/account/style.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+	<link rel="stylesheet" href="">
 	<script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/all.js"
         integrity="sha384-G/ZR3ntz68JZrH4pfPJyRbjW+c0+ojii5f+GYiYwldYU69A+Ejat6yIfLSxljXxD"
         crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="/styles/reset.css">
+<link rel="stylesheet" href="/styles/header-footer/header.css">
+    <link rel="stylesheet" href="/styles/header-footer/footer.css">
     
    
 </head>
 
 <body>
-	
-	<h1>صلاح</h1>
+	<%- include('../partials/header') %>
     <div class="top">
         <% let visible=is_not_enable=='true' ?'none': 'block' %>
             <% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
@@ -207,7 +210,7 @@
         </div>
     </section>
 
-
+	<%- include('../partials/footer') %>
 </body>
 <script>
     let cordenation = '<%= data.location%>'
