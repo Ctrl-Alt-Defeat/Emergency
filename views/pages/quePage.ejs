@@ -139,14 +139,15 @@
                     </div>
                 </div>
             </div>
-            <div class="container" style="margin-top: 500px;">
-                <form  style="width: 800px;height: 300px;display: none;" class="addQue" action="/addAns/<%= queData.id %>" method="POST" id='ansForm'>
+            <div class="container">
+                <form  style="width: 700px;height: 300px;display: none;" class="addQue" action="/addAns/<%= queData.id %>" method="POST" id='ansForm'>
                     <h3>Add Your Answer</h3>
                     <input type="text" name="answer"placeholder="Your Answer" required>
                     <input type="hidden" name="user_id" id='user_id'>
                     <button class="form-btn dx" type="submit">Add Answer</button>
                 </form>
             </div>
+            <div style="background-color: aqua;">
             <% ansdata.forEach(ele=>{ %>
                 <div class="column">
                     <div class="card_ans">
@@ -156,6 +157,7 @@
                       <button onclick="showAddReply('<%= ele.id %>')">Add Reply</button>
                     </div>
                   </div>
+                </div>
                 <form action="/addReply/<%= ele.id %>" method="POST" style="display: none;height: 310px;" id='repForm<%=ele.id%>'>
                     <h3>Add Your Reply</h3>
                     <input type="text" name="mess" placeholder="Add Your Reply"style='margin-top:30px' required>

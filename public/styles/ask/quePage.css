@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 html, body {
-  background: #FCEEB5;
+  background: #fff;
   font-family: Abel, Arial, Verdana, sans-serif;
 }
 
 .center {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 20%;
+    left: 20%;
   -webkit-transform: translate(-50%, -50%);
 }
 
@@ -20,8 +20,8 @@ html, body {
   box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
   border-radius: 6px;
   overflow: hidden;
-  position: relative;
   margin: 1.5rem;
+  
 }
 
 .card h1 {
@@ -29,7 +29,6 @@ html, body {
 }
 
 .card .additional {
-  position: absolute;
   width: 150px;
   height: 100%;
   background: linear-gradient(#ff7b00c7, #ff7d00);
@@ -51,14 +50,11 @@ html, body {
 .card .additional .user-card {
   width: 150px;
   height: 100%;
-  position: relative;
-  float: left;
 }
 
 .card .additional .user-card::after {
   content: "";
   display: block;
-  position: absolute;
   top: 10%;
   right: -2px;
   height: 80%;
@@ -83,13 +79,12 @@ html, body {
 }
 
 .card .additional .user-card svg {
-  top: 50%;
-}
+  position: absolute;
+  top: 145px;}
 
 .card .additional .more-info {
   width: 300px;
   float: left;
-  position: absolute;
   left: 150px;
   height: 100%;
 }
@@ -120,7 +115,6 @@ html, body {
 .card .additional .stats {
   font-size: 2rem;
   display: flex;
-  position: absolute;
   bottom: 1rem;
   left: 1rem;
   right: 1rem;
@@ -170,7 +164,7 @@ html, body {
 }
 
 .card .general .more {
-  position: absolute;
+  /* position: absolute; */
   bottom: 1rem;
   right: 1rem;
   font-size: 0.9em;
@@ -183,7 +177,7 @@ html, body {
 .column {
   margin-top: 30px;
   float: left;
-  width: 25%;
+  width: 23.3%;
   padding: 0 10px;
 }
 
