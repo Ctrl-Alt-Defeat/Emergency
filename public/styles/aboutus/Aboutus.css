@@ -31,7 +31,7 @@ main{
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
-  background-image: url('https://raw.githubusercontent.com/Ctrl-Alt-Defeat/Emergency/main/public/styles/account/css/images/157147115_464909161346678_4208861771888485761_n.png') ;
+  background-image: url('../header-footer/logo.png') ;
   background-size: cover;
 }
 .pic:before
