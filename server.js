@@ -80,7 +80,7 @@ function handleAcconutPage(req, res) {
     acconutArr.push(allData);
     let selectFromFeedbacksDB = 'SELECT users.img as img, users.username as username, users.id as user_id, feedback.id as id, feedback.text as text FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
-      // console.log(dataFeedbacks.rows)
+      // console.log('feeeeeeeeeeeeed',dataFeedbacks.rows[0])
       //constructor for the data text img username
       let feedbackArray = [];
       dataFeedbacks.rows.forEach(element => {
