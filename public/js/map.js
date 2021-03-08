@@ -65,7 +65,7 @@ function getDataFromDB() {
 function drowLocation() {
     console.log(otherLocations);
     let finalLocation = [];
-    let allLocationMap = otherLocations.forEach(ele => {
+    otherLocations.forEach(ele => {
         let lon = Number(ele.location.split(',')[0]);
         let lat = Number(ele.location.split(',')[1]);
         console.log([lon, lat], coordinates);
@@ -83,7 +83,7 @@ function drowLocation() {
             }
         })
     })
-    allLocationMap.unshift({
+    finalLocation.unshift({
         'type': 'Feature',
         'properties': {
             'description':
@@ -100,7 +100,7 @@ function drowLocation() {
             'type': 'geojson',
             'data': {
                 'type': 'FeatureCollection',
-                'features': allLocationMap
+                'features': finalLocation
             }
         });
         // Add a layer showing the places.
