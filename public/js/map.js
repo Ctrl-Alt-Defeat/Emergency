@@ -65,16 +65,16 @@ function getDataFromDB() {
 function drowLocation() {
     console.log(otherLocations);
     let finalLocation = [];
-    otherLocations.forEach(ele => {
-        let lon = Number(ele.location.split(',')[0]);
-        let lat = Number(ele.location.split(',')[1]);
+    for(let i = 0 ; i < otherLocations.length ; i++){
+        let lon = Number(otherLocations[i].location.split(',')[0]);
+        let lat = Number(otherLocations[i].location.split(',')[1]);
         console.log([lon, lat], coordinates);
-        let workStatus = ele.status ? 'Available' : 'Not Available';
+        let workStatus = otherLocations[i].status ? 'Available' : 'Not Available';
         finalLocation.push({
             'type': 'Feature',
             'properties': {
                 'description':
-                    `<p><h1>This is ${ele.username}<h1/><h5>He is ${workStatus} Now</h5><h4>Years Of Experience: ${ele.exp}</h4><h4>Type Of Work: ${ele.type_of_work}</h4><h4>Account And Feedback: <a href="/login/acconut/${ele.id}?is_not_enable=${true}">${ele.full_name}</a></h4><h4>Contact:<a href="/login/acconut/${ele.id}?is_not_enable=${true}#contact">Here</a></h4></p>`,
+                    `<p><h1>This is ${otherLocations[i].username}<h1/><h5>He is ${workStatus} Now</h5><h4>Years Of Experience: ${otherLocations[i].exp}</h4><h4>Type Of Work: ${otherLocations[i].type_of_work}</h4><h4>Account And Feedback: <a href="/login/acconut/${otherLocations[i].id}?is_not_enable=${true}">${otherLocations[i].full_name}</a></h4><h4>Contact:<a href="/login/acconut/${otherLocations[i].id}?is_not_enable=${true}#contact">Here</a></h4></p>`,
                 'icon': 'embassy'
             },
             'geometry': {
@@ -82,6 +82,9 @@ function drowLocation() {
                 'coordinates': [lon, lat]
             }
         })
+    }
+    otherLocations.forEach(ele => {
+
     })
     finalLocation.unshift({
         'type': 'Feature',
