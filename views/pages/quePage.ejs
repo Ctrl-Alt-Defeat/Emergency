@@ -150,7 +150,6 @@
             <% ansdata.forEach(ele=>{ %>
                 <div class="column">
                     <div class="card_ans">
-                    <img src="<%= ele.img %>" alt="">
                       <h3><%= ele.username %></h3>
                       <p><%=ele.is_true == 1 ? "Answered" : 'Not Answered' %></p>
                       <p><%= ele.answer %></p>

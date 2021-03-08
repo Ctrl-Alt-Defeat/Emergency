@@ -6,10 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/ask/addQue.css">
+    <link rel="stylesheet" href="styles/contact/reset.css">
+    <link rel="stylesheet" href="styles/contact/base.css">
+    <link rel="stylesheet" href="styles/contact/layout.css">
+    <link rel="stylesheet" href="styles/contact/modules.css">
+    <link rel="stylesheet" href="styles/header-footer/header.css">
+    <link rel="stylesheet" href="styles/header-footer/footer.css">
     <title>Document</title>
 </head>
 
 <body>
+    <%- include('../partials/header') %>
+
     <div class="container">
         <form class="addQue" method='POST' id='addQue'>
             <h3>Add New Question</h3>
@@ -30,6 +38,8 @@
             <button class="form-btn dx" type="submit">Add</button>
         </form>
     </div>
+    <%- include('../partials/footer') %>
+
     <script src="/js/addque.js"></script>
 </body>
 
