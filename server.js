@@ -17,6 +17,7 @@ app.use(methodOverride('_method'));
 const port = process.env.PORT || 3000;
 const superagent = require('superagent');
 let status = 'Ok';
+let usernameOrPasswordError = 'Ok';
 const pg = require('pg');
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
@@ -84,7 +85,7 @@ function handleAcconutPage(req, res) {
       dataFeedbacks.rows.forEach(element => {
         let text = element.text;
         let username = element.username;
-        let img = element.img
+        let img = element.img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
         let user_id = element.user_id;
         let feedQuery = new Feedback(username, text, img, user_id);
         feedbackArray.push(feedQuery);
@@ -133,13 +134,15 @@ function AccountDB(full_name, role, location, img, type_of_work, email, phone_nu
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
   status = 'Ok';
-  res.render('pages/login', { status: oldStatus });
+  let OldusernameOrPasswordError = usernameOrPasswordError;
+  usernameOrPasswordError ='Ok';
+  res.render('pages/login', { status: oldStatus,usernameOrPasswordError:OldusernameOrPasswordError });
 })
 
 //===========================Sign up==================================
 
 app.post('/signUp', (req, res) => {
- 
+ try{
   let body = req.body;
   var full_name = body.full_name;
   let role = body.role;
@@ -158,8 +161,14 @@ app.post('/signUp', (req, res) => {
   client.query(insertQuery, safeValue).then(data => {
     res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
   }).catch(error => {
-    res.status(500).send(`Sorry an error has accord while loading the page  ${error} `);
+    usernameOrPasswordError = 'YOUR USERNAME, EMAIL OR PHONE-NUMBER';
+    res.redirect('/log_Page');
   });
+
+ }catch(e){
+   console.log(e)
+ }
+  
 });
 
 
@@ -220,10 +229,10 @@ app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
   res.render("pages/contact");
 }
-app.post("/contact", handleContactUsForm);
+app.post("/contact/:id", handleContactUsForm);
 function handleContactUsForm(req, res) {
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
-  let safeValue = [req.body.text, req.params.id];
+  let safeValue = [req.body.text, req.body.ownerid];
   client.query(SQL, safeValue).then(() => {
     res.render('index');
   }).catch(error => {
