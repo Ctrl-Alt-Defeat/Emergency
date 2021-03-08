@@ -6,12 +6,15 @@
 
 body {
 	background:#e7ac7434;
+	background-color: white;
 }
 
 .container{
 	width: auto;
 	height:auto;
     margin-top: 1%;
+	
+
 }
 
 form {
@@ -116,7 +119,7 @@ button.form-btn.sx.back:hover {
 
 button.form-btn.dx {
 	border-radius: 25px;
-	background-color: #ff7d00;
+	background-color: #ffd150;
 	color: #fff;
 }
 
@@ -263,6 +266,7 @@ select{
   	-ms-text-align-last: center;
   	-moz-text-align-last: center;
 	  background-color: white;
+	  
 
 }
 
@@ -273,4 +277,12 @@ select{
     grid-column-gap: 60px;
 	display: flow-root;
   
+}
+.img{
+	position: absolute;
+	left: 277px;
+	top: 144px;
+
+
+
 }
