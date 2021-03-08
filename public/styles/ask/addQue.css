@@ -1,8 +1,4 @@
 @import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
-* {
-	margin: 0;
-	padding: 0;
-}
 
 body {
 	background:#e7ac7434;
@@ -60,6 +56,8 @@ p > span {
 input,
 button{
 	outline: none !important; 
+	border: none;
+    background: none;
 }
 
 button.fb {
