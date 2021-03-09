@@ -342,9 +342,10 @@ function searchAskPage(req, res) {
 };
 
 function searchForQue(work, subject) {
-  let queyStr = work & subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 and subject = $2;' : work ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;' : subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;' : 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
+  let queyStr = work & subject ? 'SELECT id as ask.id ,user_id as USERS.id, que as ask.que, subject as ask.subject, type_of_work as ask.type_of_work, is_answered as ask.is_answered, username as users.username, img as users.img from ask  INNER JOIN users ON (ask.user_id = USERS.id) where ask.type_of_work = $1 and subject = $2;' : work ? 'SELECT id as ask.id,user_id as USERS.id, que as ask.que, subject as ask.subject, type_of_work as ask.type_of_work, is_answered as ask.is_answered, username as users.username, img as users.img  from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;' : subject ? 'SELECT  id as ask.id,user_id as USERS.id, que as ask.que, subject as ask.subject, type_of_work as ask.type_of_work, is_answered as ask.is_answered, username as users.username, img as users.img from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;' : 'SELECT id as ask.id,user_id as USERS.id, que as ask.que, subject as ask.subject, type_of_work as ask.type_of_work, is_answered as ask.is_answered, username as users.username, img as users.img from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
   let safeArr = work & subject ? [work, subject] : work ? [work] : subject ? [subject] : [];
   return client.query(queyStr, safeArr).then(data => {
+    console.log(data.rows,'data')
     return data.rows;
   })
 };
@@ -467,9 +468,11 @@ client.connect().then(() => {
 })
 
 function getfromQueDB(id) {
+  console.log(id)
   return client.query(`SELECT ask.id as id, ASK.que as que, Ask.user_id as user_id, Ask.is_answered as is_answered, Ask.subject as subject,Ask.type_of_work as type_of_work,USERS.username as username, USERS.img as img FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData => {
     return client.query('SELECT answer.id as id,answer.que_id as que_id, answer.answer as answer,answer.answer is_true,answer.user_id as user_id, USERS.username as username, USERS.img as img  FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;', [id]).then(ansdata => {
       return client.query('SELECT reply.id as id ,reply.ans_id as ans_id, reply.mess as mess,reply.user_id as user_id,USERS.username as username, USERS.img as img  FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData => {
+        console.log(queData);
         return { queData: queData.rows[0], ansdata: ansdata.rows, repData: repData.rows }
       });
     });

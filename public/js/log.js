@@ -60,7 +60,6 @@ function changeColor(){
 
 function Validation(ele,val1){
     if(!ele.value){
-        console.log('hiiiiiiiiiiiiiiiii1');
         document.getElementById(val1).style.display = 'block';
         document.getElementById(val1).style['margin-bottom'] =  '6px';
         document.getElementById(val1).style['margin-top'] =  '-20px';
@@ -70,11 +69,18 @@ function Validation(ele,val1){
             console.log( document.getElementById(val1));
             document.getElementById(val1).style['margin-bottom'] =  '-12px';
         }
-    }else if ((val1 == 'var_name' && document.getElementById('checkpassWord').value != ele.value) || (val1 == 'phone_num' && /^(\([0-9]{3}\)|[0-9]{3})[-|\s]?[0-9]{3}[-|\s]?[0-9]{4}$/g.test(ele.value))){
-        document.getElementById(val1).style.display = 'block';
+    }else if (((val1 == 'var_name' || val1 ==  'pass_name') && document.getElementById('checkpassWord').value != document.getElementById('checkpassWord1').value)){
+        document.getElementById("var_name").style.display = 'block';
+        document.getElementById("var_name").style['margin-bottom'] =  '6px';
+        document.getElementById("var_name").style['margin-top'] =  '-20px';
+        document.getElementById("var_name").style['font-size'] = '10px';
+    }else if(val1 == 'phone_num' && /^(\([0-9]{3}\)|[0-9]{3})[-|\s]?[0-9]{3}[-|\s]?[0-9]{4}$/g.test(ele.value)){
+        document.getElementById("val1").style.display = 'block';
+        document.getElementById("val1").style['margin-bottom'] =  '6px';
+        document.getElementById("val1").style['margin-top'] =  '-20px';
+        document.getElementById("val1").style['font-size'] = '10px';
     }
     else{
-        console.log('hiiiiiiiiiiiiiiiii3');
         document.getElementById(val1).style.display = 'none';
-    }
+    };
 }

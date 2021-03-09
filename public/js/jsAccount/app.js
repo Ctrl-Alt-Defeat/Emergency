@@ -1,5 +1,5 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXJlZWpvYmFpZCIsImEiOiJja2x0c253aW8wOTJ5MndxZmRta3VhbndtIn0.j1FQy0dPKPrSaajm7xTvzA';
-
+console.log(cordenation);
 cordenation = cordenation.split(','); 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -69,9 +69,7 @@ map.on('load', function () {
         map.getCanvas().style.cursor = '';
     });
 });
-
-
-isUserAccount == "false" ? window.localStorage.setItem('id' ,id ):console.log('no')
+isUserAccount == "false" ? window.localStorage.setItem('id' , id_account ):console.log('no')
 isUserAccount == "false" ? window.localStorage.setItem('username' ,username ):console.log('no')
 isUserAccount == "false" ? window.localStorage.setItem('img' ,img ):console.log('no')
 
