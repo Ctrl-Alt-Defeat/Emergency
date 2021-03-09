@@ -95,7 +95,7 @@ function handleAcconutPage(req, res) {
       let scheduleFromSchedulsDB = 'SELECT * FROM schedule WHERE user_id = $1;';
       return client.query(scheduleFromSchedulsDB, safeValue).then(dataSchedule => {
         console.log({ data: allData, is_not_enable: req.query.is_not_enable, dataFeedbacks: feedbackArray, dataSchedule: dataSchedule.rows });
-        res.render('pages/accounttt', { data: allData, is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
+        res.render('pages/accountNew', { data: allData, is_not_enable: req.query.is_not_enable, dataFeedbacks: dataFeedbacks.rows, dataSchedule: dataSchedule.rows });
       })
 
     }).catch(error => {
