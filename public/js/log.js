@@ -1,4 +1,5 @@
 $(".log-in").click(function () {
+    document.getElementById('WRONG').style.display = 'none';
     $(".signIn").addClass("active-dx");
     $(".signUp").addClass("inactive-sx");
     $(".signUp").removeClass("active-sx");
@@ -13,12 +14,22 @@ $(".back").click(function () {
 });
 
 if (status != 'Ok') {
-    alert(status);
+    document.getElementById('WRONG').style.display = 'block';
     $(".signIn").addClass("active-dx");
     $(".signUp").addClass("inactive-sx");
     $(".signUp").removeClass("active-sx");
     $(".signIn").removeClass("inactive-dx");
 }
+
+if (usernameOrPasswordError != 'Ok') {
+    document.getElementById('Used').style.display = 'block';
+    $(".signUp").addClass("active-sx");
+    $(".signIn").addClass("inactive-dx");
+    $(".signIn").removeClass("active-dx");
+    $(".signUp").removeClass("inactive-sx");
+}
+
+
 var options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -45,4 +56,31 @@ function changeColor(){
         document.getElementById('signIn').action = "/login?role=3"
 
     }
+}
+
+function Validation(ele,val1){
+    if(!ele.value){
+        document.getElementById(val1).style.display = 'block';
+        document.getElementById(val1).style['margin-bottom'] =  '6px';
+        document.getElementById(val1).style['margin-top'] =  '-20px';
+        document.getElementById(val1).style['font-size'] = '10px';
+        console.log(val1 == 'full_name_input');
+        if(val1 == 'full_name_input'){
+            console.log( document.getElementById(val1));
+            document.getElementById(val1).style['margin-bottom'] =  '-12px';
+        }
+    }else if (((val1 == 'var_name' || val1 ==  'pass_name') && document.getElementById('checkpassWord').value != document.getElementById('checkpassWord1').value)){
+        document.getElementById("var_name").style.display = 'block';
+        document.getElementById("var_name").style['margin-bottom'] =  '6px';
+        document.getElementById("var_name").style['margin-top'] =  '-20px';
+        document.getElementById("var_name").style['font-size'] = '10px';
+    }else if(val1 == 'phone_num' && /^(\([0-9]{3}\)|[0-9]{3})[-|\s]?[0-9]{3}[-|\s]?[0-9]{4}$/g.test(ele.value)){
+        document.getElementById("val1").style.display = 'block';
+        document.getElementById("val1").style['margin-bottom'] =  '6px';
+        document.getElementById("val1").style['margin-top'] =  '-20px';
+        document.getElementById("val1").style['font-size'] = '10px';
+    }
+    else{
+        document.getElementById(val1).style.display = 'none';
+    };
 }

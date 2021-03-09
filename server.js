@@ -17,6 +17,7 @@ app.use(methodOverride('_method'));
 const port = process.env.PORT || 3000;
 const superagent = require('superagent');
 let status = 'Ok';
+let usernameOrPasswordError = 'Ok';
 const pg = require('pg');
 // const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
 const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
@@ -84,7 +85,7 @@ function handleAcconutPage(req, res) {
       dataFeedbacks.rows.forEach(element => {
         let text = element.text;
         let username = element.username;
-        let img = element.img
+        let img = element.img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
         let user_id = element.user_id;
         let feedQuery = new Feedback(username, text, img, user_id);
         feedbackArray.push(feedQuery);
@@ -133,13 +134,15 @@ function AccountDB(full_name, role, location, img, type_of_work, email, phone_nu
 app.get('/log_Page', (req, res) => {
   let oldStatus = status;
   status = 'Ok';
-  res.render('pages/login', { status: oldStatus });
+  let OldusernameOrPasswordError = usernameOrPasswordError;
+  usernameOrPasswordError ='Ok';
+  res.render('pages/login', { status: oldStatus,usernameOrPasswordError:OldusernameOrPasswordError });
 })
 
 //===========================Sign up==================================
 
 app.post('/signUp', (req, res) => {
- 
+ try{
   let body = req.body;
   var full_name = body.full_name;
   let role = body.role;
@@ -158,8 +161,14 @@ app.post('/signUp', (req, res) => {
   client.query(insertQuery, safeValue).then(data => {
     res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
   }).catch(error => {
-    res.status(500).send(`Sorry an error has accord while loading the page  ${error} `);
+    usernameOrPasswordError = 'YOUR USERNAME, EMAIL OR PHONE-NUMBER';
+    res.redirect('/log_Page');
   });
+
+ }catch(e){
+   console.log(e)
+ }
+  
 });
 
 
@@ -181,7 +190,7 @@ app.post('/feedback/:id', (req, res) => {
 
 
   client.query(insertQuery, safeValue).then(data => {
-    res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
+    res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${true}`);
   }).catch(error => {
     console.log('error has been detected ...', error);
   });
@@ -215,17 +224,21 @@ app.post('/feedback/:id', (req, res) => {
 
 
 // ==============[SALAH] Contact Us Page And Getting All Messages to another page =====================
+let statusOfContact = ''
 let arrayOfImages = ["https://images.generated.photos/ERWujtGdPrsx5TqtmelYDCs05-YcdEG6yYS08QsRUsw/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAwMjMwNDYuanBn.jpg", "https://images.generated.photos/IF0Qumz-zv_fj3_hV2pBNxiJox6lGX8IALzPxyXZVX8/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzNDY2MjcuanBn.jpg", "https://images.generated.photos/5E9zLcP6CYOVmBeBVUTMct13o6nUQwMcvKEX3c599jc/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0MTAyMjIuanBn.jpg", "https://images.generated.photos/oTW6oNJjkB-EzPaL_rjYDJcW7-VIJZFJJBF_nltC7gw/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3ODE4NTQuanBn.jpg", "https://images.generated.photos/aPCmpRaC6WP6FbspiNg3wbb5oxSmMt1AdPpjPIWgbcs/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5MDc2NDYuanBn.jpg", "https://images.generated.photos/ZQbIEOo9TXCPc0E4z9TxfHkTF764mSzVzlcxf1dUkEE/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyMzkwNDUuanBn.jpg", "https://images.generated.photos/e0waIObdOx1KD0bggTDlLalQyabvL1RmGcbPFxovBvw/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA1MjM3MjguanBn.jpg", "https://images.generated.photos/dLLq4A9O4EA9KgcK65BpCOtoNGlxCfXn0ILrVmvnFlA/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA0MjIyMTQuanBn.jpg", "https://images.generated.photos/BKcd199EoM37jCZMIb18mWZEhxe1l7s-uykmwaljI5A/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA1NDQ0MzAuanBn.jpg", "https://images.generated.photos/1k3lzxgEtWeS2mefKNXprUfn-kPpzyz3QJ0xuizOQrE/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA3NzkzMDkuanBn.jpg", "https://generated.photos/face/joyfull-white-young-adult-female-with-long-brown-hair-and-blue-eyes--5e6845346d3b380006e2c17f", "https://generated.photos/face/joyfull-white-young-adult-female-with-long-brown-hair-and-green-eyes--5e68640f6d3b380006e9b6d1"];
 app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
-  res.render("pages/contact");
+  let oldMess = statusOfContact;
+  statusOfContact = '';
+  res.render("pages/contact",{statusOfContact:oldMess});
 }
-app.post("/contact", handleContactUsForm);
+app.post("/contact/:id", handleContactUsForm);
 function handleContactUsForm(req, res) {
   let SQL = `INSERT INTO contact (mess,user_id) VALUES ($1,$2);`
-  let safeValue = [req.body.text, req.params.id];
+  let safeValue = [req.body.text, req.body.ownerid];
   client.query(SQL, safeValue).then(() => {
-    res.render('index');
+    statusOfContact = 'The Message Sended';
+    res.redirect('/contact');
   }).catch(error => {
     res.render("pages/error", { error: error });
   })
@@ -329,9 +342,10 @@ function searchAskPage(req, res) {
 };
 
 function searchForQue(work, subject) {
-  let queyStr = work & subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 and subject = $2;' : work ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;' : subject ? 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;' : 'SELECT * from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
+  let queyStr = work & subject ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (ask.user_id = USERS.id) where ask.type_of_work = $1 and subject = $2;' : work ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img  from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;' : subject ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;' : 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
   let safeArr = work & subject ? [work, subject] : work ? [work] : subject ? [subject] : [];
   return client.query(queyStr, safeArr).then(data => {
+    console.log(data.rows,'data')
     return data.rows;
   })
 };
@@ -454,9 +468,11 @@ client.connect().then(() => {
 })
 
 function getfromQueDB(id) {
+  console.log(id)
   return client.query(`SELECT ask.id as id, ASK.que as que, Ask.user_id as user_id, Ask.is_answered as is_answered, Ask.subject as subject,Ask.type_of_work as type_of_work,USERS.username as username, USERS.img as img FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData => {
     return client.query('SELECT answer.id as id,answer.que_id as que_id, answer.answer as answer,answer.answer is_true,answer.user_id as user_id, USERS.username as username, USERS.img as img  FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;', [id]).then(ansdata => {
       return client.query('SELECT reply.id as id ,reply.ans_id as ans_id, reply.mess as mess,reply.user_id as user_id,USERS.username as username, USERS.img as img  FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData => {
+        console.log(queData);
         return { queData: queData.rows[0], ansdata: ansdata.rows, repData: repData.rows }
       });
     });

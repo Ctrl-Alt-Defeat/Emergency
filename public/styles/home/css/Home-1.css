@@ -365,7 +365,7 @@
   box-sizing: border-box;
 }
 
-main {
+.main-home {
   margin:  0;
   padding: 0%;
   /* min-height: 100vh; */
@@ -568,9 +568,11 @@ position: absolute;
   flex-direction: row;
 }
 
-h2{
+/* .h2{
   font-family: 'Dosis' !important;
-}
+} */
+
+
 @media (max-width: 575px) {
   .cards-wrapper{
     display: flex;
@@ -578,5 +580,3 @@ h2{
     flex-direction: column;
   }
 }
-
-

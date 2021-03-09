@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="contactForm">
-                        <form action="/contact" method="POST">
+                        <form action="/contact/id" method="POST">
                             <h2>Send Message</h2>
                             <div class="inputBox">
                                 <input type="text" name="userName" required="required">
@@ -65,10 +65,12 @@
                                 <input type="text" name="email" required="required">
                                 <span>Email</span>
                             </div>
+                            <input type="hidden" name="ownerid" id = "ownerid">
                             <div class="inputBox">
                                 <textarea name="text" required="required"></textarea>
                                 <span>Type your Message...</span>
                             </div>
+                            <p><%= statusOfContact%></p>
                             <div class="inputBox">
                                 <input type="submit" value="Send">
                             </div>
@@ -78,6 +80,9 @@
             </section>
         </main>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            document.getElementById('ownerid').value = localStorage.getItem('id');
+        </script>
         <%- include('../partials/footer') %>
 </body>
 

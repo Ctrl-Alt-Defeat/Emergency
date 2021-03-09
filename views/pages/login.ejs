@@ -16,7 +16,7 @@
         <div class="mmmm">
         <div class="welcome">
             <h3>Welcome To Emergncy.com</h3>
-            <img src="https://raw.githubusercontent.com/Ctrl-Alt-Defeat/Emergency/main/public/styles/account/css/images/157147115_464909161346678_4208861771888485761_n.png" alt="">
+            <img src="styles/header-footer/logo.png" alt="">
             <h3>Your Assistant is One Button Away!</h3>
 
         </div>
@@ -25,9 +25,12 @@
             
                 <h3>Welcome</br>Back !</h3>
                 <button class="fb" type="button" onclick="changeColor()" >Log In As Admin</button>
-                <p id = 'admin' style="display: none">- Start As Admin -</p>
-                <input type="email" placeholder="Insert eMail" name="email" autocomplete='off' reqired />
-                <input type="password" placeholder="Insert Password" name="password" reqired />
+                <p id = 'admin' style="display: none;margin-bottom: 10px;">- Start As Admin -</p>
+                <input type="email" placeholder="Insert eMail" name="email" autocomplete='off' onblur="Validation(this,'eMail_input')" reqired />
+                <p id = 'eMail_input' style="display: none">- This Field Is Required -</p>
+                <input type="password" placeholder="Insert Password" name="password" onblur="Validation(this,'password_input')" reqired />
+                <p id = 'password_input' style="display: none">- This Field Is Required -</p>
+                <p id = 'WRONG' style="display: none" style="display: none;">- WRONG EMAIL OR PASSWORD -</p>
                 <button class="form-btn sx back" type="button">Create Account</button>
                 <button class="form-btn dx" type="submit">Log In</button>
             </form>
@@ -35,16 +38,17 @@
             <form class="signUp" action="/signUp" method="POST">
                 <h3>Create Your Account</h3>
 
-                <input type="text"  name="full_name" placeholder="Enter your full name" required>
+                <input type="text"  name="full_name" placeholder="Enter your full name" onblur="Validation(this,'full_name_input')" required>
+                <p id = 'full_name_input' style="display: none">- This Field Is Required -</p>
                 <br>
-                <select name="role" required>
+                <select name="role" required onblur=" Validation(this,'role')">
                     <option value="" disabled selected>Select your role</option>
                     <option value="1">Business owner</option>
                     <option value="2">Worker</option>
                 </select>
+                <p id = 'role' style="display: none">- This Field Is Required -</p>
 
                 <input type="hidden"  name="location" id = 'location'>
-
                 <select name="type_of_work" id="">
                     <option value="" disabled selected>type of work</option>
                     <option value="Smith">Smith</option>
@@ -54,24 +58,27 @@
                     <option value="Paint">Painter</option>
                     <option value="other">-other-</option>
                 </select>
-                <input class="w100" type="email"  name="email" placeholder="Insert eMail" reqired autocomplete='off' />
+                <input class="w100" type="email"  name="email" placeholder="Insert eMail" reqired autocomplete='off' onblur="Validation(this,'email_SignUP')" />
+                <p id = 'email_SignUP' style="display: none">- This Field Is Required -</p>
 
-                <input type="text"  name="user_name" placeholder="user name" required>
+                <input type="text"  name="user_name" placeholder="user name" onblur="Validation(this,'user_name')" required>
+                <p id = 'user_name' style="display: none">- This Field Is Required -</p>
 
-                <input type="password"  name="password" placeholder="Insert Password" required/>
+                <input type="password"  name="password" placeholder="Insert Password" onblur="Validation(this,'pass_name')" id ='checkpassWord' required/>
+                <p id = 'pass_name' style="display: none">- This Field Is Required -</p>
 
-                <input type="password" placeholder="Verify Password" required/>
+                <input type="password" placeholder="Verify Password" required  onblur=" Validation(this,'var_name')" id = 'checkpassWord1' required/>
+                <p id = 'var_name' style="display: none">- The Password Is Not Matched -</p>
 
-                <input type="text"  name="phone_num" placeholder="07 9999 9999" required>
+                <input type="text"  name="phone_num" placeholder="07 9999 9999" onblur=" Validation(this,'phone_num')" required>
+                <p id = 'phone_num' style="display: none">- Enter You phone Number -</p>
 
-                <input  name="status" value="0" type="hidden" >
+                <input  name="status" value="0" type="hidden">
+                <p  id = 'Used' style="display: none">YOUR USERNAME, EMAIL OR PHONE-NUMBER IS USED</p>
 
                 <button class="form-btn sx log-in" type="button">Already have Account?</button>
-                <button class="form-btn dx" type="submit">Sign Up</button>
+                <button class="form-btn dx" type="submit" >Sign Up</button>
             </form>
-
-
-        </div>
         </div> 
     </main>
 <%- include('../partials/footer')%>
@@ -79,6 +86,7 @@
 </body>
 <script>
     let status = '<%= status%>';
+    let usernameOrPasswordError = '<%= usernameOrPasswordError %>'
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
 <script src="/js/log.js"></script>
