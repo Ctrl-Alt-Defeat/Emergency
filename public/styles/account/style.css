@@ -5,12 +5,13 @@
 
 .introduction {
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 5rem auto;
-  flex-direction: row;
+  flex-direction: column;
   width: 52%;
   border: 2px solid #ffd150;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
-  border-radius: 0 20px 0 20px ;
 }
 
 @media (max-width: 883px) {
@@ -30,17 +31,15 @@
 }
 
 .user-img {
-  width: 72%;
-  margin: 18px
+  width: 30%;
+  margin-top: 22px;
+  margin-bottom: 5px;
 }
 
 .map-img {
-  margin: auto;
-  margin-bottom: 50px;
+  margin: 100px 10px 50px 350px;
   border: 2px solid #ffd150;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
-  width: 80%;
-  height: 600px;
 }
 
 @media (max-width: 955px) {
@@ -59,11 +58,8 @@
 }
 
 .intro-texts {
-  position: relative;
-  left: -27px;
-  margin: 20px 0;
-  width: 100%;
-  }
+  margin-left: 119px;
+}
 
 /* from contact page */
 

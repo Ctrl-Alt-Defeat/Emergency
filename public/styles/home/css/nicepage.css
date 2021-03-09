@@ -12948,6 +12948,8 @@ p {
 }
 .u-align-center {
   text-align: center;
+  margin-top: -223px;
+
 }
 @media (min-width: 1200px) {
   .u-align-center-xl {

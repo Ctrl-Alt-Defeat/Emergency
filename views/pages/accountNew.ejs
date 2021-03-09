@@ -28,12 +28,12 @@
                 <% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
                     <% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
                         <% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
-                                <div class="imgg">
-                            <img class="user-img" src="<%= data.img %>" alt="" />
-                        </div>
+                            <div class="imgg">
+                                <img class="user-img" src="<%= data.img %>" alt="" />
+                            </div>
                             <div class="intro-texts">
-                            <h1 class="hello-name"> Hello <%= data.full_name%>
-                            </h1>
+                                <h1 class="hello-name"> Hello <%= data.full_name%>
+                                </h1>
 
                                 <h1 class="hello-name the-user-username" id="title">
                                     Username: <%= data.username %>
@@ -52,13 +52,12 @@
                             </div>
         </div>
 
-        <div class="map-img" id="map" ></div>
+        <div class="map-img" id="map"></div>
 
         <section id="portfolio" class="two">
             <div class="cenarize-div">
-                <div class="contactForm">
-                    <form class="feedback" action="/feedback/<%= data.id%>" method="POST"
-                        style="display:<%= visibleCont%>">
+                <div class="contactForm" style="display:<%= visibleCont%>">
+                    <form class="feedback" action="/feedback/<%= data.id%>" method="POST">
                         <h2>Feedbacks</h2>
                         <div class="inputBox">
                             <input type="hidden" name="ownerid" id='ownerid'>
@@ -214,11 +213,11 @@
                             <h2>
                                 <%= ele.day %>
 
-                            </h3>
-                            <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
-                            <p class="small">
+                                    </h3>
+                                    <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
+                                    <p class="small">
 
-                                <%= ele.hours_avl_from%>
+                                        <%= ele.hours_avl_from%>
                             </h2>
                         </div>
                         <div class="inputBox">
@@ -234,36 +233,44 @@
         </section>
         <section id="contact" class="four">
 
-            
+
 
             <div class="cenarize-div">
                 <div class="contactForm">
 
-                    <div class="inputBox"><h2>Contact</h2></div>
-                    <div class="inputBox"><p>Sent me an email now or call me and let me save your life !!</p></div>
+                    <div class="inputBox">
+                        <h2>Contact</h2>
+                    </div>
+                    <div class="inputBox">
+                        <p>Sent me an email now or call me and let me save your life !!</p>
+                    </div>
 
-                    <div class="inputBox"><h2>Phone Num: <%= data.phone_num%>
-                </h2></div>
-                <div class="inputBox"><h2>Email: <%= data.email%>"</h2></div>
-            </div>
-        </div>
-
-                <div class="col-12" style="display:<%= visibleCont%>">
-                    <div class="cenarize-div">
-                        <div class="contactForm">
-                            <form method="post" action='/message/<%= data.id %>'>
-                                <h2>Or You Can Send To Me Adirect Email</h2>
-                                <div class="inputBox"><input name='message' type="text" placeholder="Write You Message">
-                                </div>
-                                <div class="inputBox"> <input name='email' type="text" value='<%= data.email%>'
-                                        style="display: none;"></div>
-                                <div class="inputBox"> <input style="width: 115px;" type="submit" value="Send Message"
-                                        onclick="myFunction()" /></div>
-                            </form>
-                        </div>
+                    <div class="inputBox">
+                        <h2>Phone Num: <%= data.phone_num%>
+                        </h2>
+                    </div>
+                    <div class="inputBox">
+                        <h2>Email: <%= data.email%>"</h2>
                     </div>
                 </div>
-            
+            </div>
+
+            <div class="col-12" style="display:<%= visibleCont%>">
+                <div class="cenarize-div">
+                    <div class="contactForm">
+                        <form method="post" action='/message/<%= data.id %>'>
+                            <h2>Or You Can Send To Me Adirect Email</h2>
+                            <div class="inputBox"><input name='message' type="text" placeholder="Write You Message">
+                            </div>
+                            <div class="inputBox"> <input name='email' type="text" value='<%= data.email%>'
+                                    style="display: none;"></div>
+                            <div class="inputBox"> <input style="width: 115px;" type="submit" value="Send Message"
+                                    onclick="myFunction()" /></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <%- include('../partials/footer') %>
