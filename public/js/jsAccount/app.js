@@ -69,7 +69,7 @@ map.on('load', function () {
         map.getCanvas().style.cursor = '';
     });
 });
-let img_url = img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrz;
+let img_url = img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrz';
 isUserAccount == "false" ? window.localStorage.setItem('id' , id_account ):console.log('no')
 isUserAccount == "false" ? window.localStorage.setItem('username' ,username ):console.log('no')
 isUserAccount == "false" ? window.localStorage.setItem('img' ,img_url ):console.log('no')
