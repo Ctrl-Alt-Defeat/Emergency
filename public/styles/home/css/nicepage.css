@@ -4072,6 +4072,7 @@ hr {
   box-sizing: content-box;
   height: 0;
   overflow: visible;
+  border: 2px solid #ed7a21;
 }
 button,
 input,
@@ -13359,14 +13360,7 @@ blockquote ol:last-child {
         margin-top: 20px;
         margin-bottom: 20px;
         }
-        h1:not(.u-title)
-        {
-        font-weight: 400;
-        font-size: 3rem;
-        line-height: 1.1;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        }
+        
         h2:not(.u-subtitle)
         {
         font-weight: 400;
