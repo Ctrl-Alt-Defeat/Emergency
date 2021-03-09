@@ -54,8 +54,9 @@
 
         <section id="portfolio" class="two">
             <div class="cenarize-div">
-                <div class="contactForm" style="display:<%= visibleCont%>">
-                    <form class="feedback" action="/feedback/<%= data.id%>" method="POST">
+                <div class="contactForm">
+                    <form class="feedback" action="/feedback/<%= data.id%>" method="POST"
+                        style="display:<%= visibleCont%>">
                         <h2>Feedbacks</h2>
                         <div class="inputBox">
                             <input type="hidden" name="ownerid" id='ownerid'>
@@ -70,7 +71,7 @@
                 </div>
             </div>
             <div class="cenarize-div">
-                <div  style="display: block;" class="contactForm">
+                <div class="contactForm">
                     <% dataFeedbacks.forEach(ele=>{%>
                         <form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
                             <div class="container1">
@@ -83,15 +84,15 @@
                                         <%= ele.username %>
                                     </h3>
                                 </div>
-                                <div class="inputBox"><input type="text" name="id"
-                                        value="<%=ele.id%>" hidden></div>
+                                <div class="inputBox"><input type="text" name="text" value="<%=ele.text%>"
+                                        style="display: none;" hidden></div>
                                 <div class="inputBox">
                                     <p class="small">
                                         <%= ele.text %>
                                     </p>
                                 </div>
-                                <div class="inputBox" style="display:<%= visible%>">
-                                    <input type="submit" class="delete " value="X">
+                                <div class="inputBox">
+                                    <input type="submit" class="delete " style="display:<%= visible%>" value="X">
                                 </div>
                             </div>
                         </form>
@@ -175,12 +176,11 @@
             </div>
         </section>
         <section id='schedule'>
-            <div class="cenarize-div">
-                <div style="display: <%= visible%>;" class="contactForm">
-                    <h2 style="margin-bottom: 10px;">Schedule</h2>
-                    <form action="/schedule/<%=data.id%>" method="POST">
 
-
+            <form action="/schedule/<%=data.id%>" method="POST" style="display: <%= visible%>;">
+                <div class="cenarize-div">
+                    <div class="contactForm">
+                        <h2 style="margin-bottom: 10px;">Schedule</h2>
                         <div>
                             <div class="inputBox">
                                 <label class="time">You are available from :</label>
@@ -200,27 +200,23 @@
 
 
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+
+            </form>
             <div class="cenarize-div">
-                <div style="display: flex;justify-content: center;flex-direction: column; align-items: center;" class="contactForm">
+                <div class="contactForm">
                     <% dataSchedule.forEach(ele=>{%>
-                        <div class="inputBox">
-                            <h2>
-                                The Schedule is:
-                            </h2>
-                        </div>
+
                         <div class="inputBox">
                             <h2>
                                 <%= ele.day %>
                             </h2>
                         </div>
 
-                        <div  style="display: none;" class="inputBox">
-                            <input type="text" name="text" value="<%=ele.text%>" hidden>
+                        <div class="inputBox">
+                            <input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
                         </div>
-                        
                         <div class="inputBox">
                             <h2>
                                 <%= ele.hours_avl_from%>
@@ -239,43 +235,36 @@
         </section>
         <section id="contact" class="four">
 
-
+            
 
             <div class="cenarize-div">
                 <div class="contactForm">
 
-                    <div class="inputBox">
-                        <h2 style="border: 2px solid #ffd150;
-                        box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);text-align: center; margin-bottom: 20px ;">Contact me in my my available time to save your life :)</h2>
-                    </div>
-                    
+                    <div class="inputBox"><h2>Contact</h2></div>
+                    <div class="inputBox"><p>Sent me an email now or call me and let me save your life !!</p></div>
 
-                    <div class="inputBox">
-                        <h2>Phone Num: <%= data.phone_num%>
-                        </h2>
-                    </div>
-                    <div class="inputBox">
-                        <h2>Email: <%= data.email%>"</h2>
-                    </div>
-                </div>
+                    <div class="inputBox"><h2>Phone Num: <%= data.phone_num%>
+                </h2></div>
+                <div class="inputBox"><h2>Email: <%= data.email%>"</h2></div>
             </div>
+        </div>
 
-
-            <div class="cenarize-div">
-                <div class="contactForm" style="display:<%= visibleCont%>">
-                    <form method="post" action='/message/<%= data.id %>'>
-                        <h2>Or You Can Send To Me Adirect Email</h2>
-                        <div class="inputBox"><input name='message' type="text" placeholder="Write You Message">
+                <div class="col-12" style="display:<%= visibleCont%>">
+                    <div class="cenarize-div">
+                        <div class="contactForm">
+                            <form method="post" action='/message/<%= data.id %>'>
+                                <h2>Or You Can Send To Me Adirect Email</h2>
+                                <div class="inputBox"><input name='message' type="text" placeholder="Write You Message">
+                                </div>
+                                <div class="inputBox"> <input name='email' type="text" value='<%= data.email%>'
+                                        style="display: none;"></div>
+                                <div class="inputBox"> <input style="width: 115px;" type="submit" value="Send Message"
+                                        onclick="myFunction()" /></div>
+                            </form>
                         </div>
-                        <div style="display: none;" class="inputBox"> <input name='email' type="text"
-                                value='<%= data.email%>'></div>
-                        <div class="inputBox"> <input style="width: 115px;" type="submit" value="Send Message"
-                                onclick="myFunction()" /></div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-
-
+            
         </section>
 
         <%- include('../partials/footer') %>
