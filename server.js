@@ -504,7 +504,7 @@ function addReply(req, res) {
 };
 
 function saveRepInDB(ans_id, mess, user_id, que_id) {
-  console.log(ans_id, mess, user_id, 'que_id');
+  console.log(ans_id, mess, user_id, 'que_id',que_id,'que_id');
   return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)', [user_id, ans_id, mess]).then(data => {
     return que_id;
   }).catch(error => {
