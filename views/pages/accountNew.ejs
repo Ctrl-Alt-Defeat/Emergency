@@ -58,7 +58,7 @@
         </div>
         <section id="portfolio" class="two">
             <div class="container-of-things-i-dont-know">
-                <div class="cenarize-div second-div">
+                <div class="cenarize-div second-div donnow">
                     <div class="contactForm">
                         <form class="feedback" action="/feedback/<%= data.id%>" method="POST"
                             style="display:<%= visibleCont%>">
@@ -75,7 +75,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="cenarize-div second-div">
+                <div class="cenarize-div second-div donnow">
                     <div class="contactForm">
                         <% dataFeedbacks.forEach(ele=>{%>
                             <form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
@@ -85,9 +85,9 @@
                                         <img src="<%= ele.img %>" height='60px' width='60px'>
                                     </div>
                                     <div class="inputBox">
-                                        <h3>
+                                        <h2>
                                             <%= ele.username %>
-                                        </h3>
+                                        </h2>
                                     </div>
                                     <div class="inputBox"><input type="text" name="text" value="<%=ele.text%>"
                                             style="display: none;" hidden></div>
@@ -107,7 +107,7 @@
             </div>
         </section>
         <section id="Edit" class="two" style="display: <%= visible%>;">
-            <div class="cenarize-div">
+            <div class="cenarize-div edit-form">
                 <div class="contactForm">
                     <form action="/update/<%=data.id%>?_method=put" method="POST">
                         <h2
@@ -182,47 +182,56 @@
             </div>
         </section>
         <section id='schedule'>
-
-            <form action="/schedule/<%=data.id%>" method="POST" style="display: <%= visible%>;">
-                <div class="cenarize-div">
+            <div class="the-last-fill-space">
+                <div class="cenarize-div adding-width-to-the-last-dives">
                     <div class="contactForm">
-                        <h2 style="margin-bottom: 10px;">Schedule</h2>
-                        <div>
-                            <div class="inputBox">
-                                <label class="time">You are available from :</label>
-                                <input type="time" name="from">
-                            </div>
-                            <div class="inputBox">
-                                <label class="time">You are available until :</label>
-                                <input name="until" type="time">
-                            </div>
-                            <div class="inputBox">
-                                <label class="time">Your available Days : </label>
-                                <input name='date' type="date">
-                            </div>
-                            <div class="inputBox">
-                                <input type="submit" value="Submit">
-                            </div>
+                        <form action="/schedule/<%=data.id%>" method="POST" style="display: <%= visible%>;">
+
+                            <h2 style="margin-bottom: 10px;">Schedule</h2>
+                            <div>
+                                <div class="inputBox">
+                                    <label class="time">You are available from :</label>
+                                    <input type="time" name="from">
+                                </div>
+                                <div class="inputBox">
+                                    <label class="time">You are available until :</label>
+                                    <input name="until" type="time">
+                                </div>
+                                <div class="inputBox">
+                                    <label class="time">Your available Days : </label>
+                                    <input name='date' type="date">
+                                </div>
+                                <div class="inputBox">
+                                    <input type="submit" value="Submit">
+                                </div>
 
 
-                        </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
 
-            </form>
-            <div class="cenarize-div">
-                <div class="contactForm">
-                    <% dataSchedule.forEach(ele=>{%>
-                        <form action="/deleteSchedule/<%=ele.user_id%>?_method=DELETE" class="deleteSchadual" method="POST">
+                <div class="cenarize-div">
+                    <div class="contactForm">
+                        <% dataSchedule.forEach(ele=>{%>
+
                             <div class="inputBox">
                                 <h2>
-                                    <%= ele.day %>
+                                   The Date <%= ele.day %>
 
+                                        </h3>
+                                        <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
+                                        <p class="small">
 
+                                           from <%= ele.hours_avl_from%>
                                 </h2>
-                                <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
-                                <h2 class="small">
-
+                            </div>
+                            <div class="inputBox">
+                                <h2>
+                                  to  <%= ele.hours_avl_to %>
+                                </h2>
+                            </div>
 
                                     <%= ele.hours_avl_from%>
                                 </h2>
@@ -235,7 +244,8 @@
                             <button class="deletebtn">X</button>
                         </form>
 
-                        <%}) %>
+                            <%}) %>
+                    </div>
                 </div>
             </div>
         </section>
