@@ -28,11 +28,13 @@
                 <% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
                     <% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
                         <% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
-
+                                <div class="imgg">
+                            <img class="user-img" src="<%= data.img %>" alt="" />
+                        </div>
+                            <div class="intro-texts">
                             <h1 class="hello-name"> Hello <%= data.full_name%>
                             </h1>
-                            <img class="user-img" src="<%= data.img %>" alt="" />
-                            <div class="intro-texts">
+
                                 <h1 class="hello-name the-user-username" id="title">
                                     Username: <%= data.username %>
                                 </h1>
@@ -50,7 +52,7 @@
                             </div>
         </div>
 
-        <div class="map-img" id="map" style="height: 550px;width: 600px;"></div>
+        <div class="map-img" id="map" ></div>
 
         <section id="portfolio" class="two">
             <div class="cenarize-div">
