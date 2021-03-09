@@ -142,21 +142,21 @@ app.get('/log_Page', (req, res) => {
 //===========================Sign up==================================
 
 app.post('/signUp', (req, res) => {
- try{
-  let body = req.body;
-  var full_name = body.full_name;
-  let role = body.role;
-  let location = body.location;
-  let typeOfwork = body.type_of_work;
-  let email = body.email;
-  let userName = body.user_name;
-  let password = body.password;
-  let phoneNum = body.phone_num;
-  let status = body.status;
-  let img = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
-  let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status,img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;'
+  try {
+    let body = req.body;
+    var full_name = body.full_name;
+    let role = body.role;
+    let location = body.location;
+    let typeOfwork = body.type_of_work;
+    let email = body.email;
+    let userName = body.user_name;
+    let password = body.password;
+    let phoneNum = body.phone_num;
+    let status = body.status;
+    let img = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
+    let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status,img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;'
 
-  let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status, img];
+    let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status, img];
 
 
   } catch (e) {
@@ -237,8 +237,18 @@ function handleContactUsForm(req, res) {
   })
 }
 
-// ==============[SALAH] login =====================
+// ==============[SALAH] all Question =====================
 
+app.post("/ask/:id", handleAllQuestions);
+function handleAllQuestions(req, res) {
+  let id = req.params.id;
+  let SQL = `SELECT * FROM ask WHERE user_id=${id};`
+  client.query(SQL).then((askTable) => {
+    res.render('/pages/allQuestions', { object: askTable.rows, faceImages: arrayOfImages });
+  }).catch(error => {
+    res.render("pages/error", { error: error });
+  })
+}
 
 // _______________________________________________________________________Edit profile 
 
