@@ -13,7 +13,7 @@ body{
 }
 
 .map{
-    margin-left: 30%;
+    margin-left: 28%;
     z-index: 0;
 }
 
@@ -24,7 +24,7 @@ body{
     flex-direction: row;
     background-color: #f9d9afee;
     text-align: center;
-    margin-left: 23%;
+    margin-left: 25%;
     width: fit-content;
     padding: 2%;
     border-radius: 15px 0px 15px 0px;
@@ -57,7 +57,7 @@ input, select {
 .button{
     width: auto;
     height: 10%;
-    margin-top: 4.4%;
+    margin-top: 3.2%;
 }
 
 
@@ -68,6 +68,6 @@ input, select {
     }
 
     .map{
-        margin-left: 11%;
+        margin-left: 6%;
     }
 }
