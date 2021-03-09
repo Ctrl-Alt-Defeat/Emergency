@@ -153,17 +153,11 @@ app.post('/signUp', (req, res) => {
     let password = body.password;
     let phoneNum = body.phone_num;
     let status = body.status;
-    let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;'
+    let img = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
+    let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status,img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;'
 
-    let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status];
+    let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status, img];
 
-
-    client.query(insertQuery, safeValue).then(data => {
-      res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
-    }).catch(error => {
-      usernameOrPasswordError = 'YOUR USERNAME, EMAIL OR PHONE-NUMBER';
-      res.redirect('/log_Page');
-    });
 
   } catch (e) {
     console.log(e)
@@ -243,8 +237,18 @@ function handleContactUsForm(req, res) {
   })
 }
 
-// ==============[SALAH] login =====================
+// ==============[SALAH] all Question =====================
 
+app.post("/ask/:id", handleAllQuestions);
+function handleAllQuestions(req, res) {
+  let id = req.params.id;
+  let SQL = `SELECT * FROM ask WHERE user_id=${id};`
+  client.query(SQL).then((askTable) => {
+    res.render('/pages/allQuestions', { object: askTable.rows, faceImages: arrayOfImages });
+  }).catch(error => {
+    res.render("pages/error", { error: error });
+  })
+}
 
 // _______________________________________________________________________Edit profile 
 
@@ -372,7 +376,8 @@ function addQueToDB(work, subject, que, id) {
 
 function renderQue(req, res) {
   return getfromQueDB(req.params.id).then(data => {
-    res.render('pages/quePage.ejs', data);
+    console.log(data);
+    res.render('pages/question.ejs', data);
   })
 }
 function renderAddQuePage(req, res) {
@@ -419,7 +424,7 @@ app.post('/login', (req, res) => {
           res.render("pages/error", { error: error });
         })
       } else {
-        res.render("pages/handleTheLier")
+        res.render("pages/ifNotAdminSignAsAdmin")
       }
     }).catch(error => {
       res.render("pages/error", { error: error });
@@ -467,11 +472,9 @@ client.connect().then(() => {
 })
 
 function getfromQueDB(id) {
-  console.log(id)
   return client.query(`SELECT ask.id as id, ASK.que as que, Ask.user_id as user_id, Ask.is_answered as is_answered, Ask.subject as subject,Ask.type_of_work as type_of_work,USERS.username as username, USERS.img as img FROM ASK left outer JOIN users ON  (USERS.id = ask.user_id) WHERE ask.id = ${id};`).then(queData => {
     return client.query('SELECT answer.id as id,answer.que_id as que_id, answer.answer as answer,answer.answer is_true,answer.user_id as user_id, USERS.username as username, USERS.img as img  FROM answer INNER JOIN users ON  (USERS.id = answer.user_id)  Where que_id = $1;', [id]).then(ansdata => {
       return client.query('SELECT reply.id as id ,reply.ans_id as ans_id, reply.mess as mess,reply.user_id as user_id,USERS.username as username, USERS.img as img  FROM reply INNER JOIN users ON  (USERS.id = reply.user_id);').then(repData => {
-        console.log(queData);
         return { queData: queData.rows[0], ansdata: ansdata.rows, repData: repData.rows }
       });
     });
@@ -486,6 +489,7 @@ function renderAddQuePage(req, res) {
 app.post('/addAns/:id', addAnswer);
 
 function addAnswer(req, res) {
+  console.log(req.params.id, req.body.answer, req.body.user_id, 'a');
   return saveAnsInDB(req.params.id, req.body.answer, req.body.user_id).then(id => {
     res.redirect(`/question/${id}`)
   }).catch(error => {
