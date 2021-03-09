@@ -1,16 +1,17 @@
 @import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
 
+}
 body {
 	background:#e7ac7434;
 	background-color: white;
+	margin: 0px;
 }
 
 .container{
 	width: auto;
 	height:auto;
-    margin-top: 1%;
-	
-
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 form {
@@ -22,7 +23,6 @@ form {
 	padding: 30px 20px 0 20px;
 	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.25);
 	box-sizing: border-box;
-    margin: 53px 0px 0px 999px;
 }
 
 p {
@@ -46,11 +46,7 @@ p > span {
 	font-size: 35px;
 	text-transform: uppercase;
 	color: #87613d;
-	margin-bottom: 30px;
 	text-align: center;
-	margin-left: 623px;
-
-
 }
 
 input,
@@ -277,10 +273,15 @@ select{
   
 }
 .img{
-	position: absolute;
-	left: 277px;
-	top: 144px;
+   margin-top:-40px;
+   margin-left : 7%;
+   margin-right:4%;
+   width:43%;
+   margin-bottom:10%;
+}
 
-
-
+@media (max-width: 780px) {
+	
+.container{
+	display: black;
 }

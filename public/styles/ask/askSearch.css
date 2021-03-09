@@ -734,23 +734,23 @@ text-align: center;
   text-align: center;
 }
 #allQue{
-width: 100%;
-display: grid;
-grid-template-columns: auto auto auto;
-grid-column-gap: 10px;
-margin: auto;
-    margin-top: -100px;
-    }
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 10px;
+  margin: auto;
+  margin-top: -100px;
+}
 
 #header{
-width: 100%;
-display: grid;
-grid-template-columns: auto auto ;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto ;
 }
 
 #header_ask{
-  text-align: center;
-      font-family: 'Dosis';
+    text-align: center;
+    font-family: 'Dosis';
     font-size: 35px;
     text-transform: uppercase;
     color: #87613d;
