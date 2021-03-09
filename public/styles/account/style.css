@@ -5,9 +5,12 @@
 
 .introduction {
   display: flex;
-  margin: 5rem auto;
-  flex-direction: row;
-  width: 52%;
+  margin-left: 6rem;
+  height: 37.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 72%;
   border: 2px solid #ffd150;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
   border-radius: 0 20px 0 20px ;
@@ -30,8 +33,9 @@
 }
 
 .user-img {
-  width: 72%;
-  margin: 18px
+  width: 40%;
+  text-align: center;
+  
 }
 
 .map-img {
@@ -58,12 +62,7 @@
   }
 }
 
-.intro-texts {
-  position: relative;
-  left: -27px;
-  margin: 20px 0;
-  width: 100%;
-  }
+
 
 /* from contact page */
 
@@ -140,3 +139,16 @@
     font-size: 1rem;
   }
 }
+
+
+.container-of-introduction-and-map{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 7rem;
+}
+
+.container-of-things-i-dont-know{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
