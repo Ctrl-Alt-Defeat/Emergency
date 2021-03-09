@@ -1,12 +1,13 @@
 .contact {
   position: relative;
-  min-height: 100vh;
-  padding: 50px 100px;
+  min-height: 66vh;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   background-color: #fff;
+  margin-top: 50px;
+
 }
 
 .contact .content {
@@ -119,4 +120,7 @@
 
 .icon-color{
 color: #ffd150;
+}
+.p{
+  font-size: 25px;
 }

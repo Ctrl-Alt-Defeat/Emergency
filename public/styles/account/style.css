@@ -39,8 +39,7 @@
 }
 
 .map-img {
-  margin: auto;
-  margin-bottom: 50px;
+  margin: 100px 10px 50px 350px;
   border: 2px solid #ffd150;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
   width: 80%;
@@ -60,7 +59,6 @@
     margin: 100px 10px 50px 0px;
   }
 }
-
 
 
 /* from contact page */
