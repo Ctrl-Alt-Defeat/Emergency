@@ -13,6 +13,7 @@
   width: 72%;
   border: 2px solid #ffd150;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+  border-radius: 20px 20px 20px 20px ;
 }
 
 @media (max-width: 883px) {
@@ -41,15 +42,16 @@
   margin: 100px 10px 50px 350px;
   border: 2px solid #ffd150;
   box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+  width: 80%;
+  height: 600px;
+  border-radius: 20px 20px 20px 20px ;
 }
 
 @media (max-width: 955px) {
   .map-img {
     margin: 100px 10px 50px 200px;
   }
-  .intro-texts {
-    margin-left: 221px;
-  }
+  
 }
 
 @media (max-width: 770px) {
@@ -62,7 +64,7 @@
 /* from contact page */
 
 .contactForm {
-  width: 40%;
+  width: 70%;
   padding: 40px;
   background: #fff;
   margin-bottom: 3rem;
@@ -147,3 +149,82 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.the-last-fill-space {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.adding-width-to-the-last-dives{
+  margin-right: -60px;
+  margin-top: -43px;
+}
+
+@media (max-width:922px) {
+  .adding-width-to-the-last-dives{
+    width:30rem;
+    margin-left: 0rem;
+  }
+  .map-img {
+   margin-left: 4rem;
+    margin-bottom: 10px;
+    border: 2px solid #ffd150;
+    box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+    width: 70%;
+    height: 600px;
+    margin-top: 10px;
+    border-radius: 20px 20px 20px 20px ;
+  }
+  .user-img {
+    width: 40%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  .hello-name {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #87613d;
+    text-align: center;
+  }
+ 
+  .introduction {
+    margin-bottom: 10px;
+    height: 24rem;
+    margin-top: 5rem;
+    display: flex;
+    margin-left: 4rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+    border: 2px solid #ffd150;
+    box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+    border-radius: 20px 20px 20px 20px ;
+  }
+  .container-of-introduction-and-map{
+    display: grid;
+    grid-template-columns:  1fr;
+    margin-top: 7rem;
+    margin: 1rem auto;
+  }
+  .container-of-things-i-dont-know{
+    display: grid;
+    grid-template-columns:  1fr;
+    margin-left: 4.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .the-last-fill-space {
+    display: grid;
+    grid-template-columns:  1fr;
+  }
+
+  .edit-form{
+    margin-left: 0rem;
+    margin-bottom: 10px;
+  }
+  .donnow{
+    width: 30rem;
+    margin-left: -80px;
+    margin-bottom: -10px;
+  }
+}
