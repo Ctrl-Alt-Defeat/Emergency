@@ -10,7 +10,9 @@ body {
 	position: relative;
 	margin: 0px;
 	padding: 0px;
-	
+	background-image: url('https://iqmax.consulting/wp-content/uploads/2019/03/heat-map-with-new-background-01.gif');
+	background-position: cover;
+background-size: cover;	
 }
 
 @media(min-width:700px){
