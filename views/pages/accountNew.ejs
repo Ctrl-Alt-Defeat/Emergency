@@ -211,20 +211,17 @@
                         <div class="inputBox">
                             <h2>
                                 <%= ele.day %>
-                            </h2>
-                        </div>
 
-                        <div class="inputBox">
-                            <input type="text" name="text" value="<%=ele.text%>" style="display: none;" hidden>
-                        </div>
-                        <div class="inputBox">
-                            <h2>
+                            </h3>
+                            <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
+                            <p class="small">
+
                                 <%= ele.hours_avl_from%>
                             </h2>
                         </div>
                         <div class="inputBox">
                             <h2>
-                                <%= ele.hours_avl_from %>
+                                <%= ele.hours_avl_to %>
                             </h2>
                         </div>
 
@@ -277,7 +274,6 @@
     let img = '<%= data.img%>';
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/js/jsAccount/breakpoints.min.js"></script>
 <script src="/js/jsAccount/app.js"></script>
 
 </body>
