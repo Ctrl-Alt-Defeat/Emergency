@@ -207,24 +207,25 @@
             <div class="cenarize-div">
                 <div class="contactForm">
                     <% dataSchedule.forEach(ele=>{%>
+                        <form action="/deleteSchedule/<%=ele.user_id%>?_method=DELETE" class="deleteSchadual" method="POST">
+                            <div class="inputBox">
+                                <h2>
+                                    <%= ele.day %>
 
-                        <div class="inputBox">
-                            <h2>
-                                <%= ele.day %>
+                                </h3>
+                                <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
+                                <p class="small">
 
-                            </h3>
-                            <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
-                            <p class="small">
-
-                                <%= ele.hours_avl_from%>
-                            </h2>
-                        </div>
-                        <div class="inputBox">
-                            <h2>
-                                <%= ele.hours_avl_to %>
-                            </h2>
-                        </div>
-
+                                    <%= ele.hours_avl_from%>
+                                </h2>
+                            </div>
+                            <div class="inputBox">
+                                <h2>
+                                    <%= ele.hours_avl_to %>
+                                </h2>
+                            </div>
+                            <button class="deletebtn">X</button>
+                        </form>
 
                         <%}) %>
                 </div>
