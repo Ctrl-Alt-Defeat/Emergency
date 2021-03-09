@@ -7,8 +7,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin: 5rem auto;
   flex-direction: column;
+  width: 52%;
+  border: 2px solid #ffd150;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+}
+
+@media (max-width: 883px) {
+  .introduction {
+    width: 100%;
+  }
 }
 
 .hello-name {
@@ -29,6 +38,8 @@
 
 .map-img {
   margin: 100px 10px 50px 350px;
+  border: 2px solid #ffd150;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
 }
 
 @media (max-width: 955px) {
@@ -56,19 +67,21 @@
   width: 40%;
   padding: 40px;
   background: #fff;
+  margin-bottom: 3rem;
 }
 
-.contactForm h2 {
-  font-size: 30px;
+.contactForm h2,.contactForm p {
+  font-size: 1.875rem;
   color: #87613d;
   font-weight: 500;
 }
 
 .contactForm .inputBox input,
-.contactForm .inputBox textarea {
+.contactForm .inputBox select,
+.contactForm .inputBox label {
   width: 100%;
   padding: 5px 0;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 10px 0;
   border: none;
   border-bottom: 2px solid #ffd150;
@@ -76,12 +89,11 @@
   resize: none;
 }
 
-.contactForm .inputBox span
-{
+.contactForm .inputBox span {
   position: absolute;
   left: 0;
   padding: 5px 0;
-  font-size: 16px;
+  font-size: 1rem;
   margin: 10px 0;
   pointer-events: none;
   transition: 0.5s;
@@ -105,16 +117,22 @@
   border: none;
   cursor: pointer;
   padding: 10px;
-  font-size: 18px;
+  font-size: 1.125rem;
   border-radius: 10px;
 }
 .contactForm .inputBox input[type="button"] {
-    width: 100px;
-    background: #ffd150;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 10px;
+  width: 100px;
+  background: #ffd150;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1.125rem;
+  border-radius: 10px;
+}
+
+@media (max-width: 660px) {
+  .hello-name {
+    font-size: 1rem;
   }
+}

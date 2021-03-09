@@ -75,7 +75,7 @@ function handleAcconutPage(req, res) {
   return client.query(selectFromDB, safeValue).then(data => {
     let accountDB = data.rows[0];
 
-    let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username,accountDB.id);
+    let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username, accountDB.id);
 
     let selectFromFeedbacksDB = 'SELECT users.img as img, users.username as username, users.id as user_id, feedback.id as id, feedback.text as text FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
@@ -114,7 +114,7 @@ function Feedback(username, text, img, userid) {
 
 }
 
-function AccountDB(full_name, role, location, img, type_of_work, email, phone_num, status, exp, username,id) {
+function AccountDB(full_name, role, location, img, type_of_work, email, phone_num, status, exp, username, id) {
   this.id = id;
   this.full_name = full_name;
   this.role = role;
@@ -135,8 +135,8 @@ app.get('/log_Page', (req, res) => {
   let oldStatus = status;
   status = 'Ok';
   let OldusernameOrPasswordError = usernameOrPasswordError;
-  usernameOrPasswordError ='Ok';
-  res.render('pages/login', { status: oldStatus,usernameOrPasswordError:OldusernameOrPasswordError });
+  usernameOrPasswordError = 'Ok';
+  res.render('pages/login', { status: oldStatus, usernameOrPasswordError: OldusernameOrPasswordError });
 })
 
 //===========================Sign up==================================
@@ -159,17 +159,10 @@ app.post('/signUp', (req, res) => {
   let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status, img];
 
 
-  client.query(insertQuery, safeValue).then(data => {
-    res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
-  }).catch(error => {
-    usernameOrPasswordError = 'YOUR USERNAME, EMAIL OR PHONE-NUMBER';
-    res.redirect('/log_Page');
-  });
+  } catch (e) {
+    console.log(e)
+  }
 
- }catch(e){
-   console.log(e)
- }
-  
 });
 
 
@@ -181,7 +174,7 @@ app.post('/feedback/:id', (req, res) => {
 
   let body = req.body;
   // console.log(body); 
- 
+
   let text = body.feedback;
   let ownerid = body.ownerid;
   let userid = req.params.id;
@@ -204,22 +197,21 @@ app.post('/feedback/:id', (req, res) => {
 
 // app.delete('/deleteFeedback/:id', (req, res) => {
 
- app.delete('/deleteFeedback/:id',(req,res)=>{
-    let text = req.body.text;
-    console.log(text);
-    let deleteQuery= 'DELETE FROM feedback WHERE text=$1;';
-    let safeValue= [text];
-  
-    client.query(deleteQuery,safeValue).then(()=>{
-      res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
-    }).catch(error=>{
-      console.log('errrrroooooooooooorrr   ', error)
-  
-    });
+app.delete('/deleteFeedback/:id', (req, res) => {
+
+  let deleteQuery = 'DELETE FROM feedback WHERE id=$1;';
+  let safeValue = [req.body.id];
+
+  client.query(deleteQuery, safeValue).then(() => {
+    res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
+  }).catch(error => {
+    console.log('errrrroooooooooooorrr   ', error)
+
   });
- 
- //=========================================
- 
+});
+
+//=========================================
+
 //====================================================================================
 
 
@@ -231,7 +223,7 @@ app.get("/contact", handleContactPage);
 function handleContactPage(req, res) {
   let oldMess = statusOfContact;
   statusOfContact = '';
-  res.render("pages/contact",{statusOfContact:oldMess});
+  res.render("pages/contact", { statusOfContact: oldMess });
 }
 app.post("/contact/:id", handleContactUsForm);
 function handleContactUsForm(req, res) {
@@ -346,7 +338,7 @@ function searchForQue(work, subject) {
   let queyStr = work & subject ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (ask.user_id = USERS.id) where ask.type_of_work = $1 and subject = $2;' : work ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img  from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;' : subject ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;' : 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
   let safeArr = work & subject ? [work, subject] : work ? [work] : subject ? [subject] : [];
   return client.query(queyStr, safeArr).then(data => {
-    console.log(data.rows,'data')
+    console.log(data.rows, 'data')
     return data.rows;
   })
 };
