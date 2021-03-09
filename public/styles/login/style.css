@@ -4,6 +4,7 @@
 	padding: 0;
 }
 
+
 body {
 	background:#f7f3ed;
 	
@@ -14,6 +15,7 @@ body {
 	background-position: cover;
 background-size: cover;	
 }
+
 
 @media(min-width:700px){
 	.container{
@@ -181,12 +183,16 @@ input, select {
 		opacity: 0.5;
 		width: 450px;
 		height: 600px;
+		margin-top: -35px;
+
 
 
 }
 
 .signIn {
 	z-index: 2;
+	margin-top: -35px;
+
 }
 
 .active-dx{
@@ -283,6 +289,8 @@ select{
   	text-align: center;
   	-ms-text-align-last: center;
   	-moz-text-align-last: center;
+	  background-color: white;
+
 }
 
 .welcome{
@@ -337,5 +345,9 @@ select{
 		margin: 130px 0 0 20%;
 	}
 	
+
+}
+.main{
+	margin-top: -4%;
 
 }

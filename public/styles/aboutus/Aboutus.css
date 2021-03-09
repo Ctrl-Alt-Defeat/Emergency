@@ -3,6 +3,8 @@
 body
 {
   background-color: white;
+  width: 100%;
+  margin: auto;
 }
 
 main{
@@ -332,7 +334,7 @@ footer{
   margin-top: 3200px;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 600px) {
   .contentHead{display: flex;
   justify-content: center;}
   .row{display: flex;
@@ -345,10 +347,24 @@ flex-direction: column;
   flex-direction: column;
   margin: 190px 0 0 35px;
 }
+.containers{
+  position: relative;
+  top: -20px;
+  /* left: -99px; */
+  width: 70%;
+  /* overflow: hidden; */
+
+}
+h2{
+  width: 80%;
+}
 footer{
   display: flex;
-  top: 50%;
+  top: 100%;
+
 }
+
+
   
 }
 

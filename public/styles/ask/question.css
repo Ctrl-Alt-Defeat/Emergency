@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai&display=swap');
+*{
+    /* background-color: aquamarine; */
+    margin: 0;
+}
+html{
+    /* box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2); */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.div{
+    border: #E89A3D solid 1px;
+    padding: 1%;
+    box-shadow: 3px 4px 4px 3px #E89A3D;
+    /* width: 1000px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15%;
+    margin-Right: 15%;
+    margin-bottom: 2%;
+    margin-top: 95px;
+    border-radius: 15px;
+}
+h1{
+    color: brown;
+    font-family: 'Lateef', cursive;
+    font-family: 'Rakkas', cursive;
+    font-size: 35px;
+    margin-top: 1% ;
+    margin-bottom: 1% ;
+    margin-Right: 15% ;
+}
+#h2{
+    font-family: 'Lateef', cursive;
+    font-family: 'Rakkas', cursive;
+    font-size: 25px;
+    margin-top: 1% ;
+    margin-bottom: 1% ;
+    margin-Right: 5% ;
+}
+#username{
+    padding-top: 1%;
+    margin-right: 1%;
+    margin-top: 10px;
+}
+#img{
+  width: 30px;
+  height: 30px;
+}
+#title{
+    border-bottom: rgb(12, 179, 165) dashed 1px;
+    text-align: center;
+    font-size: 150%;
+    background-color: #ffd150;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    border-radius: 25px 25px 0px 0px;
+    font-family: 'Dosis';
+    text-transform: uppercase;
+    color: #87613d;
+}
+
+#description{
+    /* text-align: left; */
+    background-color: rgb(247, 247, 247);
+    padding: 3%;
+    font-family: 'Almarai', sans-serif;
+}
+#code{
+    /* text-align: left; */
+    background-color: #ffd0504d;
+    padding: 3%;
+    direction: ltr;
+    font-family: 'Almarai', sans-serif;
+    margin-bottom: 2%;
+    height: 121px;
+    border-radius: 15px;
+}
+
+#form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15%;
+    margin-Right: 15%;
+    margin-bottom: 2%;
+}
+.formCode{
+    direction: ltr;
+}
+.rank{
+    float: left;
+    padding: 1%;
+    background: #E89A3D;
+    display: -webkit-inline-box;
+    color: #ffd150;
+}
+.button,#add{
+    float: left;
+    background-color: #E89A3D;
+    color: #ffd150 !important;
+    font-weight: bold;
+    font-size: 107%;
+    padding: 1%;
+    color: honeydew;
+    border: none;
+    text-align: center;
+    opacity: 0.85;
+    transition: 0.3s;
+}
+
+.button:hover {opacity: 1}
+#add:hover {opacity: 1}
+#reply{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    margin-left: 15%;
+    margin-Right: 15%;
+    margin-bottom: 2%;
+}
+.section{
+margin-left: 10%;
+margin-right: 10%;
+margin-top: 1%;
+margin-bottom: 3%;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  .aaa{
+    text-decoration: none;
+  }
+  input:checked + .slider {
+    background-color: rgba(67, 245, 96, 0.685);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  #que{
+    margin-top: 3%;
+  }
+  .plus{
+    margin-left: 0.1%;
+    float: left;
+    background-color: #ffd150;
+    color: #E89A3D;
+    padding: 1%;
+    color: honeydew;
+    border: none;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
+  .plus:hover {opacity: 1}
+
+  .fa-lightbulb:before {
+    color: rgb(255, 153, 0);
+    content: "\f0eb";
+}
+  .fa-question:before {
+    color: black;
+    content: "\f128";
+  }
+  .fa-exclamation:before {
+    color: black;
+    content: "\f12a";
+}
+  .fa-comment-dots:before {
+    color: rgb(33, 226, 226);
+    content: "\f4ad";
+}

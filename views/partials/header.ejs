@@ -19,6 +19,8 @@
 </header>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+  $(document).ready(function()
+{
   let imgUrl = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&amp;riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&amp;ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&amp;risl=&amp;pid=ImgRaw';
   let id = localStorage.getItem('id');
   if(id){
@@ -31,4 +33,6 @@
     $('.nav').css('pointer-events', 'none');
   };
   $('#header_img').attr("src",imgUrl);
+});
+  
 </script>
