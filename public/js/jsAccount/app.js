@@ -75,3 +75,19 @@ isUserAccount == "false" ? window.localStorage.setItem('username' ,username ):co
 isUserAccount == "false" ? window.localStorage.setItem('img' ,img_url ):console.log('no')
 
 document.getElementById('ownerid').value = localStorage.getItem("id");;
+
+function changeLocation(){
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+    navigator.geolocation.getCurrentPosition(data => {
+        document.getElementById('location').value  = `${data.coords.longitude},${data.coords.latitude}`
+    }, error, options);
+    document.getElementById('uploc').style.display = 'block';
+}
