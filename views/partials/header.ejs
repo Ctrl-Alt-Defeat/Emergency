@@ -7,11 +7,13 @@
       <li><a href="/log_Page" id='log_page'>Signup</a></li>
       <li><a href="/map" class='nav'>Map</a></li>
       <li><a href="/ask" class='nav'>Ask</a></li>
+      <li><a id = 'my_ques'>My Questions</a></li>
       <li><a href="/contact" class='nav'>Contact</a></li>
       <li><a href="/current">Currency</a></li>
       <li><a href="/aboutus">About</a></li>
       <li><img src="" alt="" style="width: 30px;" id='header_img'></li>
       <button onclick="logout()" id = 'log-out'>LOG-OUT</button>
+      
     </ul>
   </nav>
   <label for="nav-toggle" class="header-nav-toggle-label">
@@ -29,12 +31,14 @@
     let id = localStorage.getItem('id');
     $('a').css('pointer-events', 'auto');
     if (id) {
+      $('#my_ques').attr('href',`/ask/${localStorage.getItem('id')}`);
       $('#log-out').show();
       imgUrl = localStorage.getItem('img') || imgUrl;
       $('#log_page').text(localStorage.getItem('username'));
       $('#log_page').attr('href', `/login/acconut/${id}?is_not_enable=${false}`);
     } else {
       $('#log-out').hide();
+      $('#my_ques').css('pointer-events', 'none');
       $('#log_page').text('Signup');
       $('.nav').css('pointer-events', 'none');
     };
