@@ -28,14 +28,14 @@
   };
   $(document).ready(function () {
     let imgUrl = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&amp;riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&amp;ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&amp;risl=&amp;pid=ImgRaw';
-    let id = localStorage.getItem('id');
+    let id_header = localStorage.getItem('id');
     $('a').css('pointer-events', 'auto');
     if (id) {
       $('#my_ques').attr('href',`/ask/${localStorage.getItem('id')}`);
       $('#log-out').show();
       imgUrl = localStorage.getItem('img') || imgUrl;
       $('#log_page').text(localStorage.getItem('username'));
-      $('#log_page').attr('href', `/login/acconut/${id}?is_not_enable=${false}`);
+      $('#log_page').attr('href', `/login/acconut/${id_header}?is_not_enable=${false}`);
     } else {
       $('#log-out').hide();
       $('#my_ques').css('pointer-events', 'none');
