@@ -240,45 +240,8 @@
                                 </div>
                                 <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 <button class="deletebtn" style="display:<%= visible%>">X</button>
                             </form>
-=======
-                            <%}) %>
-            </form>
-            <div class="cenarize-div">
-                <div class="contactForm">
-                    <% dataSchedule.forEach(ele=>{%>
-                        <form action="/deleteSchedule/<%=ele.user_id%>?_method=DELETE" class="deleteSchadual" method="POST">
-                            <div class="inputBox">
-                                <h2>
-                                    <%= ele.day %>
-
-
-                                </h2>
-                                <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
-                                <h2 class="small">
-
-
-
-
-
-                                    <%= ele.hours_avl_from%>
-                                </h2>
-                            </div>
-                            <div class="inputBox">
-                                <h2>
-                                    <%= ele.hours_avl_to %>
-                                </h2>
-                            </div>
-                            <button class="deletebtn">X</button>
-                        </form>
->>>>>>> b32f8efb06203ee3d79e862099bca1e782ff2bf6
-=======
-                                <button class="deletebtn" style="display:<%= visible%>">X</button>
-                            </form>
->>>>>>> f3dfa0a505d7c7275967793ff81718488cfe91c5
 
                             <%}) %>
                     </div>
