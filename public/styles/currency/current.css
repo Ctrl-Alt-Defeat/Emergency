@@ -38,24 +38,27 @@ main{
   text-align: center;
   padding: 1.75rem;
 }
-.headerr .cccc {
+.headerrr .cccc {
   font-size: 2.25rem;
   font-family: 'Dosis';
   font-size:50px;
   font-weight:500;
   text-decoration:underline;
   color: black;
+  background-color: white;
 
 }
 .date {
   text-align: right;
   font-size: 0.75rem;
   padding: 0.75rem 2rem 0.75rem 0;
+  background-color: #2d2d37;
 }
 ul.currencies {
   height: calc(100vh - 40px - 100px - 40px - 58px);
   padding: 0 1.5rem 1rem 1.5rem;
   overflow-y: auto;
+  background-color: white;
 }
 ul.currencies li {
   background-color: #2d2d37;
