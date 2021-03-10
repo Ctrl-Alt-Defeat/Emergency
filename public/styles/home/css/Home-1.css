@@ -374,9 +374,7 @@
   --transition-time: 0.5s;
 }
 
-* {
-  box-sizing: border-box;
-}
+
 
 .main-home {
   margin:  0;
@@ -581,9 +579,9 @@ position: absolute;
   flex-direction: row;
 }
 
-/* .h2{
-  font-family: 'Dosis' !important;
-} */
+.h2{
+  color: #ed7a21;
+  text-align: center;   }
 
 
 @media (max-width: 575px) {

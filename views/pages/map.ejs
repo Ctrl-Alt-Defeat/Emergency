@@ -19,33 +19,51 @@
 
 <body>
     <%- include('../partials/header')%>
-        <div class="cenarize-div">
-            <div class="contactForm">
-                <form class="form" id='searchForm'>
-                    <div class="inputBox">
-                        <h2> Search By Experience</h2>
-                    </div>
-                    <div class="inputBox"><input type="number" id='experience' name='experience'
-                            placeholder="Search By Experience"></div>
-
-
-                    <div class="inputBox">
-                        <h2> Type Of Work</h2>
-                    </div>
-                    <div class="inputBox"><select name="work" id='work'>
-                            <option value="All">All</option>
-                            <option value="Smith">Smith</option>
-                            <option value="Carpenter">Carpenter</option>
-                            <option value="Plumber">Plumber</option>
-                            <option value="Builder">Builder</option>
-                            <option value="Paint">Paint</option>
-                        </select></div>
-                    </label>
-
-                    <div class="inputBox"> <input class="button" type="submit" value="Search"></div>
-                </form>
+        
+            <div class="splashScreen1">
+                <div class="folding-map folding-map-rotated">
+                    <div class="map-tile map-tile-1"></div>
+                    <div class="map-tile map-tile-2"></div>
+                    <div class="map-tile map-tile-4"></div>
+                    <div class="map-tile map-tile-3"></div>
+                </div>
             </div>
-        </div>
+            <div class="cenarize-div">
+                <div class="contactForm">
+                    <form class="form" id='searchForm'>
+                        <div class="inputBox">
+                            <h2> Search By Experience</h2>
+                        </div>
+                        <div class="inputBox"><input type="number" id='experience' name='experience'
+                                placeholder="Search By Experience"></div>
+
+
+                        <div class="inputBox">
+                            <h2> Type Of Work</h2>
+                        </div>
+                        <div class="inputBox"><select name="work" id='work'>
+                                <option value="All">All</option>
+                                <option value="Smith">Smith</option>
+                                <option value="Carpenter">Carpenter</option>
+                                <option value="Plumber">Plumber</option>
+                                <option value="Builder">Builder</option>
+                                <option value="Paint">Paint</option>
+                            </select></div>
+                        </label>
+
+                        <div class="inputBox"> <input class="button" type="submit" value="Search"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="splashScreen2">
+                <div class="folding-map folding-map-rotated">
+                    <div class="map-tile map-tile-1"></div>
+                    <div class="map-tile map-tile-2"></div>
+                    <div class="map-tile map-tile-4"></div>
+                    <div class="map-tile map-tile-3"></div>
+                </div>
+            </div>
+       
         <div class="map" id="map"></div>
         <%- include('../partials/footer')%>
             <script src="/js/map.js">
