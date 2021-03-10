@@ -136,7 +136,7 @@
     height: 10rem;
     padding: 1rem;
     bottom: -5rem;
-    right: 4rem;
+    right: -61rem;
   }
 
   .nav {
@@ -186,9 +186,39 @@
   }
 }
 
-@media (min-width: 510px) {
-.log {
-    right: 10rem;
-    bottom: -5rem;
+@media (min-width: 1024px) {
+  .header-logo {
+  
+    right: -50rem;
+  }
 }
+
+@media (min-width: 1103px) {
+  .header-logo {
+  
+    right: -55rem;
+  }
+}
+
+@media (min-width: 1240px) {
+  .header-logo {
+  
+    right: -60rem;
+  }
+}
+
+@media (min-width: 1240px) {
+  .header-logo {
+  
+    right: -65rem;
+  }
+}
+
+
+
+@media (min-width: 1294px) {
+  .header-logo {
+  
+    right: -60rem;
+  }
 }

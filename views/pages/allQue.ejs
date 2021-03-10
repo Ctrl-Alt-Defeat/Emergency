@@ -18,7 +18,7 @@
 <body>
     <%- include('../partials/header') %>
         <main>
-            <div class="main-contactUsMessages">
+            <div style="margin-bottom: 10rem;" class="main-contactUsMessages">
                 <% object.forEach((row,i)=>{ %>
                     <div class="card">
                         <a  href="/login/acconut/<%= row.user_id %>?is_not_enable=true%>">
