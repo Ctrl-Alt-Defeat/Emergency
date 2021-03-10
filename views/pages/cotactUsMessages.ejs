@@ -17,14 +17,13 @@
 
 <body>
     <%- include('../partials/header') %>
-
         <main>
             <div class="main-contactUsMessages">
                 <% object.forEach((row,i)=>{ %>
                     <div class="card">
-                        
-                            <img class="mess-img" src="<%= faceImages[i] %>" alt="Avatar" style="width:100%">
-                            
+                        <a  href="/login/acconut/<%= row.user_id %>?is_not_enable=true%>">
+                            <img class="mess-img" src="<%= row.img %>" alt="Avatar" style="width:100%">
+                        </a>
                                 <div class="container3">
                                     <p>
                                         <%= row.que %>
