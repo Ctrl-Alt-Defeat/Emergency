@@ -32,7 +32,6 @@
                     <% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
                         <% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
                             <% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
-                            <h1>About <%= data.username%> </h1>
                                 <img class="user-img" src="<%= data.img %>" alt="" />
 
                                 <div class="intro-texts">
@@ -172,6 +171,10 @@
                             <h2> Password :</h2>
                             <input id="editform" type="password" value="<%= data.password%>" name="password"
                                 placeholder="Insert Password" required>
+                        </div>
+                        <div class="inputBox">
+                            <h2> Account Image:</h2>
+                            <input name="img" value='<%= data.img %>'  placeholder="Add Image URL" >
                         </div>
                         <div class="inputBox">
                             <h2> Phone Number :</h2>

@@ -19,8 +19,8 @@ const superagent = require('superagent');
 let status = 'Ok';
 let usernameOrPasswordError = 'Ok';
 const pg = require('pg');
-const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
-// const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
+// const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
+const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
 // ===================================================== Map =========================================================
 app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
@@ -261,7 +261,8 @@ function handleContactUsForm(req, res) {
 app.get("/ask/:id", handleAllQuestions);
 function handleAllQuestions(req, res) {
   let id = req.params.id;
-  let SQL = `SELECT * FROM ask INNER JOIN USERS ON (ask.user_id = users.id) WHERE user_id=${id};`
+  let SQL = `SELECT ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject, users.username as username,users.img as img  from ask  INNER JOIN users ON (USERS.id = ask.user_id) WHERE ask.user_id=${id};`
+
   client.query(SQL).then((askTable) => {
     console.log(askTable.rows);
     res.render('pages/allQue', { object: askTable.rows});
@@ -275,7 +276,7 @@ function handleAllQuestions(req, res) {
 app.put('/update/:id', (req, res) => {
 
   let edit = req.body;
-  let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8,location = $10 WHERE id=$9;';
+  let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8,location = $10, img = $11 WHERE id=$9;';
   let safeValues = [
     edit.full_name,
     edit.status,
@@ -286,7 +287,8 @@ app.put('/update/:id', (req, res) => {
     edit.phone_num,
     edit.exp,
     req.params.id,
-    edit.location
+    edit.location,
+    edit.img
   ]
   client.query(SQL, safeValues)
     .then(res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`))
