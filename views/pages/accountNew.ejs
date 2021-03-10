@@ -33,7 +33,7 @@
                         <% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
                             <% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
                                 <img class="user-img" src="<%= data.img %>" alt="" />
-
+                                <hr style="   width: 80%; color:#ccc; background-color: #ccc;">
                                 <div class="intro-texts">
                                     <h1 class="hello-name"> Hello <%= data.full_name%>
                                     </h1>
@@ -54,7 +54,7 @@
                                     </p>
                                 </div>
             </div>
-
+            <div class="vertical-row"></div>
             <div class="map-img" id="map"></div>
         </div>
         <section id="portfolio" class="two">
