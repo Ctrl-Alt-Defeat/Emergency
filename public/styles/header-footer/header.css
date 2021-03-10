@@ -17,6 +17,7 @@
   text-align: center;
   position: relative;
   z-index: 999;
+  font-size: 4px;
   width: 100%;
   height: 4rem;
 }
@@ -46,8 +47,8 @@
 .header-nav-toggle-label span::after {
   display: block;
   background: white;
-  height: 2px;
-  width: 2em;
+  height: 4px;
+  width: 8em;
   border-radius: 2px;
   position: relative;
 }
@@ -86,7 +87,7 @@
 
 .nav li {
   margin-bottom: 1em;
-  margin-left: 1em;
+  margin-left: 1.5em;
 }
 
 .nav a {
@@ -118,7 +119,7 @@
   position: absolute;
   bottom: -5rem;
   z-index: 1;
-  right: 9rem;
+  left: 0px;
 }
 
 @media screen and (min-width: 1028px) {
@@ -128,7 +129,7 @@
 
   .header {
     display: grid;
-    grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+    grid-template-columns: 1fr auto minmax(600px, 3fr) .3fr;
   }
 
   .header-logo {
@@ -159,8 +160,9 @@
   }
 
   .nav li {
-    margin-left: 3em;
+    margin-left: 4em;
     margin-bottom: 0;
+    margin-top: 1.1em;
   }
 
   .nav a {
@@ -221,4 +223,24 @@
   
     right: -60rem;
   }
+}
+
+#log-out{
+  border-radius: 12px;
+  background-color: #ffd150;
+  color: #fff;
+  padding: 3px;
+  font-size: 15px;
+  border: none;
+  margin-left: 3px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#log-out:hover{
+  background-color: white;
+  color: #ffd150;
 }
