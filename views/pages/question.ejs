@@ -20,7 +20,7 @@
         <div class="div"> 
             <h1 id="que">QUESTION DETAIILS  <i class="far fa-lightbulb"></i></h1>
             <div style="padding: 1%; padding-top: 0px;">
-                <a href="/userPofile?id=<%=queData.user_id%>" class="aaa">
+                <a href="/login/acconut/<%= queData.user_id %>?is_not_enable=true%>" class="aaa">
                     <p id="username" ><img id="img" src="<%=queData.img%>" alt="">  <%=queData.username%></p>
                 </a>
                 <p id='is_ans'> <%=queData.is_answered==1 ? "Answered" : 'Not Answered' %></p>
@@ -43,7 +43,7 @@
                 <div class="div_ans">
 
                      <div style="padding: 1%; padding-top: 0px;">
-                <a href="/userPofile?id=<%=ele.user_id%>" class="aaa">
+                <a href="/login/acconut/<%= ele.user_id %>?is_not_enable=true%>" class="aaa">
                     <p id="username" ><img id="img" src="<%=ele.img%>" alt="">  <%=ele.username%></p>
                 </a>
                 <p id='is_ans'> <%=ele.is_true==1 ? "True Answer" : 'Not True' %></p>
@@ -54,10 +54,9 @@
                 <%repData.forEach((rep)=>{%>
                     <% if (rep.ans_id==ele.id){ %>
 
-
                         <div class="section">
                                              <div style="padding: 1%; padding-top: 0px;">
-                                                 <a href="/userPofile?id=<%=rep.user_id%>" class="aaa">
+                                                 <a href="/login/acconut/<%= rep.user_id %>?is_not_enable=true%>" class="aaa">
                                 <p id="username" ><img id="img" src="<%=rep.img%>" > By: <%=rep.username%></p>
                             </a>
                     <p id='is_ans'>Reply</p>

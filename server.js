@@ -36,7 +36,6 @@ function home(req, res) {
 
 function getUsersLocations(req, res) {
   return getAllLocationsFromDB(req.body.work, req.body.experience).then(data => {
-    console.log(data, 'data');
     res.send(data);
   }).catch(error => {
     console.log(error);
@@ -75,9 +74,9 @@ function handleAcconutPage(req, res) {
   return client.query(selectFromDB, safeValue).then(data => {
     let accountDB = data.rows[0];
 
-    let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username, accountDB.id);
+    let allData = new AccountDB(accountDB.full_name, accountDB.role, accountDB.location, accountDB.img, accountDB.type_of_work, accountDB.email, accountDB.phone_num, accountDB.status, accountDB.exp, accountDB.username, accountDB.id, accountDB.id);
 
-    let selectFromFeedbacksDB = 'SELECT users.img as img, users.username as username, users.id as user_id, feedback.id as id, feedback.text as text FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
+    let selectFromFeedbacksDB = 'SELECT users.img as img, users.username as username, users.id as user_id, feedback.id as feed_id, feedback.text as text FROM feedback INNER JOIN users ON (USERS.id = feedback.owner_id) WHERE user_id = $1;';
     return client.query(selectFromFeedbacksDB, safeValue).then(dataFeedbacks => {
       // console.log('feeeeeeeeeeeeed',dataFeedbacks.rows[0])
       //constructor for the data text img username
@@ -87,7 +86,8 @@ function handleAcconutPage(req, res) {
         let username = element.username;
         let img = element.img || 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
         let user_id = element.user_id;
-        let feedQuery = new Feedback(username, text, img, user_id);
+        let id = element.feed_id;
+        let feedQuery = new Feedback(username, text, img, user_id,id);
         feedbackArray.push(feedQuery);
       });
 
@@ -106,15 +106,15 @@ function handleAcconutPage(req, res) {
   });
 }
 
-function Feedback(username, text, img, userid) {
+function Feedback(username, text, img, userid,id) {
   this.username = username;
   this.text = text;
   this.img = img || "https://cdn0.iconfinder.com/data/icons/user-profiles-avatars/128/12-512.png";
   this.user_id = userid;
-
+  this.id  = id;
 }
 
-function AccountDB(full_name, role, location, img, type_of_work, email, phone_num, status, exp, username, id) {
+function AccountDB(full_name, role, location, img, type_of_work, email, phone_num, status, exp, username, id,feed_id) {
   this.id = id;
   this.full_name = full_name;
   this.role = role;
@@ -126,6 +126,7 @@ function AccountDB(full_name, role, location, img, type_of_work, email, phone_nu
   this.status = status;
   this.exp = exp || 0;
   this.username = username;
+  this.feed_id =id;
 };
 
 
@@ -155,10 +156,14 @@ app.post('/signUp', (req, res) => {
     let status = body.status;
     let img = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&risl=&pid=ImgRaw';
     let insertQuery = 'INSERT INTO users (full_name,role,location,type_of_work,email,password,phone_num,username,status,img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;'
-
     let safeValue = [full_name, role, location, typeOfwork, email, password, phoneNum, userName, status, img];
 
-
+    client.query(insertQuery, safeValue).then(data => {
+      res.redirect(`/login/acconut/${data.rows[0].id}?is_not_enable=${false}`);
+    }).catch(error => {
+      usernameOrPasswordError = 'YOUR USERNAME, EMAIL OR PHONE-NUMBER';
+      res.redirect('/log_Page');
+    });
   } catch (e) {
     console.log(e)
   }
@@ -198,7 +203,6 @@ app.post('/feedback/:id', (req, res) => {
 // app.delete('/deleteFeedback/:id', (req, res) => {
 
 app.delete('/deleteFeedback/:id', (req, res) => {
-
   let deleteQuery = 'DELETE FROM feedback WHERE id=$1;';
   let safeValue = [req.body.id];
 
@@ -214,17 +218,17 @@ app.delete('/deleteFeedback/:id', (req, res) => {
 
 //======================Delete Schedule===========================================
 
-app.delete('/deleteSchedule/:id',(req,res)=>{
+app.delete('/deleteSchedule/:id', (req, res) => {
 
-  let deleteQuery= 'DELETE FROM schedule WHERE id=$1;';
-  let safeValue=[req.body.id];
+  let deleteQuery = 'DELETE FROM schedule WHERE id=$1;';
+  let safeValue = [req.body.id];
   console.log(req.body.id)
 
-  client.query(deleteQuery,safeValue).then(()=>{
+  client.query(deleteQuery, safeValue).then(() => {
     res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`);
 
-  }).catch(error=>{
-    console.log('there is an error accourd while loading the page:',error);
+  }).catch(error => {
+    console.log('there is an error accourd while loading the page:', error);
   });
 
 });
@@ -254,12 +258,13 @@ function handleContactUsForm(req, res) {
 
 // ==============[SALAH] all Question =====================
 
-app.post("/ask/:id", handleAllQuestions);
+app.get("/ask/:id", handleAllQuestions);
 function handleAllQuestions(req, res) {
   let id = req.params.id;
-  let SQL = `SELECT * FROM ask WHERE user_id=${id};`
+  let SQL = `SELECT * FROM ask INNER JOIN USERS ON (ask.user_id = users.id) WHERE user_id=${id};`
   client.query(SQL).then((askTable) => {
-    res.render('/pages/allQuestions', { object: askTable.rows, faceImages: arrayOfImages });
+    console.log(askTable.rows);
+    res.render('pages/allQue', { object: askTable.rows});
   }).catch(error => {
     res.render("pages/error", { error: error });
   })
@@ -296,7 +301,6 @@ app.get('/aboutus', (req, res) => {
 function saveSchedule(req, res) {
   let input = req.body;
   let id = req.params.id;
-  console.log(input, id);
   let insartQuery = 'INSERT INTO schedule (hours_avl_from,hours_avl_to,day,user_id) VALUES ($1,$2,$3,$4) RETURNING *;';
   let safeValue = [input.from, input.until, input.date, id];
   return client.query(insartQuery, safeValue).then(saveSchedule => {
@@ -363,7 +367,6 @@ function searchForQue(work, subject) {
   let queyStr = work & subject ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (ask.user_id = USERS.id) where ask.type_of_work = $1 and subject = $2;' : work ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img  from ask  INNER JOIN users ON (USERS.id = ask.user_id) where ask.type_of_work = $1 ;' : subject ? 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (USERS.id = ask.user_id) where subject = $1;' : 'SELECT  ask.id as id ,USERS.id as user_id,ask.que as que,ask.subject as subject,ask.type_of_work as type_of_work,ask.is_answered as is_answered,users.username as username,users.img as img from ask  INNER JOIN users ON (USERS.id = ask.user_id);';
   let safeArr = work & subject ? [work, subject] : work ? [work] : subject ? [subject] : [];
   return client.query(queyStr, safeArr).then(data => {
-    console.log(data.rows, 'data')
     return data.rows;
   })
 };
@@ -391,7 +394,6 @@ function addQueToDB(work, subject, que, id) {
 
 function renderQue(req, res) {
   return getfromQueDB(req.params.id).then(data => {
-    console.log(data);
     res.render('pages/question.ejs', data);
   })
 }
@@ -403,7 +405,6 @@ app.post('/addAns/:id', addAnswer);
 
 
 function saveAnsInDB(que_id, answer, user_id) {
-  console.log(que_id, 'que_id');
   return client.query('INSERT INTO answer (user_id,que_id,answer,is_true) VALUES ($1,$2,$3,$4)', [user_id, que_id, answer, 0]).then(data => {
     return que_id;
   }).catch(error => {
@@ -411,7 +412,6 @@ function saveAnsInDB(que_id, answer, user_id) {
   });;
 };
 function saveRepInDB(ans_id, mess, user_id, que_id) {
-  console.log(ans_id, mess, user_id, 'que_id');
   return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)', [user_id, ans_id, mess]).then(data => {
     return que_id;
   }).catch(error => {
@@ -433,8 +433,8 @@ app.post('/login', (req, res) => {
     let sqlForSelectAdmin = 'SELECT * FROM users WHERE role = 3;'
     client.query(sqlForSelectAdmin).then(admins => {
       if (checkIfTheAdminInDataBase(admins, email, pass)) {
-        client.query("SELECT * FROM contact;").then(contactTable => {
-          res.render("pages/cotactUsMessages", { object: contactTable.rows, faceImages: arrayOfImages })
+        client.query("SELECT * FROM contact INNER JOIN USERS ON (contact.user_id = users.id);").then(contactTable => {
+          res.render("pages/cotactUsMessages", { object: contactTable.rows})
         }).catch(error => {
           res.render("pages/error", { error: error });
         })
@@ -504,7 +504,6 @@ function renderAddQuePage(req, res) {
 app.post('/addAns/:id', addAnswer);
 
 function addAnswer(req, res) {
-  console.log(req.params.id, req.body.answer, req.body.user_id, 'a');
   return saveAnsInDB(req.params.id, req.body.answer, req.body.user_id).then(id => {
     res.redirect(`/question/${id}`)
   }).catch(error => {
@@ -512,7 +511,6 @@ function addAnswer(req, res) {
   });
 };
 function saveAnsInDB(que_id, answer, user_id) {
-  console.log(que_id, 'que_id');
   return client.query('INSERT INTO answer (user_id,que_id,answer,is_true) VALUES ($1,$2,$3,$4)', [user_id, que_id, answer, 0]).then(data => {
     return que_id;
   }).catch(error => {
@@ -529,7 +527,6 @@ function addReply(req, res) {
 };
 
 function saveRepInDB(ans_id, mess, user_id, que_id) {
-  console.log(ans_id, mess, user_id, 'que_id',que_id,'que_id');
   return client.query('INSERT INTO reply (user_id,ans_id,mess) VALUES ($1,$2,$3)', [user_id, ans_id, mess]).then(data => {
     return que_id;
   }).catch(error => {

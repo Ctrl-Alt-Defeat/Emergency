@@ -5,6 +5,7 @@
     <title>Account</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/styles/reset.css">
     <link rel="stylesheet" href="/styles/account/style.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
@@ -14,7 +15,6 @@
         crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/styles/reset.css">
     <link rel="stylesheet" href="/styles/header-footer/header.css">
     <link rel="stylesheet" href="/styles/header-footer/footer.css">
 
@@ -77,20 +77,23 @@
                 </div>
                 <div class="cenarize-div second-div donnow">
                     <div class="contactForm">
+                        <h3>
+                            <%= data.username %> Feedbacks
+                        </h3>
                         <% dataFeedbacks.forEach(ele=>{%>
                             <form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
                                 <div class="container1">
-
-                                    <div class="inputBox">
-                                        <img src="<%= ele.img %>" height='60px' width='60px'>
-                                    </div>
+                                    <input type="text" name="id" value="<%= ele['feed_id'] %>" hidden>
+                                    <a href="/login/acconut/<%= ele.user_id %>?is_not_enable=true%>">
+                                        <div class="inputBox">
+                                            <img src="<%= ele.img %>" height='60px' width='60px'>
+                                        </div>
                                     <div class="inputBox">
                                         <h2>
                                             <%= ele.username %>
                                         </h2>
                                     </div>
-                                    <div class="inputBox"><input type="text" name="text" value="<%=ele.text%>"
-                                            style="display: none;" hidden></div>
+                                </a>
                                     <div class="inputBox">
                                         <p class="small">
                                             <%= ele.text %>
@@ -154,6 +157,7 @@
                         </div>
 
                         <div class="inputBox">
+
                             <h2> user Name :</h2>
                             <input id="editform" type="text" name="user_name" value=<%=data.username %> required>
                         </div>
@@ -205,7 +209,6 @@
                                     <input type="submit" value="Submit">
                                 </div>
 
-
                             </div>
 
                         </form>
@@ -215,34 +218,28 @@
                 <div class="cenarize-div">
                     <div class="contactForm">
                         <% dataSchedule.forEach(ele=>{%>
+                            <form action="/deleteSchedule/<%= ele.user_id%>?_method=DELETE" method="POST">
 
-                            <div class="inputBox">
-                                <h2>
-                                   The Date <%= ele.day %>
+                                <div class="inputBox">
+                                    <h2>
+                                        The Date <%= ele.day %>
 
-                                        </h3>
-                                        <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
-                                        <p class="small">
+                                    </h2>
+                                </div>
+                                <div class="inputBox">
+                                    <h2>
+                                        to <%= ele.hours_avl_to %>
+                                    </h2>
+                                </div>
+                                <div class="inputBox">
+                                    <h2>
+                                        <%= ele.hours_avl_from%>
+                                    </h2>
+                                </div>
+                                <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
 
-                                           from <%= ele.hours_avl_from%>
-                                </h2>
-                            </div>
-                            <div class="inputBox">
-                                <h2>
-                                  to  <%= ele.hours_avl_to %>
-                                </h2>
-                            </div>
-
-                                    <%= ele.hours_avl_from%>
-                                </h2>
-                            </div>
-                            <div class="inputBox">
-                                <h2>
-                                    <%= ele.hours_avl_to %>
-                                </h2>
-                            </div>
-                            <button class="deletebtn">X</button>
-                        </form>
+                                <button class="deletebtn" style="display:<%= visible%>">X</button>
+                            </form>
 
                             <%}) %>
                     </div>
