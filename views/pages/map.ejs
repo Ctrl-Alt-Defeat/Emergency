@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,40 +8,66 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/all.js"
-    integrity="sha384-G/ZR3ntz68JZrH4pfPJyRbjW+c0+ojii5f+GYiYwldYU69A+Ejat6yIfLSxljXxD"
-    crossorigin="anonymous"></script>
+        integrity="sha384-G/ZR3ntz68JZrH4pfPJyRbjW+c0+ojii5f+GYiYwldYU69A+Ejat6yIfLSxljXxD"
+        crossorigin="anonymous"></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="styles/header-footer/header.css">
     <link rel="stylesheet" href="styles/header-footer/footer.css">
     <link rel="stylesheet" href="/styles/map/map.css" />
     <title>Location</title>
 </head>
+
 <body>
     <%- include('../partials/header')%>
-    <form class="form" id = 'searchForm'>
-        <label for="experience">
-            Search By Experience
-            <input type="number" id = 'experience' name = 'experience' placeholder="Search By Experience">
-        </label>
-        <div class="select">
-            <label for="work" id ='searchForm'>
-                Type Of Work
-                <select name="work" id = 'work'>
-                    <option value="All">All</option>
-                    <option value="Smith">Smith</option>
-                    <option value="Carpenter">Carpenter</option>
-                    <option value="Plumber">Plumber</option>
-                    <option value="Builder">Builder</option>
-                    <option value="Paint">Paint</option>
-                </select>
-            </label>
-        </div>
-        <br>
-        <input class="button" type="submit" value="Search">
-    </form>
-    <div class="map" id="map" ></div>  
-    <%- include('../partials/footer')%>
-    <script src="/js/map.js">
-    </script>
+        
+            <div class="splashScreen1">
+                <div class="folding-map folding-map-rotated">
+                    <div class="map-tile map-tile-1"></div>
+                    <div class="map-tile map-tile-2"></div>
+                    <div class="map-tile map-tile-4"></div>
+                    <div class="map-tile map-tile-3"></div>
+                </div>
+            </div>
+            <div class="cenarize-div">
+                <div class="contactForm">
+                    <form class="form" id='searchForm'>
+                        <div class="inputBox">
+                            <h2> Search By Experience</h2>
+                        </div>
+                        <div class="inputBox"><input type="number" id='experience' name='experience'
+                                placeholder="Search By Experience"></div>
+
+
+                        <div class="inputBox">
+                            <h2> Type Of Work</h2>
+                        </div>
+                        <div class="inputBox"><select name="work" id='work'>
+                                <option value="All">All</option>
+                                <option value="Smith">Smith</option>
+                                <option value="Carpenter">Carpenter</option>
+                                <option value="Plumber">Plumber</option>
+                                <option value="Builder">Builder</option>
+                                <option value="Paint">Paint</option>
+                            </select></div>
+                        </label>
+
+                        <div class="inputBox"> <input class="button" type="submit" value="Search"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="splashScreen2">
+                <div class="folding-map folding-map-rotated">
+                    <div class="map-tile map-tile-1"></div>
+                    <div class="map-tile map-tile-2"></div>
+                    <div class="map-tile map-tile-4"></div>
+                    <div class="map-tile map-tile-3"></div>
+                </div>
+            </div>
+       
+        <div class="map" id="map"></div>
+        <%- include('../partials/footer')%>
+            <script src="/js/map.js">
+            </script>
 </body>
+
 </html>

@@ -1,0 +1,23 @@
+.handle-admin-h1 {
+  font-size: 36px;
+  font-weight: 500;
+  color: #87613d;
+}
+.handle-admin-image {
+  width: 20rem;
+}
+
+.handle-admin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  flex-direction: column;
+  position: relative;
+}
+
+.handle-admin-a {
+  font-size: 36px;
+  font-weight: 500;
+  color: #87613d;
+}

@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Contact Messages</title>
-    <link rel="stylesheet" href="styles/contact/reset.css">
+    <link rel="stylesheet" href="/styles/contact/reset.css">
     <script defer src="https://pro.fontawesome.com/releases/v5.10.0/js/all.js"
         integrity="sha384-G/ZR3ntz68JZrH4pfPJyRbjW+c0+ojii5f+GYiYwldYU69A+Ejat6yIfLSxljXxD"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles/header-footer/header.css">
-    <link rel="stylesheet" href="styles/cotactUsMessages/style.css">
-    <link rel="stylesheet" href="styles/header-footer/footer.css">
+    <link rel="stylesheet" href="/styles/header-footer/header.css">
+    <link rel="stylesheet" href="/styles/cotactUsMessages/style.css">
+    <link rel="stylesheet" href="/styles/header-footer/footer.css">
 </head>
 
 <body>
     <%- include('../partials/header') %>
         <main>
-            <div class="main-contactUsMessages">
+            <div style="margin-bottom: 10rem;" class="main-contactUsMessages">
                 <% object.forEach((row,i)=>{ %>
                     <div class="card">
                         <a  href="/login/acconut/<%= row.user_id %>?is_not_enable=true%>">

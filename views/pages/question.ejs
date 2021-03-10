@@ -17,26 +17,78 @@
 <body>
     <%- include('../partials/header')%>
     <main>
-        <h1 id="que"> </h1>
         <div class="div"> 
-            <div>
-                <p id="title" >  <%=queData.subject%> </p>
-                <p> <%=queData.is_answered==1 ? "Answered" : 'Not Answered' %></p>
+            <h1 id="que">QUESTION DETAIILS  <i class="far fa-lightbulb"></i></h1>
+            <div style="padding: 1%; padding-top: 0px;">
+                <a href="/login/acconut/<%= queData.user_id %>?is_not_enable=true%>" class="aaa">
+                    <p id="username" ><img id="img" src="<%=queData.img%>" alt="">  <%=queData.username%></p>
+                </a>
+                <p id='is_ans'> <%=queData.is_answered==1 ? "Answered" : 'Not Answered' %></p>
             </div>
-            <a href="/userPofile?id=<%=queData.user_id%>" class="aaa">
-                <p id="username" ><img id="img" src="<%=queData.img%>" alt=""><%=queData.username%></p>
-            </a>
             <pre id="code"><%=queData.que%></pre>
         </div>
-        <form  class="addQue" action="/addAns/<%= queData.id %>" method="POST" id="form">
-            <h3>Add Your Answer</h3>
+        <div id = 'answers_id'>
+                <h1> ADD YOUR ANSWER  <i class="far fa-lightbulb"></i></h1>    
+         <form  class="addQue" action="/addAns/<%= queData.id %>" method="POST" id="form">
             <input type="text" name="answer"placeholder="Your Answer" required>
-            <input type="hidden" name="user_id" id='user_id'>
+            <input  name="user_id" class='user_id' hidden>
             <button class="form-btn dx" type="submit">Add Answer</button>
         </form>
+        </div>
+        <div id = 'answers_id'>
+            <h1>ALL ANSWERS <i class="far fa-lightbulb"></i></h1>
+             <% if (ansdata.length !== 0){ %>
+                <%ansdata.forEach((ele)=>{%>
+                
+                <div class="div_ans">
+
+                     <div style="padding: 1%; padding-top: 0px;">
+                <a href="/login/acconut/<%= ele.user_id %>?is_not_enable=true%>" class="aaa">
+                    <p id="username" ><img id="img" src="<%=ele.img%>" alt="">  <%=ele.username%></p>
+                </a>
+                <p id='is_ans'> <%=ele.is_true==1 ? "True Answer" : 'Not True' %></p>
+            </div>
+
+                <pre id="code"><%=ele.answer%></pre>
+                        <h1>ALL REPLYS <i class="far fa-lightbulb"></i></h1>
+                <%repData.forEach((rep)=>{%>
+                    <% if (rep.ans_id==ele.id){ %>
+
+                        <div class="section">
+                                             <div style="padding: 1%; padding-top: 0px;">
+                                                 <a href="/login/acconut/<%= rep.user_id %>?is_not_enable=true%>" class="aaa">
+                                <p id="username" ><img id="img" src="<%=rep.img%>" > By: <%=rep.username%></p>
+                            </a>
+                    <p id='is_ans'>Reply</p>
+            </div>
+
+                            <pre id="code"><%=rep.mess%></pre>
+                        </div>
+                    <%}%>
+                <%});%>
+                <div>
+                <h1>ADD YOUR REPLY <i class="far fa-lightbulb"></i></h1>
+                    <form action="/addReply/<%= ele.id %>" method="POST" class="reply" id ='reply'>
+                        <input type="text" name="mess" placeholder="Add Your Reply" required>
+                        <input type="hidden" name="user_id" class='user_id_replay'>
+                        <input type="hidden" name="que_id" value="<%= queData.id  %>">
+                        <button class="form-btn dx" type="submit" >Add Reply</button>
+                    </form>
+                </div>
+
+                    </div>
+
+                <%});%>
+            <%}%>
+        </div>
+           
+
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+    <script src = '/js/quePage.js'></script>
     <script src="https://kit.fontawesome.com/0159277acf.js" crossorigin="anonymous"></script>
     <%- include('../partials/footer')%>
 </body>
 </html>
+
+ 

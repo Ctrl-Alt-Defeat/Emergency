@@ -1,50 +1,35 @@
-@import 'https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400';
+@import "https://fonts.googleapis.com/css?family=Dosis|Roboto:300,400";
 
 * {
-    font-family: 'Dosis';
-    color: #4D5765;
-    margin: 0px;
-    padding: 0px;
+  font-family: "Dosis";
+  color: #4d5765;
+  margin: 0px;
+  padding: 0px;
 }
-
+/*
 body{
-    /* background-image:url(https://d3tl80hy6t5toy.cloudfront.net/wp-content/uploads/sites/3/2018/06/07134748/2018-06-11-business-location-ThinkstockPhotos-614503922.jpg) ; */
+     background-image:url(https://d3tl80hy6t5toy.cloudfront.net/wp-content/uploads/sites/3/2018/06/07134748/2018-06-11-business-location-ThinkstockPhotos-614503922.jpg) ; 
     background-size: cover;
     background-repeat: no-repeat;
 }
-
-.map{
-    margin: auto;
-    z-index: 0;
-    height: 700px;
-    width: 90%;
+*/
+body {
+  width: 100%;
+}
+.map {
+  margin: auto;
+  z-index: 0;
+  height: 700px;
+  width: 90%;
 }
 
-
-.form{
-    margin: auto;
-    margin-top: 5%;
-    display: flex;
-    flex-direction: row;
-    background-color: #FFD150;
-    text-align: center;
-    margin-left: 25%;
-    width: fit-content;
-    padding: 2%;
-    border-radius: 15px 15px 15px 15px;
-    box-shadow: 1px 1px 1px 1px;
-    /* z-index: 3; */
-    
+.map {
+  margin-top: 4%;
+  margin-bottom: 2%;
+  border-radius: 15px 15px 15px 15px;
 }
 
-.map{
-    margin-top: 4%;
-    margin-bottom: 2%;
-    border-radius: 15px 15px 15px 15px;
-
-}
-
-input, select {
+/* input, select {
 	border: none;
 	border-bottom: 1px solid #4D5765;;
 	width: 85%;
@@ -56,28 +41,277 @@ input, select {
 	margin-bottom:25px;
     border-radius: 15px 15px 15px 15px;
     box-shadow: 1px 1px 1px 1px;
-}
+} */
 
-.button{
-    width: auto;
-    margin-top: 3.2%;
+/* .button{
+    height: 31px;
+    margin-top: 18px;
+    width: 28%;
+    margin-left: 65px;
 
-}
+} */
 
+/* 
+.form{
+    margin: auto;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: row;
+    background-color: #FFD150;
+    text-align: center;
+    width: 85%;
+    padding: 2%;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 1px 1px 1px 1px;
+   
+} 
 
-@media(max-width:800px){
-    .form{
+*/
+
+@media (max-width: 800px) {
+  /* .form{
         margin: auto;
         margin-top: 20%;
     
-    }
+    } */
 
-    .map{
-        margin: auto;
-        margin-top: 5%;
-        margin-bottom: 2%;
-        height: 550px;
-        width: 600px;
+  .map {
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    height: 550px;
+    width: 600px;
+  }
+}
 
-    }
+.contactForm {
+  width: 40%;
+  padding: 40px;
+  background: #fff;
+
+  margin-top: 4rem;
+}
+
+.contactForm h2,
+.contactForm p {
+  font-size: 1.875rem;
+  color: #87613d;
+  font-weight: 500;
+}
+
+.contactForm .inputBox input,
+.contactForm .inputBox select,
+.contactForm .inputBox label {
+  width: 100%;
+  padding: 5px 0;
+  font-size: 1rem;
+  margin: 10px 0;
+  border: none;
+  border-bottom: 2px solid #ffd150;
+  outline: none;
+  resize: none;
+}
+
+.contactForm .inputBox span {
+  position: absolute;
+  left: 0;
+  padding: 5px 0;
+  font-size: 1rem;
+  margin: 10px 0;
+  pointer-events: none;
+  transition: 0.5s;
+  color: #ffd150;
+}
+
+.contactForm {
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+}
+
+.cenarize-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contactForm .inputBox input[type="submit"] {
+  width: 100px;
+  background: #ffd150;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1.125rem;
+  border-radius: 10px;
+}
+.contactForm .inputBox input[type="button"],
+.contactForm .inputBox input[type="number"] {
+  width: 169px;
+  background: #ffd150;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1.125rem;
+  border-radius: 10px;
+}
+
+@media (max-width: 660px) {
+  .hello-name {
+    font-size: 1rem;
+  }
+}
+
+.start {
+  background: #2c2d2e;
+}
+
+.splashScreen1,
+.splashScreen2 {
+  position: absolute;
+  top: 50%;
+  margin-top: -130px;
+  left: 50%;
+  margin-left: -130px;
+}
+
+.start .splashHeader {
+  margin-top: 100px;
+  color: #fff;
+  text-align: center;
+  font-family: Verdana, arial, helvetica, geneva, sans-serif !important;
+}
+
+.folding-map {
+  margin: 20px auto;
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+.folding-map-rotated {
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+
+.folding-map .map-tile {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.folding-map .map-tile:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #c3c3c3;
+  -webkit-animation: map-fold 2.4s infinite linear both;
+  animation: map-fold 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+  background-size: 100%;
+  border-top-left-radius: 5px;
+  -webkit-filter: brightness(3);
+}
+.map-tile-1:before {
+  background-image: url(http://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/13/2685/4400);
+}
+.map-tile-2:before {
+  background-image: url(http://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/13/2685/4401);
+}
+.map-tile-3:before {
+  background-image: url(http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/13/2686/4401);
+}
+.map-tile-4:before {
+  background-image: url(http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/13/2686/4400);
+}
+.folding-map .map-tile-2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+  transform: scale(1.1) rotateZ(90deg);
+}
+
+.folding-map .map-tile-3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+  transform: scale(1.1) rotateZ(180deg);
+}
+
+.folding-map .map-tile-4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+  transform: scale(1.1) rotateZ(270deg);
+}
+
+.folding-map .map-tile-2:before {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.folding-map .map-tile-3:before {
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.folding-map .map-tile-4:before {
+  -webkit-animation-delay: 0.9s;
+  animation-delay: 0.9s;
+}
+
+@-webkit-keyframes map-fold {
+  0%,
+  10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%,
+  75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%,
+  100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes map-fold {
+  0%,
+  10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+  25%,
+  75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+  90%,
+  100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+.splashScreen1 {
+  display: inline-block;
+  position: relative;
+  bottom: -18rem;
+  left: 70rem;
+}
+
+.splashScreen2 {
+  position: relative;
+  bottom: 10rem;
+  left: -22rem;
 }

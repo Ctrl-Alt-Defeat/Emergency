@@ -1,16 +1,19 @@
-<header class="header"> 
+<header class="header">
   <img class="header-logo" src="/styles/header-footer/logo.png" alt="">
   <input type="checkbox" id="nav-toggle" class="header-nav-toggle">
   <nav class="nav">
     <ul>
-      <li><a href="/" >Home</a></li>
-      <li><a href="/log_Page" id = 'log_page'>Signup</a></li>
-      <li><a href="/map" class = 'nav'>Map</a></li>
-      <li><a href="/ask" class = 'nav'>Ask</a></li>
-      <li><a href="/contact" class = 'nav'>Contact</a></li>
-      <li><a href="/current" >Currency</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/log_Page" id='log_page'>Signup</a></li>
+      <li><a href="/map" class='nav'>Map</a></li>
+      <li><a href="/ask" class='nav'>Ask</a></li>
+      <li><a id = 'my_ques'>My Questions</a></li>
+      <li><a href="/contact" class='nav'>Contact</a></li>
+      <li><a href="/current">Currency</a></li>
       <li><a href="/aboutus">About</a></li>
-      <li><img src="" alt="" style="width: 30px;" id = 'header_img'></li>
+      <li><img src="" alt="" style="width: 30px;" id='header_img'></li>
+      <button onclick="logout()" id = 'log-out'>LOG-OUT</button>
+      
     </ul>
   </nav>
   <label for="nav-toggle" class="header-nav-toggle-label">
@@ -19,20 +22,27 @@
 </header>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  $(document).ready(function()
-{
-  let imgUrl = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&amp;riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&amp;ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&amp;risl=&amp;pid=ImgRaw';
-  let id = localStorage.getItem('id');
-  if(id){
-    imgUrl = localStorage.getItem('img') || imgUrl;
-    $('#log_page').text(localStorage.getItem('username'));
-    $('#log_page').attr('href',`/login/acconut/${id}?is_not_enable=${false}`);
-    $('.nav').css('pointer-events', 'auto');
-  }else{
-    $('#log_page').text('Signup');
-    $('.nav').css('pointer-events', 'none');
+  function logout() {
+    localStorage.clear();
+    window.location.href = '/'
   };
-  $('#header_img').attr("src",imgUrl);
-});
-  
+  $(document).ready(function () {
+    let imgUrl = 'https://th.bing.com/th/id/R3c1dd0093935902659e99bef56aa4ce6?rik=TkZVVEIDxl7BHg&amp;riu=http%3a%2f%2fwww.hrzone.com%2fsites%2fall%2fthemes%2fpp%2fimg%2fdefault-user.png&amp;ehk=0ucrW6JgY6Y8fhtviTtcBYQ9YIjqHM3Pg0E65sHK7VU%3d&amp;risl=&amp;pid=ImgRaw';
+    let id = localStorage.getItem('id');
+    $('a').css('pointer-events', 'auto');
+    if (id) {
+      $('#my_ques').attr('href',`/ask/${localStorage.getItem('id')}`);
+      $('#log-out').show();
+      imgUrl = localStorage.getItem('img') || imgUrl;
+      $('#log_page').text(localStorage.getItem('username'));
+      $('#log_page').attr('href', `/login/acconut/${id}?is_not_enable=${false}`);
+    } else {
+      $('#log-out').hide();
+      $('#my_ques').css('pointer-events', 'none');
+      $('#log_page').text('Signup');
+      $('.nav').css('pointer-events', 'none');
+    };
+    $('#header_img').attr("src", imgUrl);
+  });
+
 </script>

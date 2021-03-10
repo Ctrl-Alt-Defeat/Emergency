@@ -54,6 +54,7 @@
               </div>
             </form>
           </div>
+          <h1 id = 'header_ask'>RELATED QUESTIONS</h1>
         <section id ='allQue'>
             <% data.forEach (ele=> { %>
                 <div class='card'>
@@ -71,10 +72,15 @@
                                 <div class="content">
                                     <div class="content">
                                         <div id = 'header'>
+                                            <a style="margin: auto;" href="/login/acconut/<%= ele.user_id %>?is_not_enable=true%>" >
                                             <img style="width: 40%" src="https://sitemap.searchkings.com/img/team/marco-b7f7f938bb.png" alt="">
                                             <h3>
                                                 <%= ele.username %>
-                                            </h3>   
+                                            </h3>  
+                                        </a>
+    
+
+ 
                                         </div>
    
                                     </div>
