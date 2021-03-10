@@ -140,7 +140,7 @@
 .container-of-introduction-and-map{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: 7rem;
+  margin-top: 3rem;
 }
 
 .container-of-things-i-dont-know{

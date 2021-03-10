@@ -22,14 +22,17 @@
 
 <body>
     <%- include('../partials/header') %>
-
+    <h1 style="text-align: center;font-family: 'Dosis';
+    font-size: 50px;
+    text-transform: uppercase;
+    color: #87613d;margin-top: 50px;">Welcome! </h1>
         <div class="container-of-introduction-and-map">
             <div class="introduction">
                 <% let visible=is_not_enable=='true' ?'none': 'block' %>
                     <% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
                         <% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
                             <% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
-
+                            <h1>About <%= data.username%> </h1>
                                 <img class="user-img" src="<%= data.img %>" alt="" />
 
                                 <div class="intro-texts">
@@ -42,7 +45,7 @@
                                     <p class="hello-name">
                                         Type of work: <%= data.type_of_work%>
                                     </p>
-                                    <p class="hello-name">experiance : <%= data.exp%>
+                                    <p class="hello-name">experiance : <%= data.exp%> Years
                                     </p>
                                     <p class="hello-name">email : <%= data.email%>
                                     </p>
