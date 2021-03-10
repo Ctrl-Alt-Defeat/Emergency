@@ -275,7 +275,7 @@ function handleAllQuestions(req, res) {
 app.put('/update/:id', (req, res) => {
 
   let edit = req.body;
-  let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8 WHERE id=$9;';
+  let SQL = 'UPDATE users SET full_name=$1,status=$2,type_of_work=$3,email=$4 ,username=$5,password=$6,phone_num=$7,exp=$8,location = $10 WHERE id=$9;';
   let safeValues = [
     edit.full_name,
     edit.status,
@@ -285,7 +285,8 @@ app.put('/update/:id', (req, res) => {
     edit.password,
     edit.phone_num,
     edit.exp,
-    req.params.id
+    req.params.id,
+    edit.location
   ]
   client.query(SQL, safeValues)
     .then(res.redirect(`/login/acconut/${req.params.id}?is_not_enable=${false}`))
