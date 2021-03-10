@@ -125,11 +125,11 @@
                             <select id="editform" name="status" required value='<%= data.status%>'>
                                 <option value="" disabled selected>Select your status</option>
                                 <% if( data.status=='0' ){ %>
-                                    <option value="1" selected>not Available</option>
-                                    <option value="0">Available</option>
+                                    <option value="0" selected>not Available</option>
+                                    <option value="1">Available</option>
                                     <%}else{%>
-                                        <option value="0" selected>Available</option>
-                                        <option value="1">not Available</option>
+                                        <option value="1" selected>Available</option>
+                                        <option value="0">not Available</option>
                                         <%}%>
                             </select>
                         </div>
