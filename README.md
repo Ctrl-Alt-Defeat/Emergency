@@ -18,3 +18,37 @@ Our project contains several pages including the Home page and sinup page, the c
 ### Project: Prep #4
 
 [Prep4:Readme](Prep4.md)
+
+
+Documentation 
+# Emergency 
+
+
+# Ctrl Alt defeat 
+1. Areej  "team leader"
+2. Salah 
+3. Abdulrahman 
+4. Ahmad
+5. Bayan 
+
+
+# Emergency is a web app that provides a connection between a business owner and a worker in safe , clear and trustworthy way .
+
+
+# the problem domain that emergency solves is showing the user location and other users that he searched for along with their experience, contact info , type of the work , others feedbacks and their schedules for the next days.And you can put a questions and wain for an expert to answer it. 
+
+# libraries we used
+1. JQuery 
+2. SQL(postgres)
+3. Express 
+4. Nodemailer
+
+# we drew our frame work in a cloud whiteboard and we included a picture for the wire frame in the main directory of the demo 
+
+# the user should sign up to the web app and then go to map page to search for other user on his demand, he can add questions and answer them.
+
+# we used 2 APIs:
+1. Mapbox : to get the exact location for the user while signup and on his demand to update his location
+2. Exchangerate : to provide the ability for the user to git the value of his homeland currency if he got paid in other currencies 
+
+# Our database has a lot of forks because we built a site with different needed information so we connected different tables together in order to keep following of the data for the same user. We provide a structure for the database in our main directory for the demo.
