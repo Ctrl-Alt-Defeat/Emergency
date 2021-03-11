@@ -19,8 +19,9 @@ const superagent = require('superagent');
 let status = 'Ok';
 let usernameOrPasswordError = 'Ok';
 const pg = require('pg');
-const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
-// // ===================================================== Map =========================================================
+// const client = new pg.Client({ connectionString: process.env.DATABASE_URL,   ssl: { rejectUnauthorized: false } });
+const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
+// ===================================================== Map =========================================================
 app.get('/map', laodMapPage);
 app.post('/map', getUsersLocations);
 app.post('/message/:id', sendMessage);
