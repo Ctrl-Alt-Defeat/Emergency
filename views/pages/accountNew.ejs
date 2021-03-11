@@ -246,6 +246,7 @@
         <section id='OthersProfileSchedule'style="display: <%= othersProfile%>;">
 
                     <div class="contactForm">
+                        <h2 style="margin-bottom: 30px;"><i class="far fa-comment-dots"></i> <%= data.username %> Schedule</h2>
                         <% dataSchedule.forEach(ele=>{%>
                             <form action="/deleteSchedule/<%= ele.user_id%>?_method=DELETE" method="POST">
                                 <div class="inputBox" style="    margin-bottom: 9px;">
@@ -296,6 +297,7 @@
             <section id='Schedule'style="display: <%= myProfile%>;">
 
                 <div class="contactForm">
+                    <h2 style="margin-bottom: 30px;"><i class="far fa-comment-dots"></i> <%= data.username %> Schedule</h2>
                     <% dataSchedule.forEach(ele=>{%>
                         <form action="/deleteSchedule/<%= ele.user_id%>?_method=DELETE" method="POST">
                             <div class="inputBox" style="    margin-bottom: 9px;">
