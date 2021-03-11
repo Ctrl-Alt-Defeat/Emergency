@@ -9,15 +9,15 @@
   flex-direction: column;
   justify-content: center;
   /* align-items: center; */
-  width: 72%;
+  width: 50%;
   
 }
 
-@media (max-width: 883px) {
+/* @media (max-width: 883px) {
   .introduction {
     width: 100%;
   }
-}
+} */
 
 .hello-name {
   margin-top: 10px;
@@ -30,7 +30,7 @@
 }
 
 .user-img {
-  width: 147px;
+  width: 150px;
   text-align: center;
   align-self: center;
   
@@ -39,36 +39,43 @@
 .map-img {
   /* border: 2px solid #ffd150;
   box-shadow: 0 1px 5px rgb(104 104 104 / 80%); */
-  width: 60%;
+  width: 50%;
   height: 472px;
   border-radius: 0px 0px 0px 2px;
 }
 
-@media (max-width: 955px) {
+/* @media (max-width: 955px) {
   .map-img {
     margin: 100px 10px 50px 200px;
   }
   
-}
+} */
 
-@media (max-width: 770px) {
+/* @media (max-width: 770px) {
   .map-img {
     margin: 100px 10px 50px 0px;
   }
-}
+} */
 
 
 /* from contact page */
 
 .contactForm {
-  width: 70%;
+  width: 100%;
   padding: 40px;
   background: #fff;
-  margin-bottom: 3rem;
+  margin-bottom: 0rem;
+  height: 100%;
+  overflow-y: scroll;
+
+}
+
+.contactForm::-webkit-scrollbar {
+  display: none;
 }
 
 .contactForm h2,.contactForm p {
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   color: #87613d;
   font-weight: 500;
 }
@@ -105,6 +112,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50%;
 }
 
 .contactForm .inputBox input[type="submit"] {
@@ -116,6 +124,7 @@
   padding: 10px;
   font-size: 1.125rem;
   border-radius: 10px;
+  margin-top: 0px;
 }
 .contactForm .inputBox input[type="button"] {
   width: 100px;
@@ -128,26 +137,33 @@
   border-radius: 10px;
 }
 
-@media (max-width: 660px) {
+/* @media (max-width: 660px) {
   .hello-name {
     font-size: 1rem;
   }
-}
+} */
 
 
 .container-of-introduction-and-map{
   display: flex;
   flex-direction: row;
   margin-top: 3rem;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
   box-shadow: 0 1px 5px rgb(104 104 104 / 80%);
   border-radius: 2px 2px 2px 2px;
+  margin-bottom: 3%;
 }
 
 .container-of-things-i-dont-know{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  box-shadow: 0 1px 5px rgb(104 104 104 / 80%);
+  border-radius: 2px 2px 2px 2px;
+  margin-bottom: 3%;
+  justify-content: space-between;
+  height: 200px;
 }
 
 .the-last-fill-space {
@@ -160,7 +176,7 @@
   margin-top: -43px;
 }
 
-@media (max-width:922px) {
+/* @media (max-width:922px) {
   .adding-width-to-the-last-dives{
     width:30rem;
     margin-left: 0rem;
@@ -196,7 +212,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 70%;
+    width: 50%;
 
   }
   .container-of-introduction-and-map{
@@ -226,7 +242,7 @@
     margin-left: -80px;
     margin-bottom: -10px;
   }
-}
+} */
 
 .intro-texts{
   margin-left: 6%;
@@ -239,3 +255,83 @@
   background-color: white;
   box-shadow: 0 1px 5px rgb(104 104 104 / 80%);
  } 
+ #OthersProfileSchedule{
+  margin-left: 10%;
+  margin-right: 10%;
+  box-shadow: 0 1px 5px rgb(104 104 104 / 80%);
+  border-radius: 2px 2px 2px 2px;
+  margin-bottom: 3%;
+ }
+
+ #othersProfileContact{
+  display: flex !important;
+  margin-left: 10%;
+  margin-right: 10%;
+  box-shadow: 0 1px 5px rgb(104 104 104 / 80%);
+  border-radius: 2px 2px 2px 2px;
+  margin-bottom: 3%;
+ }
+ p{
+  font-size: 19px !important;
+  color: #87613d;
+  font-weight: 500;
+ }
+ .contactFormMail{
+  width: 100%;
+  padding: 40px;
+  background: #fff;
+  margin-bottom: 0rem;
+  height: 100%;
+  box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+ }
+ .contactFormMail h2{
+   font-size: 24px  !important;
+   color: #87613d;
+    font-weight: 500;
+ }
+ .container1{
+   display: flex;
+ }
+ .container2{
+  width: 450px;
+}
+
+ .a_container{
+   display:flex;
+   /* justify-content: space-between; */
+ }
+ a h2{
+   font-size: 14px !important;
+   text-decoration-style:none !important;
+ }
+ .feedbacks{
+   margin-bottom: 5px;
+ }
+ .myfeedbacks{
+  margin-bottom: 5px;
+  display: flex;
+}
+ .my-second-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#myProfileContact{
+  display: flex !important;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 40px;
+  box-shadow: 0 1px 5px rgb(104 104 104 / 80%);
+  border-radius: 2px 2px 2px 2px;
+  margin-bottom: 3%;
+ }
+
+#myProfileSchedule {
+  display: flex !important;
+  align-content: center;
+  justify-content: center;
+  margin-top: 40px;
+  margin-left: 10%;
+  margin-right: 10%
+ }

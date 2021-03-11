@@ -86,6 +86,7 @@ body {
 
 .contactForm {
   width: 40%;
+  z-index: 999;
   padding: 40px;
   background: #fff;
 
@@ -129,6 +130,7 @@ body {
 
 .cenarize-div {
   display: flex;
+  z-index: 888;
   justify-content: center;
   align-items: center;
 }
@@ -172,6 +174,7 @@ body {
   margin-top: -130px;
   left: 50%;
   margin-left: -130px;
+  z-index: 1;
 }
 
 .start .splashHeader {

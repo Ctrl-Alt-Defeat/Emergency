@@ -28,41 +28,45 @@
     color: #87613d;margin-top: 50px;">Welcome! </h1>
         <div class="container-of-introduction-and-map">
             <div class="introduction">
-                <% let visible=is_not_enable=='true' ?'none': 'block' %>
-                    <% let visibleCont=is_not_enable=='true' ? 'block' :'none'%>
+                <% let myProfile=is_not_enable=='true' ?'none': 'block' %>
+                    <% let othersProfile=is_not_enable=='true' ? 'block' :'none'%>
                         <% let workerStutas=data.status==0? 'Not Available' : 'Available' %>
                             <% let workerRole=data.role==1? 'Worker' : 'Business Owner' %>
                                 <img class="user-img" src="<%= data.img %>" alt="" />
-                                <hr style="   width: 80%; color:#ccc; background-color: #ccc;">
+                                <hr style="   width: 80%; color:#ccc; background-color: #ccc; margin-bottom: 20px;">
                                 <div class="intro-texts">
-                                    <h1 class="hello-name"> Hello <%= data.full_name%>
-                                    </h1>
+                                    <!-- <h1 class="hello-name"> Hello <%= data.full_name%>
+                                    </h1> -->
 
                                     <h1 class="hello-name the-user-username" id="title">
-                                        Username: <%= data.username %>
+                                        <i class="fas fa-user"></i>&ensp; Username: &nbsp;  <%= data.username %>
                                     </h1>
                                     <p class="hello-name">
-                                        Type of work: <%= data.type_of_work%>
+                                        <i class="fas fa-briefcase"></i>&ensp; Type of work: &nbsp; <%= data.type_of_work%>
                                     </p>
-                                    <p class="hello-name">experiance : <%= data.exp%> Years
+                                    <p class="hello-name"> 
+                                        <i class="fas fa-dumbbell"></i>&ensp; Experiance: &nbsp; <%= data.exp%> Years
                                     </p>
-                                    <p class="hello-name">email : <%= data.email%>
+                                    <p class="hello-name">
+                                        <i class="fas fa-envelope"></i>&ensp; Email: &nbsp; <%= data.email%>
                                     </p>
-                                    <p class="hello-name">Role : <%= workerRole%>
+                                    <p class="hello-name">
+                                        <i class="fas fa-user-tag"></i>&ensp; Role: &nbsp; <%= workerRole%>
                                     </p>
-                                    <p class="hello-name">status : <%= workerStutas%>
+                                    <p class="hello-name">
+                                        <i class="fab fa-black-tie"></i>&ensp; Status: &nbsp; <%= workerStutas%>
                                     </p>
                                 </div>
             </div>
             <div class="vertical-row"></div>
             <div class="map-img" id="map"></div>
         </div>
-        <section id="portfolio" class="two">
+        <section id="portfolio" style="display:<%= othersProfile%>" class="two">
             <div class="container-of-things-i-dont-know">
                 <div class="cenarize-div second-div donnow">
                     <div class="contactForm">
                         <form class="feedback" action="/feedback/<%= data.id%>" method="POST"
-                            style="display:<%= visibleCont%>">
+                            style="display:<%= othersProfile%>">
                             <h2>Feedbacks</h2>
                             <div class="inputBox">
                                 <input type="hidden" name="ownerid" id='ownerid'>
@@ -79,39 +83,87 @@
                 <div class="cenarize-div second-div donnow">
                     <div class="contactForm">
                         <h3>
-                            <%= data.username %> Feedbacks
+                            <i class="far fa-comment-dots"></i> <%= data.username %> Feedbacks
                         </h3>
+                        <hr style="   width: 100%; color:#ccc; background-color: #ccc;">
                         <% dataFeedbacks.forEach(ele=>{%>
-                            <form action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
+                            <form class="feedbacks" action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
                                 <div class="container1">
                                     <input type="text" name="id" value="<%= ele['feed_id'] %>" hidden>
-                                    <a href="/login/acconut/<%= ele.user_id %>?is_not_enable=true%>">
+                                    <a href="/login/acconut/<%= ele.user_id %>?is_not_enable=true%>" class="a_container">
                                         <div class="inputBox">
-                                            <img src="<%= ele.img %>" height='60px' width='60px'>
+                                            <img id="currentPhoto" src="<%= ele.img %>" onerror="this.src='https://i0.wp.com/www.missing.ie/wp-content/uploads/2015/08/default-user.png?ssl=1'" alt="" width="22" height="22">
+
                                         </div>
-                                    <div class="inputBox">
+                                    <div class="inputBox" style=" margin-left:6px; display: flex; justify-content: center; align-items: center;">
                                         <h2>
                                             <%= ele.username %>
                                         </h2>
                                     </div>
                                 </a>
-                                    <div class="inputBox">
-                                        <p class="small">
-                                            <%= ele.text %>
+                                 
+                                </div>  
+                                 <div class="inputBox">
+                                        <p class="small" style="font-size: 15px !important;">
+                                            &emsp;&emsp;<%= ele.text %>
                                         </p>
                                     </div>
                                     <div class="inputBox">
-                                        <input type="submit" class="delete " style="display:<%= visible%>" value="X">
+                                        <input type="submit" class="delete " style="display:<%= myProfile%>" value="X">
                                     </div>
-                                </div>
                             </form>
                             <%}) %>
                     </div>
                 </div>
             </div>
+            <div style="">
+
+            </div>
         </section>
-        <section id="Edit" class="two" style="display: <%= visible%>;">
-            <div class="cenarize-div edit-form">
+        <section id="myportfolio" style="display:<%= myProfile%>" class="two">
+            <div class="container-of-things-i-dont-know">
+                <div class="cenarize-div my-second-div donnow">
+                    <div class="contactForm">
+                        <h3>
+                            <i class="far fa-comment-dots"></i> <%= data.username %> Feedbacks
+                        </h3>
+                        <hr style="   width: 100%; color:#ccc; background-color: #ccc;">
+                        <% dataFeedbacks.forEach(ele=>{%>
+                            <form class="myfeedbacks" action="/deleteFeedback/<%= ele.user_id%>?_method=DELETE" method="POST">
+                                <div class="container2">
+                                    <input type="text" name="id" value="<%= ele['feed_id'] %>" hidden>
+                                    <a href="/login/acconut/<%= ele.user_id %>?is_not_enable=true%>" class="a_container">
+                                        <div class="inputBox">
+                                            <img id="currentPhoto" src="<%= ele.img %>" onerror="this.src='https://i0.wp.com/www.missing.ie/wp-content/uploads/2015/08/default-user.png?ssl=1'" alt="" width="22" height="22">
+
+                                        </div>
+                                    <div class="inputBox" style=" margin-left:6px; display: flex; justify-content: center; align-items: center;">
+                                        <h2>
+                                            <%= ele.username %>
+                                        </h2>
+                                    </div>
+                                </a>
+                                        <div class="inputBox">
+                                            <p class="small" style="font-size: 15px !important;">
+                                                &emsp;&emsp;<%= ele.text %>
+                                            </p>
+                                        </div>
+                                </div>  
+
+                                    <div class="inputBox">
+                                        <input type="submit" class="delete " style="display:<%= myProfile%>" value="X">
+                                    </div>
+                            </form>
+                            <%}) %>
+                    </div>
+                </div>
+            </div>
+            <div style="">
+
+            </div>
+        </section>
+        <section id="Edit" class="two" style="margin-left: 10%;margin-right: 10%;display: <%= myProfile%> " >
+            <div class=" edit-form">
                 <div class="contactForm">
                     <form action="/update/<%=data.id%>?_method=put" method="POST">
                         <h2
@@ -191,11 +243,31 @@
                 </div>
             </div>
         </section>
-        <section id='schedule'>
-            <div class="the-last-fill-space">
-                <div class="cenarize-div adding-width-to-the-last-dives">
+        <section id='OthersProfileSchedule'style="display: <%= othersProfile%>;">
+
                     <div class="contactForm">
-                        <form action="/schedule/<%=data.id%>" method="POST" style="display: <%= visible%>;">
+                        <% dataSchedule.forEach(ele=>{%>
+                            <form action="/deleteSchedule/<%= ele.user_id%>?_method=DELETE" method="POST">
+                                <div class="inputBox" style="    margin-bottom: 9px;">
+                                    <h2>
+                                        <i class="far fa-calendar-alt"></i> The Date: <%= ele.day %> &ensp; From: <%= ele.hours_avl_to %> &ensp; To: <%= ele.hours_avl_from%>
+                                    </h2>
+                                </div>
+                                <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
+                            </form>
+
+                            <%}) %>
+                    </div>
+        </section>
+
+
+
+        <section style="display: <%= myProfile%>;">
+            <div id='myProfileSchedule'>
+            <div class="" style=" width: 50%;">
+                <div class="">
+                    <div class="contactForm">
+                        <form action="/schedule/<%=data.id%>" method="POST" >
 
                             <h2 style="margin-bottom: 10px;">Schedule</h2>
                             <div>
@@ -220,69 +292,49 @@
                         </form>
                     </div>
                 </div>
-
-
-
-                <div class="cenarize-div">
-                    <div class="contactForm">
-                        <% dataSchedule.forEach(ele=>{%>
-                            <form action="/deleteSchedule/<%= ele.user_id%>?_method=DELETE" method="POST">
-
-                                <div class="inputBox">
-                                    <h2>
-                                        The Date <%= ele.day %>
-
-                                    </h2>
-                                </div>
-                                <div class="inputBox">
-                                    <h2>
-                                        to <%= ele.hours_avl_to %>
-                                    </h2>
-                                </div>
-                                <div class="inputBox">
-                                    <h2>
-                                        <%= ele.hours_avl_from%>
-                                    </h2>
-                                </div>
-                                <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
-
-                                <button class="deletebtn" style="display:<%= visible%>">X</button>
-                            </form>
-
-                            <%}) %>
-                    </div>
-                </div>
             </div>
-        </section>
-        <section id="contact" class="four">
+            <section id='Schedule'style="display: <%= myProfile%>;">
 
-
-
-            <div class="cenarize-div">
                 <div class="contactForm">
+                    <% dataSchedule.forEach(ele=>{%>
+                        <form action="/deleteSchedule/<%= ele.user_id%>?_method=DELETE" method="POST">
+                            <div class="inputBox" style="    margin-bottom: 9px;">
+                                <h2>
+                                    <i class="far fa-calendar-alt"></i> The Date: <%= ele.day %> &ensp; From: <%= ele.hours_avl_to %> &ensp; To: <%= ele.hours_avl_from%>
+                                </h2>
+                            </div>
+                            <input type="text" name="id" value="<%=ele.id%>" style="display: none;" hidden>
+                            <button class="deletebtn" style="display:<%= myProfile%>">X</button>
+                        </form>
+    
+                        <%}) %>
+                </div>
+            </section>
+        </div>
+        </section>
 
-                    <div class="inputBox">
-                        <h2>Contact</h2>
-                    </div>
-                    <div class="inputBox">
+
+
+        <section  class="four" style="display:<%=othersProfile%>">
+            <div id="othersProfileContact">
+            <div class="cenarize-div">
+                <div class="contactFormMail">
+
+
+                        <h2><i class="fas fa-address-book"></i> Contact Me:</h2>
+                        <br>
                         <p>Sent me an email now or call me and let me save your life !!</p>
-                    </div>
+                        <p>Phone Num: <%= data.phone_num%></p>
+                        <p>Email: <%= data.email%>"</p>
 
-                    <div class="inputBox">
-                        <h2>Phone Num: <%= data.phone_num%>
-                        </h2>
-                    </div>
-                    <div class="inputBox">
-                        <h2>Email: <%= data.email%>"</h2>
-                    </div>
                 </div>
             </div>
 
-            <div class="col-12" style="display:<%= visibleCont%>">
-                <div class="cenarize-div">
-                    <div class="contactForm">
+            <div class="col-12" style="width: 50%;">
+                <div class="">
+                    <div class="contactForm contactFormMail ">
                         <form method="post" action='/message/<%= data.id %>'>
-                            <h2>Or You Can Send To Me Adirect Email</h2>
+                            <h2><i class="fas fa-envelope-open-text"></i> You Can Send To Me Adirect Email</h2>
                             <div class="inputBox"><input name='message' type="text" placeholder="Write You Message">
                             </div>
                             <div class="inputBox"> <input name='email' type="text" value='<%= data.email%>'
@@ -293,8 +345,25 @@
                     </div>
                 </div>
             </div>
-
+        </div>
         </section>
+
+        <section  class="four" style="display:<%= myProfile%>">
+            <div id="myProfileContact">
+
+                <div class="contactFormMail">
+
+
+                        <h2><i class="fas fa-address-book"></i> Contact Me:</h2>
+                        <br>
+                        <p>Sent me an email now or call me and let me save your life !!</p>
+                        <p>Phone Num: <%= data.phone_num%></p>
+                        <p>Email: <%= data.email%>"</p>
+
+                </div>
+            </div>
+        </section>
+
 
         <%- include('../partials/footer') %>
 </body>
